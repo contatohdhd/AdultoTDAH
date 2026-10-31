@@ -3,6 +3,8 @@ import { FAQ, type HomeBlock, type Piece } from '../content/home';
 import { STEPS, STEPS_INTRO, type Step } from '../content/steps';
 import { ActionLink, C, DISPLAY, Eyebrow, MONO, Pending, PillButton, Rule, SANS, TARGET, tw } from '../ui';
 import { Chevron } from './Article';
+import { postDoPasso } from '../content/temas';
+import { TemaFigure, TemaMedia } from './Temas';
 
 export const bodyText = { margin: 0, fontSize: 'var(--text-body)', lineHeight: 1.6, ...tw('pretty') };
 
@@ -107,8 +109,8 @@ export function StepsOverview({ id, eyebrow, title, tone, headingLevel = 2 }: { 
             key={s.n} href={'/passos/' + s.n} className="hv-raised"
             style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', padding: 'var(--space-8)', borderRadius: 'var(--radius-xl)', background: tone === 'surface' ? C.bg : C.surface, color: C.text, textDecoration: 'none', minHeight: 260, boxSizing: 'border-box' }}
           >
-            <span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 'var(--text-stat)', lineHeight: 'var(--leading-stat)', color: C.muted }} aria-hidden="true">{s.n}</span>
-            <Eyebrow>{s.label}</Eyebrow>
+            {postDoPasso(s.n) && <div style={{ margin: 'calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) var(--space-2)' }}><TemaMedia img={postDoPasso(s.n)!.capa} ratio="16/10" button={false} /></div>}
+            <Eyebrow>{s.n} · {s.label}</Eyebrow>
             <span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 'var(--text-card)', lineHeight: 'var(--leading-card)' }}>{s.title}</span>
             <span style={{ fontSize: 15, color: C.muted, lineHeight: 1.5 }}>Capítulos {s.chapters[0][0]} a {s.chapters[s.chapters.length - 1][0]} · publicação a definir</span>
             <span style={{ marginTop: 'auto', color: C.link, fontSize: 17 }}>{s.cta} <span aria-hidden="true">›</span></span>
@@ -119,17 +121,32 @@ export function StepsOverview({ id, eyebrow, title, tone, headingLevel = 2 }: { 
   );
 }
 
-export function ChapterList({ step }: { step: Step }) {
+export function ChapterList({ step, withImages = false }: { step: Step; withImages?: boolean }) {
+  const post = withImages ? postDoPasso(step.n) : undefined;
+  const at = (n: number) => (post ? post.imagens.filter((x) => x.cap === n) : []);
+  // Split the list where an image belongs, so figures sit between chapters (valid list markup).
+  const groups: { figs: ReturnType<typeof at>; chapters: Step['chapters'] }[] = [];
+  step.chapters.forEach((c) => {
+    const figs = at(c[0]);
+    if (figs.length || !groups.length) groups.push({ figs, chapters: [c] });
+    else groups[groups.length - 1].chapters.push(c);
+  });
+  const row = ([n, t, pg]: Step['chapters'][number]) => (
+    <li key={n} style={{ display: 'grid', gridTemplateColumns: '2.5em minmax(0,1fr) auto', gap: 12, alignItems: 'baseline', padding: '12px 0', borderTop: `1px solid ${C.divider}` }}>
+      <span style={{ fontFamily: MONO, color: C.muted, fontSize: 14 }}>{n}.</span>
+      <span>{t}</span>
+      <span style={{ fontFamily: MONO, color: C.muted, fontSize: 14, whiteSpace: 'nowrap' }}>p. {pg}</span>
+    </li>
+  );
   return (
-    <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>
-      {step.chapters.map(([n, t, pg]) => (
-        <li key={n} style={{ display: 'grid', gridTemplateColumns: '2.5em minmax(0,1fr) auto', gap: 12, alignItems: 'baseline', padding: '12px 0', borderTop: `1px solid ${C.divider}` }}>
-          <span style={{ fontFamily: MONO, color: C.muted, fontSize: 14 }}>{n}.</span>
-          <span>{t}</span>
-          <span style={{ fontFamily: MONO, color: C.muted, fontSize: 14, whiteSpace: 'nowrap' }}>p. {pg}</span>
-        </li>
+    <>
+      {groups.map((g, i) => (
+        <div key={i}>
+          {g.figs.map((f) => <TemaFigure key={f.img.slug} img={f.img} cap={f.cap} capTitle={step.chapters.find((c) => c[0] === f.cap)?.[1]} />)}
+          <ol start={g.chapters[0][0]} style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>{g.chapters.map(row)}</ol>
+        </div>
       ))}
-    </ol>
+    </>
   );
 }
 
@@ -139,6 +156,12 @@ export function StepDetail({ step }: { step: Step }) {
   return (
     <>
       <BlockShell eyebrow={`${step.label} · Capítulos ${step.chapters[0][0]}–${step.chapters[step.chapters.length - 1][0]}`} title={step.title} lead={step.motto} headingLevel={1}>
+        {postDoPasso(step.n) && (
+          <figure style={{ margin: '0 auto var(--space-4)', width: '100%', maxWidth: 560 }}>
+            <TemaMedia img={postDoPasso(step.n)!.capa} eager />
+            <figcaption className="sr-only">Capa: {postDoPasso(step.n)!.capa.legenda}</figcaption>
+          </figure>
+        )}
         {step.paras.map((p) => <p key={p} style={bodyText}>{p}</p>)}
         <div style={{ background: C.surface, borderRadius: 'var(--radius-xl)', padding: 'var(--space-8)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>
           <Eyebrow>Você encontrará</Eyebrow>
@@ -148,7 +171,7 @@ export function StepDetail({ step }: { step: Step }) {
         <h2 style={{ margin: 'var(--space-8) 0 0', fontFamily: DISPLAY, fontWeight: 600, fontSize: 'var(--text-subtitle)', lineHeight: 'var(--leading-subtitle)' }}>
           Capítulos de referência — {step.chapters[0][0]} a {step.chapters[step.chapters.length - 1][0]}
         </h2>
-        <ChapterList step={step} />
+        <ChapterList step={step} withImages />
         <Pending>{step.cta} · data de publicação a definir.</Pending>
         <nav aria-label="Outros passos" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginTop: 'var(--space-8)' }}>
           {prev ? <ActionLink href={'/passos/' + prev.n}>‹ {prev.label}</ActionLink> : <ActionLink href="/passos">Os cinco passos</ActionLink>}

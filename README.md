@@ -35,7 +35,7 @@ Os componentes não usam valores hexadecimais: usam `var(--…)` pelos atalhos d
 | Caminho | Conteúdo |
 |---|---|
 | `/` | Abertura Jornada, linha emocional A–H, ciclos, Jornada v2 (03 farol · 04 livro · 05 autor · 06 sumário · 07 trechos · 08 dados · frase · 09 clube · fontes) e blocos A–N |
-| `/passos`, `/passos/1…5` | Cinco passos e capítulos 1–30 |
+| `/passos`, `/passos/1…5` | Cinco passos e capítulos 1–30 — os 5 posts: capa (GIF) no topo e imagens distribuídas junto aos capítulos (`src/content/temas.ts`, arquivos em `public/temas/`) |
 | `/trajetoria`, `/sobre` | Narrativa completa, os dois gráficos e o bloco F |
 | `/duvidas`, `/referencias`, `/livro`, `/fontes`, `/erros`, `/curadoria` | Blocos C, E, G, H, J e K completos |
 | `/ferramentas` | Bloco I, ferramentas de leitura e acesso ao questionário |

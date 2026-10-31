@@ -10,6 +10,7 @@ const INV: [string, string, string, string, string][] = [
   ['Linha emocional A–H', 'Início, Trajetória', '/#trajetoria', '01 · Linha emocional', 'Traço desenhado na rolagem; marcos por toque, foco ou cursor; abas A–H; cartão com espaço de imagem; lista em texto.'],
   ['Ciclos vicioso e virtuoso', 'Início, Trajetória', '/#ciclos', '02 · Dois circuitos', 'Arcos desenhados ao entrar; etapas focáveis; rótulo central aria-live; sequência em texto oculta.'],
   ['Blocos A–N', 'Início', '/#entenda', 'Home em blocos', 'Eyebrow letra · movimento, H2, linha fina, resumo e CTA para a página completa.'],
+  ['Capas e imagens dos posts', 'Passos 1–5', '/passos/1', 'Topo do post · entre capítulos', 'GIF de capa e imagens ligadas ao capítulo; animação só ao tocar em “Animar” ou passar o cursor; parada com movimento reduzido.'],
   ['Cinco passos + 30 capítulos', 'Início, Passos', '/passos', 'D · Orientação', 'Cartões por passo; página por passo com capítulos e páginas; publicação a definir.'],
   ['Perguntas frequentes', 'Início, Perguntas', '/perguntas', 'M · Conversão', 'Disclosure por pergunta (aria-expanded).'],
   ['Sugestão de pauta', 'Início, Participe', '/participe', 'N · Conversão', 'Campo, temas opcionais, aviso de privacidade; envio online em preparação (copia o texto).'],

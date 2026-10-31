@@ -90,18 +90,24 @@ function useGifScrubber(src: string, canvasRef: RefObject<HTMLCanvasElement>, en
     let alive = true;
     fetch(src).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.arrayBuffer(); }).then((buf) => {
       if (!alive) return;
-      const gif = parseGIF(buf) as { lsd: { width: number; height: number } };
+      // The SPA fallback answers missing files with index.html: only accept real GIF bytes ("GIF8").
+      const sig = new Uint8Array(buf.slice(0, 4));
+      if (sig[0] !== 0x47 || sig[1] !== 0x49 || sig[2] !== 0x46 || sig[3] !== 0x38) return;
+      const gif = parseGIF(buf) as { lsd?: { width: number; height: number } };
       const frames = decompressFrames(gif, true);
-      const w = gif.lsd.width, h = gif.lsd.height;
+      const w = gif.lsd?.width ?? 0, h = gif.lsd?.height ?? 0;
+      if (!frames.length || !w || !h) return;
       const work = document.createElement('canvas'); work.width = w; work.height = h;
       const patch = document.createElement('canvas');
       const keys = new Map<number, ImageData>();
       const ctx = work.getContext('2d')!;
       // Build keyframe snapshots in one forward pass.
-      frames.forEach((f, i) => {
-        applyFrame(ctx, patch, f, i > 0 ? frames[i - 1] : undefined);
-        if (i % KEY_EVERY === 0) keys.set(i, ctx.getImageData(0, 0, w, h));
-      });
+      try {
+        frames.forEach((f, i) => {
+          applyFrame(ctx, patch, f, i > 0 ? frames[i - 1] : undefined);
+          if (i % KEY_EVERY === 0) keys.set(i, ctx.getImageData(0, 0, w, h));
+        });
+      } catch { return; }
       st.current = { frames, w, h, keys, work, patch, last: -1 };
       const c = canvasRef.current; if (c) { c.width = w; c.height = h; }
       setReady(true);
@@ -116,10 +122,14 @@ function useGifScrubber(src: string, canvasRef: RefObject<HTMLCanvasElement>, en
     if (i === s.last) return;
     const ctx = s.work.getContext('2d')!;
     const k = Math.floor(i / KEY_EVERY) * KEY_EVERY;
-    ctx.putImageData(s.keys.get(k)!, 0, 0);
-    for (let j = k + 1; j <= i; j++) applyFrame(ctx, s.patch, s.frames[j], s.frames[j - 1]);
-    c.getContext('2d')!.drawImage(s.work, 0, 0);
-    s.last = i;
+    const key = s.keys.get(k);
+    if (!key) return;
+    try {
+      ctx.putImageData(key, 0, 0);
+      for (let j = k + 1; j <= i; j++) applyFrame(ctx, s.patch, s.frames[j], s.frames[j - 1]);
+      c.getContext('2d')!.drawImage(s.work, 0, 0);
+      s.last = i;
+    } catch { /* malformed frame: keep the previous image rather than breaking the page */ }
   };
   return { ready, draw, count: st.current?.frames.length ?? 89 };
 }
