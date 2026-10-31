@@ -1,5 +1,6 @@
 {
   "name": "tdah-adulto",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "workers_dev": true,
   "preview_urls": true,
@@ -9,6 +10,10 @@
   ],
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
     "not_found_handling": "single-page-application"
-  }
+  },
+  // "on" = whole site behind login (secrets ADMIN_USER / ADMIN_PASS). Set to "off" to publish.
+  "vars": { "SITE_LOCK": "on" }
 }

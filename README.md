@@ -15,6 +15,13 @@ npm run deploy    # wrangler deploy de dist/ (rode npm run build antes)
 (build `npm run build`, deploy `npx wrangler deploy`, branch `main`). O domínio usa os servidores DNS
 `archer.ns.cloudflare.com` e `celeste.ns.cloudflare.com` (configurados no Registro.br).
 
+## Acesso restrito (site em construção)
+
+`worker/index.ts` exige login (HTTP Basic) em **todas** as rotas e arquivos antes de servir o site.
+O usuário e a senha ficam como *secrets* do Worker na Cloudflare (`ADMIN_USER`, `ADMIN_PASS`), nunca
+neste repositório. Para testar localmente, crie `.dev.vars` (ignorado pelo git) e rode `npx wrangler dev`.
+Para abrir o site ao público: em `wrangler.jsonc`, troque `"SITE_LOCK": "on"` por `"off"` e publique.
+
 ## Tokens — uma única fonte
 
 `src/tokens.css` é a única origem de cor, tipografia, espaço, raio e sombra.

@@ -3,3 +3,4 @@ dist
 public/design
 .wrangler
 *.tsbuildinfo
+.dev.vars
