@@ -43,3 +43,4 @@ mark { color: inherit; }
 @media (max-width: 860px) { .nav-links .nav-wide { display: none !important; } }
 .jc-sym { display: none; }
 @media (min-width: 720px) { .jc-sym { display: block; } }
+.clube-cta:hover { background: var(--tdh-book-ink-hover) !important; }

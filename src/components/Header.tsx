@@ -10,7 +10,7 @@ export type Theme = 'light' | 'dark';
 
 export const DESIGN = (f: string) => '/design/' + encodeURIComponent(f);
 
-const NAV: [string, string][] = [['Cinco passos', '/passos'], ['Trajetória', '/trajetoria'], ['Artigos', '/artigos'], ['Questionários', '/questionarios'], ['Ferramentas', '/ferramentas']];
+const NAV: [string, string][] = [['Cinco passos', '/passos'], ['Trajetória', '/trajetoria'], ['Livro', '/#livro'], ['Dados', '/#dados'], ['Artigos', '/artigos'], ['Questionários', '/questionarios'], ['Ferramentas', '/ferramentas']];
 
 export const MENU: { group: string; items: { label: string; href: string; desc: string }[] }[] = [
   {
@@ -18,6 +18,9 @@ export const MENU: { group: string; items: { label: string; href: string; desc: 
       { label: 'Início', href: '/', desc: 'Jornada, ciclos e os blocos da home' },
       { label: 'Os cinco passos', href: '/passos', desc: 'Da avaliação às áreas da vida · 30 capítulos' },
       { label: 'Minha trajetória', href: '/trajetoria', desc: 'Linha emocional e ciclos vicioso e virtuoso' },
+      { label: 'O livro e o autor', href: '/#livro', desc: 'Farol, Vencendo o TDAH Adulto, Russell A. Barkley' },
+      { label: 'TDAH na vida adulta', href: '/#dados', desc: 'Dados com fontes identificadas' },
+      { label: 'Clube do livro', href: '/#clube', desc: 'Vamos ler juntos, um passo por vez' },
       { label: 'Artigos', href: '/artigos', desc: 'Leitura, dados e ferramentas · A, B e C' },
       { label: 'Questionários', href: '/questionarios', desc: 'Organize suas observações para a consulta' },
       { label: 'Ferramentas', href: '/ferramentas', desc: 'Materiais para imprimir e ferramentas de leitura' },

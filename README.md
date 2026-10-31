@@ -33,7 +33,7 @@ Os componentes não usam valores hexadecimais: usam `var(--…)` pelos atalhos d
 
 | Caminho | Conteúdo |
 |---|---|
-| `/` | Abertura Jornada, linha emocional A–H, ciclos vicioso e virtuoso e blocos A–N |
+| `/` | Abertura Jornada, linha emocional A–H, ciclos, Jornada v2 (03 farol · 04 livro · 05 autor · 06 sumário · 07 trechos · 08 dados · frase · 09 clube · fontes) e blocos A–N |
 | `/passos`, `/passos/1…5` | Cinco passos e capítulos 1–30 |
 | `/trajetoria`, `/sobre` | Narrativa completa, os dois gráficos e o bloco F |
 | `/duvidas`, `/referencias`, `/livro`, `/fontes`, `/erros`, `/curadoria` | Blocos C, E, G, H, J e K completos |
@@ -49,6 +49,8 @@ Os componentes não usam valores hexadecimais: usam `var(--…)` pelos atalhos d
 Os links antigos do showroom (`#/a`, `#/c/ferramentas`…) são redirecionados para as rotas novas.
 
 ## O que ainda depende de você
+
+- as imagens da Jornada v2 em `public/jornada/` (veja `LEIA-ME.txt` lá dentro);
 
 Os itens “Em preparação” vêm das notas entre colchetes da copy:
 

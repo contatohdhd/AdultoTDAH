@@ -1,0 +1,5 @@
+Imagens da Jornada TDAH v2 (projeto Claude Design, pasta assets/).
+Coloque aqui, com estes nomes exatos:
+  farol.gif  livro-capa.jpg  livro-estante.jpg  sumario-1.jpg  sumario-2.jpg  pag-211.jpg  cap-26.jpg
+Opcional: barkley.jpg (foto do autor, só com direito de uso).
+Enquanto um arquivo faltar, o site mostra um espaço reservado no lugar.

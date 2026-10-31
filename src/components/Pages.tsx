@@ -8,6 +8,7 @@ import { BlockShell, FaqList, HomeBlockSection, Pieces, StepDetail, StepsOvervie
 import { Tools } from './Figures';
 import { DESIGN } from './Header';
 import { CycleDiagrams, JourneyChart } from './JourneyCharts';
+import { JornadaV2 } from './Jornada2';
 import { SourceLegend } from './Sources';
 
 const block = (letter: string) => HOME_BLOCKS.find((b) => b.letter === letter) as HomeBlock;
@@ -38,14 +39,16 @@ export function Home() {
       <JourneyChart />
       <CycleDiagrams />
 
-      <section style={{ background: C.surface, padding: '96px 22px', textAlign: 'center' }}>
-        <div style={{ maxWidth: 820, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-8)', alignItems: 'center' }}>
-          <p style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 'clamp(28px,4vw,44px)', lineHeight: 1.15, letterSpacing: '-0.015em', ...tw('balance') }}>
-            Meu objetivo não é mostrar que superei o TDAH. É mostrar como comecei a aprender a gerenciá-lo.
-          </p>
-          <PillButton href="/#passos">Explore os cinco passos</PillButton>
-        </div>
-      </section>
+      <JornadaV2>
+        <section style={{ padding: '96px 22px', textAlign: 'center' }}>
+          <div style={{ maxWidth: 820, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-8)', alignItems: 'center' }}>
+            <p style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 600, fontSize: 'clamp(28px,4vw,44px)', lineHeight: 1.15, letterSpacing: '-0.015em', ...tw('balance') }}>
+              Meu objetivo não é mostrar que superei o TDAH. É mostrar como comecei a aprender a gerenciá-lo.
+            </p>
+            <PillButton href="/#sumario">Explore os cinco passos</PillButton>
+          </div>
+        </section>
+      </JornadaV2>
 
       {HOME_BLOCKS.map((b, i) => <HomeBlockSection key={b.id} b={b} tone={i % 2 === 0 ? 'bg' : 'surface'} />)}
     </>

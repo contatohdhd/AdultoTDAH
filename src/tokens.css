@@ -190,3 +190,24 @@
   --tdh-rule: #6e6e73;
   --tdh-focus: #2997ff;
 }
+
+/* ---- 3. Jornada v2 — fixed-palette editorial moments (same in both themes) -------- */
+:root {
+  /* 03 Farol / 04 Livro / 09 Clube: night sea → book-cover yellow */
+  --tdh-farol-night: #12407e;
+  --tdh-farol-beam: #f9cd55;
+  --tdh-farol-mist: #c9d6ef;
+  --tdh-book-yellow: #f2e21a;
+  --tdh-book-ink: #0b2a5b;
+  --tdh-book-cream: #fff8c2;
+  --tdh-book-ink-hover: #123a7a;
+  /* 06 Sumário: the printed page of my copy */
+  --tdh-paper: #fbfaf5;
+  --tdh-paper-ink: #262626;
+  --tdh-paper-band: #4a4a4a;
+  --tdh-paper-muted: #6b6b6b;
+  --tdh-paper-faded: #707070;
+  --tdh-pen: #1f3c99;            /* handwritten note */
+  --tdh-marker: 255 149 56;      /* hand highlighter (rgb triplet, used with alpha) */
+  --font-hand: "Caveat", cursive;
+}
