@@ -11,8 +11,9 @@ npm run build     # → dist/
 npm run deploy    # wrangler deploy de dist/ (rode npm run build antes)
 ```
 
-**Publicado em:** https://tdah-adulto.contato-adulto-tdah.workers.dev — Cloudflare Workers Builds
-(build `npm run build`, deploy `npx wrangler deploy`, branch `main`).
+**Publicado em:** https://adultotdah.com.br (e www) · https://tdah-adulto.contato-adulto-tdah.workers.dev — Cloudflare Workers Builds
+(build `npm run build`, deploy `npx wrangler deploy`, branch `main`). O domínio usa os servidores DNS
+`archer.ns.cloudflare.com` e `celeste.ns.cloudflare.com` (configurados no Registro.br).
 
 ## Tokens — uma única fonte
 
