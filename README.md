@@ -8,8 +8,11 @@ passos com os 30 capítulos de referência, o questionário para a consulta e o 
 npm install
 npm run dev       # http://localhost:5173
 npm run build     # → dist/
-npm run deploy    # build + wrangler deploy (Cloudflare Workers, assets com fallback de SPA)
+npm run deploy    # wrangler deploy de dist/ (rode npm run build antes)
 ```
+
+**Publicado em:** https://tdah-adulto.contato-adulto-tdah.workers.dev — Cloudflare Workers Builds
+(build `npm run build`, deploy `npx wrangler deploy`, branch `main`).
 
 ## Tokens — uma única fonte
 
