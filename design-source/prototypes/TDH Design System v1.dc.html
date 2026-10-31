@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:#FFFFFF;color:#111111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;text-size-adjust:100%}
+a{color:#0A5BD3}a:hover{color:#0849AC}
+:focus-visible{outline:3px solid #1F5FD1;outline-offset:3px;border-radius:4px}
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:10;background:#FFFFFF;max-width:1200px;margin:0 auto;padding:0 20px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+  <a href="#capa" aria-label="Tdah Adulto, início do documento" style="display:inline-flex;flex-direction:column;align-items:flex-end;gap:3px;padding:6px 4px;min-height:44px;justify-content:center;font-family:'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:none;line-height:1"><span style="font-size:13px">Tdah</span><span style="font-size:22px;letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></a>
+  <span style="font:400 14px Inter,sans-serif;color:#5C5C60">Sistema de design · v1.0</span>
+</header>
+
+<main style="display:flex;flex-direction:column;gap:12px">
+
+<section id="capa" data-screen-label="00 Capa" style="padding:clamp(80px,12vw,152px) 24px clamp(64px,9vw,112px);display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center">
+  <div style="width:100%;max-width:560px;background:#F2F2F2;border-radius:4px;padding:40px 24px 44px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+    <h1 style="margin:0;font:500 clamp(24px,3.4vw,32px)/1.25 'IBM Plex Mono',ui-monospace,monospace">Sistema de design TDH</h1>
+    <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+  </div>
+  <p style="margin:0;max-width:34ch;font:400 clamp(19px,2.4vw,24px)/1.45 Inter,sans-serif;color:#3A3A3D;text-wrap:balance">Branco, estrutura mono, hashtag, grifo e dados em áreas interativas.</p>
+  <p style="margin:0;max-width:52ch;font:400 16px/1.55 Inter,sans-serif;color:#5C5C60;text-wrap:pretty">Versão final que funde o documento v0.1 (auditoria, peças do Canva, tokens iniciais) com as decisões aplicadas no showroom v3, no questionário v3 e na revisão Apple HIG. Onde as versões divergem, vale a v1.0.</p>
+  <nav aria-label="Seções" style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;max-width:760px">
+    <sc-for list="{{ toc }}" as="t" hint-placeholder-count="8">
+      <a href="{{ t.href }}" style="min-height:44px;display:inline-flex;align-items:center;padding:0 10px;border-radius:6px;font:400 16px Inter,sans-serif;color:#0A5BD3;text-decoration:none" style-hover="background:#F5F5F7">{{ t.label }}</a>
+    </sc-for>
+  </nav>
+</section>
+
+<section id="principios" data-screen-label="01 Princípios" style="scroll-margin-top:80px;background:#F5F5F7;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">01</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Princípios</h2>
+    <p style="margin:0;max-width:40ch;font:400 19px/1.5 Inter,sans-serif;color:#3A3A3D">A interface torna visível a estrutura da informação.</p>
+  </div>
+  <div style="width:100%;max-width:1040px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+    <sc-for list="{{ principles }}" as="p" hint-placeholder-count="6">
+      <div style="background:#FFFFFF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:10px">
+        <span style="font:500 15px 'IBM Plex Mono',ui-monospace,monospace;color:#6E6E73">{{ p.mark }}</span>
+        <span style="font:600 20px/1.3 Inter,sans-serif">{{ p.t }}</span>
+        <span style="font:400 16px/1.55 Inter,sans-serif;color:#3A3A3D">{{ p.d }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="evolucao" data-screen-label="02 Evolução" style="scroll-margin-top:80px;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">02</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Do Canva à v1.0</h2>
+    <p style="margin:0;max-width:46ch;font:400 19px/1.5 Inter,sans-serif;color:#3A3A3D">Cada elemento autoral, o que a v0.1 propôs e o que fica valendo.</p>
+  </div>
+  <div style="width:100%;max-width:960px;display:flex;flex-direction:column">
+    <sc-for list="{{ evolution }}" as="e" hint-placeholder-count="10">
+      <article style="border-top:1px solid #E3E3E6;padding:28px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px 32px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h3 style="margin:0;font:600 19px/1.3 Inter,sans-serif">{{ e.el }}</h3>
+          <span style="font:400 15px/1.5 Inter,sans-serif;color:#5C5C60">Canva: {{ e.canva }}</span>
+          <span style="font:400 15px/1.5 Inter,sans-serif;color:#5C5C60">v0.1: {{ e.v01 }}</span>
+        </div>
+        <dl style="margin:0;display:flex;flex-direction:column;gap:8px;font:400 16px/1.5 Inter,sans-serif">
+          <div><dt style="display:inline;font-weight:600">v1.0. </dt><dd style="display:inline;margin:0">{{ e.v1 }}</dd></div>
+          <div><dt style="display:inline;font-weight:600">Motivo. </dt><dd style="display:inline;margin:0;color:#3A3A3D">{{ e.why }}</dd></div>
+        </dl>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="fundamentos" data-screen-label="03 Fundamentos" style="scroll-margin-top:80px;background:#F5F5F7;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">03</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Fundamentos</h2>
+  </div>
+  <div style="width:100%;max-width:1040px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px">
+
+    <div style="background:#FFFFFF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:20px">
+      <h3 style="margin:0;font:600 20px Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> Cor</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px 12px">
+        <sc-for list="{{ colors }}" as="c" hint-placeholder-count="10">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="height:64px;border-radius:10px;background:{{ c.hex }};border:1px solid {{ c.border }}"></div>
+            <span style="font:600 14px Inter,sans-serif">{{ c.name }}</span>
+            <span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">{{ c.hex }}</span>
+            <span style="font:400 13px/1.4 Inter,sans-serif;color:#3A3A3D">{{ c.use }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:#5C5C60">A interface é neutra. Cor editorial só nos grifos; cor funcional só no azul de ação e foco; cor informativa só em imagens e gráficos.</p>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+      <h3 style="margin:0;font:600 20px Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> Tipografia</h3>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="8">
+          <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:12px;border-bottom:1px solid #EDEDEF">
+            <span style="font:{{ t.font }};letter-spacing:{{ t.ls }};color:#111">{{ t.sample }}</span>
+            <span style="font:400 13px/1.4 Inter,sans-serif;color:#5C5C60">{{ t.spec }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 14px/1.5 Inter,sans-serif;color:#5C5C60">Inter é a fonte predominante. IBM Plex Mono aparece só no logo, no #, no bloco de título, em valores numéricos e em rótulos de diagrama.</p>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+      <h3 style="margin:0;font:600 20px Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> Espaço e blocos</h3>
+      <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
+        <sc-for list="{{ spaces }}" as="s" hint-placeholder-count="8">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:{{ s.px }};height:{{ s.px }};max-width:72px;max-height:72px;background:#111;border-radius:2px"></div><span style="font:400 13px 'IBM Plex Mono',monospace;color:#3A3A3D">{{ s.v }}</span></div>
+        </sc-for>
+      </div>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">
+        <li>Página em blocos de largura total, separados por 12 px, alternando branco e #F5F5F7.</li>
+        <li>Respiro vertical do bloco: 64–152 px, proporcional à tela (clamp).</li>
+        <li>Um assunto por bloco: rótulo, título, frase de apoio e até duas ações.</li>
+        <li>Coluna de leitura 680 px (≈ 68ch); margem lateral 20 px.</li>
+        <li>Título → texto: 64–144 px. Antes de cada h2 do artigo: 2,6 em.</li>
+      </ul>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+      <h3 style="margin:0;font:600 20px Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> Linhas, raios e movimento</h3>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:16px"><div aria-hidden="true" style="width:72px;border-top:3px double #8A8A8E"></div><span style="font:400 15px Inter,sans-serif">Linha curta 72 px · ferramentas, compartilhar</span></div>
+        <div style="display:flex;align-items:center;gap:16px"><div aria-hidden="true" style="width:160px;border-top:3px double #8A8A8E"></div><span style="font:400 15px Inter,sans-serif">Linha dupla 3 px #8A8A8E · sempre com margem</span></div>
+        <div style="display:flex;align-items:center;gap:16px"><div aria-hidden="true" style="width:160px;border-top:1px solid #E3E3E6"></div><span style="font:400 15px Inter,sans-serif">Divisor 1 px #E3E3E6 · listas</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ radii }}" as="r" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:64px;height:48px;background:#F2F2F2;border:1px solid #D9D9DE;border-radius:{{ r.v }}"></div><span style="font:400 13px/1.3 Inter,sans-serif;color:#3A3A3D;text-align:center">{{ r.v }}<br>{{ r.use }}</span></div>
+        </sc-for>
+      </div>
+      <p style="margin:0;font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">Movimento só para revelar: grifo (900 ms), variação de cor do gráfico e giro do R1 (≈ 600 ms), oscilação do ponteiro após responder. Cada um roda uma vez. Com Reduzir movimento, tudo fica estático.</p>
+    </div>
+  </div>
+</section>
+
+<section id="componentes" data-screen-label="04 Componentes" style="scroll-margin-top:80px;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">04</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Componentes</h2>
+    <p style="margin:0;max-width:44ch;font:400 19px/1.5 Inter,sans-serif;color:#3A3A3D">Amostras com estados. Os comportamentos completos estão nas páginas da seção 05.</p>
+  </div>
+  <div style="width:100%;max-width:1040px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px">
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:16px">
+      <span style="font:600 16px Inter,sans-serif">Cabeçalho e menu #</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:4px">
+        <span style="display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;font-family:'IBM Plex Mono',monospace;line-height:1"><span style="font-size:11px">Tdah</span><span style="font-size:17px;letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></span>
+        <div style="display:flex;align-items:center;gap:0">
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;font:500 14px Inter,sans-serif">Índice ›</span>
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;font:500 14px Inter,sans-serif;text-decoration:underline;text-underline-offset:6px">Ouvir</span>
+          <span style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:500 17px Inter,sans-serif">Aa</span>
+          <button onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-label="{{ menuLabel }}" style="width:44px;height:44px;border:0;border-radius:6px;background:{{ menuBg }};font:500 24px/1 'IBM Plex Mono',monospace;color:#111;cursor:pointer" style-hover="background:#F2F2F2">#</button>
+        </div>
+      </div>
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#FFFFFF;border-radius:12px;padding:8px;display:flex;flex-direction:column">
+          <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="4"><span style="min-height:48px;display:flex;align-items:center;padding:0 10px;font:500 16px Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;color:#6E6E73;margin-right:8px">#</span>{{ m }}</span></sc-for>
+        </div>
+      </sc-if>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Toque no # para ver o estado aberto. Esc fecha e devolve o foco.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:16px">
+      <span style="font:600 16px Inter,sans-serif">Bloco de título piramidal</span>
+      <div style="background:#F2F2F2;border:1px solid #E3E3E6;border-radius:4px;padding:28px 16px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+        <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+        <span style="font:500 20px/1.28 'IBM Plex Mono',monospace">Lorem ipsum: leitura e destaques</span>
+        <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">h1 em mono 24/30 px; linha superior 44%, inferior 78%. Único elemento com mono em escala de título.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Título de seção, parágrafo e link</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 22px/1.25 Inter,sans-serif;letter-spacing:-0.01em"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> Contexto</span>
+        <span style="font:400 17px/1.6 Inter,sans-serif">Lorem ipsum dolor sit amet, <a href="#componentes" style="color:#111;text-decoration:underline;text-underline-offset:3px;font-weight:500">link textual</a> consectetur adipiscing elit.</span>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D"># decorativo, oculto do leitor de tela. Link no texto: preto sublinhado. Link de ação: azul com ›.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Grifos</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:20px;font:400 17px/1.7 Inter,sans-serif">Lorem ipsum <mark style="background:#FFE066;color:#111;padding:0.06em 0.1em;border-radius:2px">informação sobre TDAH</mark> dolor sit amet, <mark style="background:#DCCFFF;color:#111;padding:0.06em 0.1em;border-radius:2px">outro tipo de informação</mark> consectetur.</div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Amarelo #FFE066 = TDAH. Roxo #DCCFFF = outras informações. Revelados uma vez na rolagem, sem deslocar o texto; legenda em “Sobre este artigo”.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Ações</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:10px">
+        <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 22px;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:500 17px Inter,sans-serif">Começar questionário</span>
+        <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;color:#0A5BD3;font:400 17px Inter,sans-serif">Ler artigos ›</span>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 8px;border-radius:6px;font:500 15px Inter,sans-serif;text-decoration:underline;text-underline-offset:6px">Padrão</span>
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 8px;border-radius:6px;background:#F2F2F2;font:500 15px Inter,sans-serif;text-decoration:underline;text-underline-offset:6px">Hover</span>
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 8px;border-radius:6px;background:#F2F2F2;font:600 15px Inter,sans-serif;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px">Selecionado</span>
+          <span style="min-height:44px;display:inline-flex;align-items:center;padding:0 8px;border-radius:6px;outline:3px solid #1F5FD1;outline-offset:3px;font:500 15px Inter,sans-serif;text-decoration:underline;text-underline-offset:6px">Foco</span>
+        </div>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Um único botão preenchido por bloco. Demais ações são palavras clicáveis com área de 44 px.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Superfície cinza editorial</span>
+      <div style="background:#F2F2F2;border:1px solid #E3E3E6;border-radius:4px;aspect-ratio:4/3;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;gap:10px">
+        <span style="font:400 13px Inter,sans-serif;color:#5C5C60"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace">#</span> Dado</span>
+        <span style="font:500 20px/1.3 'IBM Plex Mono',monospace">46 de 100 leitores começaram em menos de 10 s.</span>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Ponto-chave, dado ou conclusão. Texto na base; a área cresce com o texto. Mesmo componente dos cartões da página inicial.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Disclosure</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:0 12px">
+        <button onClick="{{ toggleAbout }}" aria-expanded="{{ aboutOpen }}" style="width:100%;min-height:56px;display:flex;justify-content:space-between;align-items:center;border:0;background:transparent;font:600 16px Inter,sans-serif;color:#111;cursor:pointer;padding:0"><span>Sobre este artigo</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="transform:rotate({{ aboutRot }});transition:transform 150ms ease"><path d="M4 2l4 4-4 4" fill="none" stroke="#111" stroke-width="1.6"></path></svg></button>
+        <sc-if value="{{ aboutOpen }}" hint-placeholder-val="{{ false }}"><div style="padding:0 0 16px;font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">Autoria, data, categoria, tempo de leitura e legenda dos grifos.</div></sc-if>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Seta gira 90° entre fechado e aberto. Usado em Índice, Sobre este artigo e tabela de dados.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Gráfico de áreas</span>
+      <div role="img" aria-label="Exemplo de treemap: Áudio 24%, Resumo 19%, Marca-texto 16%, Pausas 13%, Fonte maior 11%, Modo foco 10%, Outras 7%. Dados fictícios." style="position:relative;aspect-ratio:1;background:#FFFFFF;border-radius:12px;overflow:hidden">
+        <sc-for list="{{ tm }}" as="k" hint-placeholder-count="7"><div style="position:absolute;left:{{ k.x }};top:{{ k.y }};width:{{ k.w }};height:{{ k.h }};box-sizing:border-box;border:2px solid #FFFFFF;border-radius:6px;background:{{ k.c }};padding:8px;font:400 12px/1.25 Inter,sans-serif;color:#111;overflow:hidden">{{ k.label }}</div></sc-for>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">Área ∝ valor. Sempre com filtro ou seleção, legenda com valores, detalhe da seleção, tabela alternativa e fonte. Dados fictícios identificados.</span>
+    </div>
+
+    <div style="background:#F5F5F7;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:600 16px Inter,sans-serif">Questionário · Sim / Não</span>
+      <div style="background:#FFFFFF;border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
+        <div role="group" aria-label="Resposta de exemplo" style="display:flex;flex-direction:column;gap:2px">
+          <button onClick="{{ pickSim }}" aria-pressed="{{ simOn }}" style="display:flex;align-items:baseline;min-height:56px;padding:0 8px 0 2px;border:0;border-bottom:3px double {{ simLine }};background:transparent;color:#111;cursor:pointer;font-family:Inter,sans-serif"><span style="font-size:48px;line-height:1">S</span><span style="font-size:22px;color:{{ simRest }}">im</span></button>
+          <button onClick="{{ pickNao }}" aria-pressed="{{ naoOn }}" style="display:flex;align-items:baseline;min-height:56px;padding:0 8px 0 2px;border:0;border-bottom:3px double {{ naoLine }};background:transparent;color:#111;cursor:pointer;font-family:Inter,sans-serif"><span style="font-size:48px;line-height:1">N</span><span style="font-size:22px;color:{{ naoRest }}">ão</span></button>
+        </div>
+        <span style="min-height:48px;display:inline-flex;align-items:center;font:400 18px Inter,sans-serif;text-decoration:underline;text-underline-offset:6px">Especifique</span>
+      </div>
+      <span style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">S e N maiores; “im” e “ão” legíveis; palavra inteira clicável. Especifique guarda o comentário junto da resposta e não é obrigatório.</span>
+    </div>
+  </div>
+</section>
+
+<section id="paginas" data-screen-label="05 Páginas" style="scroll-margin-top:80px;background:#F5F5F7;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">05</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Páginas aplicadas</h2>
+  </div>
+  <div style="width:100%;max-width:1040px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+    <sc-for list="{{ pages }}" as="p" hint-placeholder-count="4">
+      <a href="{{ p.href }}" style="background:#FFFFFF;border-radius:18px;padding:36px 28px;min-height:220px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:#111" style-hover="background:#FBFBFC">
+        <span style="font:600 21px/1.25 Inter,sans-serif">{{ p.t }}</span>
+        <span style="font:400 16px/1.5 Inter,sans-serif;color:#3A3A3D">{{ p.d }}</span>
+        <span style="margin-top:auto;font:400 17px Inter,sans-serif;color:#0A5BD3">Abrir <span aria-hidden="true">›</span></span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="acessibilidade" data-screen-label="06 Acessibilidade" style="scroll-margin-top:80px;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:40px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">06</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Acessibilidade</h2>
+    <p style="margin:0;max-width:46ch;font:400 19px/1.5 Inter,sans-serif;color:#3A3A3D">Critérios consolidados da auditoria v0.1 e da revisão Apple HIG.</p>
+  </div>
+  <div style="width:100%;max-width:960px;overflow-x:auto;border:1px solid #E3E3E6;border-radius:18px">
+    <table style="width:100%;min-width:680px;border-collapse:collapse;font:400 15px/1.45 Inter,sans-serif">
+      <thead><tr style="text-align:left;background:#F5F5F7"><th scope="col" style="padding:14px 18px;width:24%">Critério</th><th scope="col" style="padding:14px 18px;width:40%">Regra TDH</th><th scope="col" style="padding:14px 18px">Referência</th><th scope="col" style="padding:14px 18px">Nível</th></tr></thead>
+      <tbody>
+        <sc-for list="{{ a11y }}" as="r" hint-placeholder-count="10">
+          <tr style="border-top:1px solid #E3E3E6"><th scope="row" style="text-align:left;font-weight:600;padding:14px 18px">{{ r.c }}</th><td style="padding:14px 18px">{{ r.rule }}</td><td style="padding:14px 18px;color:#3A3A3D">{{ r.ref }}</td><td style="padding:14px 18px;font-family:'IBM Plex Mono',monospace;font-size:14px">{{ r.lvl }}</td></tr>
+        </sc-for>
+      </tbody>
+    </table>
+  </div>
+  <div style="width:100%;max-width:960px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+    <sc-for list="{{ contrast }}" as="c" hint-placeholder-count="8">
+      <div style="border:1px solid #E3E3E6;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px">
+        <span style="align-self:flex-start;padding:4px 10px;border-radius:6px;background:{{ c.bg }};color:{{ c.fg }};font:600 15px Inter,sans-serif;border:1px solid #E3E3E6">{{ c.use }}</span>
+        <span style="font:600 18px 'IBM Plex Mono',monospace">{{ c.ratio }}</span>
+        <span style="font:400 13px Inter,sans-serif;color:#5C5C60">{{ c.fg }} / {{ c.bg }} · {{ c.ok }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="tokens" data-screen-label="07 Tokens" style="scroll-margin-top:80px;background:#F5F5F7;padding:clamp(72px,10vw,128px) 20px;display:flex;flex-direction:column;align-items:center;gap:32px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">07</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Tokens</h2>
+    <p style="margin:0;max-width:44ch;font:400 19px/1.5 Inter,sans-serif;color:#3A3A3D">Variáveis CSS para levar o sistema a outros projetos.</p>
+  </div>
+  <div style="width:100%;max-width:820px;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;justify-content:flex-end"><button onClick="{{ copyTokens }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:400 17px Inter,sans-serif;color:#0A5BD3;cursor:pointer" style-hover="background:#ECECEE">Copiar tokens</button></div>
+    <pre style="margin:0;background:#FFFFFF;border-radius:18px;padding:24px;overflow-x:auto;font:400 13.5px/1.65 'IBM Plex Mono',monospace;color:#111">{{ tokensCss }}</pre>
+    <span role="status" style="min-height:20px;font:400 14px Inter,sans-serif;color:#3A3A3D">{{ copyMsg }}</span>
+  </div>
+</section>
+
+<section id="pendencias" data-screen-label="08 Pendências" style="scroll-margin-top:80px;padding:clamp(72px,10vw,120px) 20px clamp(96px,12vw,144px);display:flex;flex-direction:column;align-items:center;gap:32px">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60">08</span>
+    <h2 style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Pendências</h2>
+  </div>
+  <ul style="margin:0;padding:0;list-style:none;width:100%;max-width:760px;display:flex;flex-direction:column">
+    <sc-for list="{{ todo }}" as="t" hint-placeholder-count="5">
+      <li style="border-top:1px solid #E3E3E6;padding:18px 4px;display:flex;gap:14px;font:400 16px/1.5 Inter,sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;color:#6E6E73">#</span><span>{{ t }}</span></li>
+    </sc-for>
+  </ul>
+  <span style="font:400 14px Inter,sans-serif;color:#5C5C60">Documento anterior preservado em <a href="./Risco Cognitivo Blog.dc.html">Risco Cognitivo Blog (v0.1)</a>.</span>
+</section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, aboutOpen: false, ans: 'sim', copyMsg: '' };
+  lum(h) { const c = h.replace('#', '').match(/../g).map(x => parseInt(x, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+  ratio(a, b) { const x = this.lum(a), y = this.lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  tokens = `:root {
+  /* Superfícies */
+  --tdh-bg: #FFFFFF;
+  --tdh-surface-block: #F5F5F7;   /* blocos alternados */
+  --tdh-surface-title: #F2F2F2;   /* bloco de título, superfície editorial */
+  --tdh-surface-subtle: #F7F7F8;  /* painéis, detalhe de seleção */
+  /* Texto */
+  --tdh-ink: #111111;
+  --tdh-ink-2: #3A3A3D;
+  --tdh-ink-3: #5C5C60;           /* menor tom permitido para texto */
+  --tdh-mark: #6E6E73;            /* # decorativo */
+  /* Linhas */
+  --tdh-rule: #8A8A8E;            /* linha dupla 3px */
+  --tdh-divider: #E3E3E6;
+  --tdh-border: #D9D9DE;
+  /* Ação e foco */
+  --tdh-action: #0A5BD3;
+  --tdh-action-hover: #0849AC;
+  --tdh-action-press: #073C8F;
+  --tdh-focus: #1F5FD1;
+  /* Grifos */
+  --tdh-hl-tdah: #FFE066;
+  --tdh-hl-other: #DCCFFF;
+  /* Tipografia */
+  --tdh-font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --tdh-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --tdh-text-body: 18px;          /* escala 16–24 nas preferências */
+  --tdh-lh-body: 1.6;
+  --tdh-measure: 680px;
+  /* Espaço */
+  --tdh-space-1: 8px;  --tdh-space-2: 12px; --tdh-space-3: 16px;
+  --tdh-space-4: 24px; --tdh-space-5: 40px; --tdh-space-6: 64px;
+  --tdh-block-gap: 12px;
+  --tdh-block-pad: clamp(64px, 10vw, 152px);
+  /* Forma */
+  --tdh-radius-title: 4px;  --tdh-radius-control: 6px;
+  --tdh-radius-card: 18px;  --tdh-radius-pill: 999px;
+  --tdh-target: 44px;
+  /* Movimento */
+  --tdh-ease: cubic-bezier(.2, .7, .2, 1);
+  --tdh-dur-reveal: 900ms;  --tdh-dur-ui: 150ms;
+}`;
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const pairs = [['Texto', '#111111', '#FFFFFF'], ['Secundário', '#3A3A3D', '#FFFFFF'], ['Rótulo', '#5C5C60', '#FFFFFF'], ['Rótulo em bloco', '#5C5C60', '#F5F5F7'], ['Ação', '#0A5BD3', '#FFFFFF'], ['Botão', '#FFFFFF', '#0A5BD3'], ['Grifo TDAH', '#111111', '#FFE066'], ['Grifo outro', '#111111', '#DCCFFF']];
+    const contrast = pairs.map(([use, fg, bg]) => { const v = this.ratio(fg, bg); return { use, fg, bg, ratio: v.toFixed(2).replace('.', ',') + ':1', ok: v >= 7 ? 'AAA' : v >= 4.5 ? 'AA' : 'abaixo de AA' }; });
+    const tmData = [['Áudio 24%', 24, '#A3CCF7'], ['Resumo 19%', 19, '#F7BBD4'], ['Marca-texto 16%', 16, '#F7E08F'], ['Pausas 13%', 13, '#A0DDB4'], ['Fonte 11%', 11, '#CDB8F2'], ['Foco 10%', 10, '#F4BC94'], ['Outras 7%', 7, '#D9D9DC']];
+    // simple slice-and-dice for specimen
+    const tm = []; let x = 0;
+    const col1 = tmData.slice(0, 2), col2 = tmData.slice(2, 4), col3 = tmData.slice(4);
+    [col1, col2, col3].forEach(col => { const sum = col.reduce((a, c) => a + c[1], 0), w = sum; let y = 0; col.forEach(c => { const h = c[1] / sum * 100; tm.push({ label: c[0], c: c[2], x: x + '%', y: y + '%', w: w + '%', h: h + '%' }); y += h; }); x += w; });
+    return {
+      toc: [['Princípios', '#principios'], ['Evolução', '#evolucao'], ['Fundamentos', '#fundamentos'], ['Componentes', '#componentes'], ['Páginas', '#paginas'], ['Acessibilidade', '#acessibilidade'], ['Tokens', '#tokens'], ['Pendências', '#pendencias']].map(([label, href]) => ({ label, href })),
+      principles: [
+        { mark: '#01', t: 'O espaço branco destaca', d: 'Fundo #FFFFFF. Blocos com respiro amplo separam assuntos sem linhas extras.' },
+        { mark: '#02', t: 'A estrutura fica visível', d: 'Hashtag, linhas duplas e mono pontual expõem a organização, como em Markdown.' },
+        { mark: '#03', t: 'Botões são palavras', d: 'Artigos, Ouvir, Compartilhar, Especifique: ações textuais com área de toque de 44 px.' },
+        { mark: '#04', t: 'A cor sinaliza', d: 'Amarelo marca TDAH, roxo marca outras informações, azul marca ação. A interface é neutra.' },
+        { mark: '#05', t: 'A área representa o dado', d: 'Gráficos em blocos de área proporcional, sempre interativos e com alternativa em tabela.' },
+        { mark: '#06', t: 'Leitura antes de tudo', d: 'O artigo abre com título, respiro e texto. Recursos complementares ficam sob controle.' }
+      ],
+      evolution: [
+        { el: 'Fonte predominante', canva: 'mono espaçada em tudo', v01: 'fonte do sistema (SF) + mono na navegação', v1: 'Inter em texto, navegação e controles; IBM Plex Mono só em logo, #, bloco de título, valores e rótulos de diagrama.', why: 'Legibilidade em blocos longos e consistência entre plataformas; mono preserva a identidade onde é marca.' },
+        { el: 'Logo', canva: '“Tdah / Adulto” centralizado', v01: 'sobretítulo “TDAH” à esquerda', v1: '“Tdah” menor acima e à direita de “Adulto”, em mono; no cabeçalho, rodapé e topo do questionário (discreto, centralizado).', why: 'Composição oficial enviada; proporções preservadas.' },
+        { el: 'Régua “=====”', canva: 'sinais de igual', v01: 'borda tracejada 1 px', v1: 'Linha dupla 3 px #8A8A8E, sempre com margem; curta (72 px) em ferramentas e compartilhar; 44% e 78% no bloco de título.', why: 'Caráter industrial sem ruído para leitores de tela; nunca atravessa a página.' },
+        { el: 'Caixa cinza de tópico', canva: '“TOPICO 2 | LOREM DOLLOR”', v01: 'linha de metadados', v1: 'Bloco de título piramidal: h1 mono em cinza #F2F2F2, linha curta acima e longa abaixo. Metadados movidos para “Sobre este artigo”.', why: 'Referência autoral do Canva com proporção do Storytelling with Data; abertura sem acúmulo.' },
+        { el: 'Navegação', canva: 'Artigos · Ferramentas · Blog em mono', v01: 'mono com sublinhado no item atual', v1: 'Menu aberto por # (Abrir/Fechar menu); no artigo, Índice, Ouvir e Aa no cabeçalho fixo; navegação textual em Inter no desktop.', why: 'Hashtag como marcador da marca; menos elementos antes do texto.' },
+        { el: 'Marca-texto', canva: 'lilás e amarelo', v01: 'lilás = TDAH, amarelo = Dislexia', v1: 'Amarelo #FFE066 = TDAH; roxo #DCCFFF = outras informações; revelado uma vez na rolagem; estático com movimento reduzido.', why: 'Diretriz consolidada E e G; substitui a regra da v0.1.' },
+        { el: 'Botão “COMPRAR”', canva: 'pílula preta em caixa alta', v01: '“Comprar o guia”, primário preto', v1: 'Controles textuais por padrão; no máximo um botão preenchido azul #0A5BD3 por bloco (Começar questionário, Ajustar leitura).', why: 'Diretriz D: botões são palavras; azul distingue ação sem depender só de cor (seta ›).' },
+        { el: 'Área quadrada / gráfico', canva: 'quadrado cinza vazio', v01: 'quadrados com lado ∝ √valor', v1: 'Treemap de blocos proporcionais com filtro, seleção, controle de arraste por período, legenda, detalhe, tabela e fonte.', why: 'Diretriz F: “área quadrada” designa a linguagem de blocos; interação obrigatória.' },
+        { el: 'Pastéis de categoria', canva: 'lilás, amarelo, verde', v01: 'badges coloridos por categoria', v1: 'Removidos da interface. Categoria escrita com # (#Leitura, #Dados). Cor só em grifos, imagens e gráficos.', why: 'Interface neutra (diretriz E).' },
+        { el: 'Preferências de leitura', canva: '—', v01: 'painel com modo foco e fundo creme', v1: 'Aa no cabeçalho: pop-up explicativo no primeiro uso, depois painel com tamanho, espaçamento, fonte e largura. Foco é o estado padrão.', why: 'Dyslexia Scotland e COGA; menos decisões no início da leitura.' }
+      ],
+      colors: [
+        { name: 'Fundo', hex: '#FFFFFF', use: 'Página', border: '#D9D9DE' },
+        { name: 'Bloco', hex: '#F5F5F7', use: 'Blocos alternados', border: '#E3E3E6' },
+        { name: 'Título', hex: '#F2F2F2', use: 'Bloco de título, superfície', border: '#E3E3E6' },
+        { name: 'Tinta', hex: '#111111', use: 'Texto, controles', border: '#111111' },
+        { name: 'Tinta 2', hex: '#3A3A3D', use: 'Texto de apoio', border: '#3A3A3D' },
+        { name: 'Tinta 3', hex: '#5C5C60', use: 'Rótulos, notas', border: '#5C5C60' },
+        { name: 'Linha', hex: '#8A8A8E', use: 'Linha dupla (decorativa)', border: '#8A8A8E' },
+        { name: 'Ação', hex: '#0A5BD3', use: 'Links de ação, botão único', border: '#0A5BD3' },
+        { name: 'Grifo TDAH', hex: '#FFE066', use: 'Informação sobre TDAH', border: '#FFE066' },
+        { name: 'Grifo outro', hex: '#DCCFFF', use: 'Outras informações', border: '#DCCFFF' }
+      ],
+      typeScale: [
+        { sample: 'Título de bloco', font: "600 36px/1.12 Inter,sans-serif", ls: '-0.015em', spec: 'Inter 600 · 28–48 px clamp · −0,015em' },
+        { sample: 'Título de seção', font: "600 22px/1.25 Inter,sans-serif", ls: '-0.01em', spec: 'Inter 600 · 1,3em do corpo · h2 do artigo' },
+        { sample: 'Corpo de leitura alinhado à esquerda.', font: "400 18px/1.6 Inter,sans-serif", ls: '0', spec: 'Inter 400 · 18/29 px · escala 16–24' },
+        { sample: 'Controle textual', font: "500 15px/1.3 Inter,sans-serif", ls: '0', spec: 'Inter 500 · 14–16 px · área 44 px' },
+        { sample: 'Rótulo e nota', font: "400 14px/1.45 Inter,sans-serif", ls: '0', spec: 'Inter 400 · 13–15 px · #5C5C60' },
+        { sample: 'Lorem ipsum: leitura', font: "500 24px/1.28 'IBM Plex Mono',monospace", ls: '0', spec: 'Plex Mono 500 · 24–30 px · só bloco de título' },
+        { sample: '# 24,0% · R1 · A', font: "500 15px/1.3 'IBM Plex Mono',monospace", ls: '0', spec: 'Plex Mono · #, valores, letras de item' }
+      ],
+      spaces: [8, 12, 16, 24, 40, 64, 96, 152].map(v => ({ v, px: v + 'px' })),
+      radii: [{ v: '4px', use: 'título' }, { v: '6px', use: 'controle' }, { v: '18px', use: 'card' }, { v: '999px', use: 'botão' }],
+      menuOpen: s.menuOpen, menuLabel: s.menuOpen ? 'Fechar menu' : 'Abrir menu', menuBg: s.menuOpen ? '#F2F2F2' : 'transparent',
+      toggleMenu: () => set({ menuOpen: !s.menuOpen }), menuItems: ['Início', 'Questionários', 'Artigos', 'Ferramentas'],
+      aboutOpen: s.aboutOpen, aboutRot: s.aboutOpen ? '90deg' : '0deg', toggleAbout: () => set({ aboutOpen: !s.aboutOpen }),
+      simOn: s.ans === 'sim', naoOn: s.ans === 'nao',
+      simLine: s.ans === 'sim' ? '#111' : 'transparent', naoLine: s.ans === 'nao' ? '#111' : 'transparent',
+      simRest: s.ans === 'sim' ? '#111' : '#6E6E73', naoRest: s.ans === 'nao' ? '#111' : '#6E6E73',
+      pickSim: () => set({ ans: 'sim' }), pickNao: () => set({ ans: 'nao' }),
+      tm,
+      pages: [
+        { t: 'Showroom v3', d: 'Página inicial em blocos e três artigos com todos os componentes em contexto.', href: './TDH Showroom v3.dc.html' },
+        { t: 'Questionário v3', d: 'Área 1 de Barkley e Benton: responder, especificar, revisar e resumo para print.', href: './TDH Questionario v3.dc.html' },
+        { t: 'Revisão Apple HIG', d: 'Registro de ajustes e contraste medido.', href: './TDH Revisao HIG.dc.html' },
+        { t: 'Inventário', d: 'Componente → página → seção → comportamento, com contagem de palavras.', href: './TDH Showroom v3.dc.html#/inventario' },
+        { t: 'Biblioteca de componentes', d: 'Oito componentes reutilizáveis em arquivos próprios, com propriedades.', href: './TDH Componentes.dc.html' },
+        { t: 'Mockups completos', d: '20 telas interativas: blog e questionário em iPhone e desktop.', href: './TDH Mockups v1.dc.html' }
+      ],
+      a11y: [
+        { c: 'Área de toque', rule: 'Mínimo 44 × 44 px em todo controle; 64 px em linhas de lista.', ref: 'Apple HIG Buttons · WCAG 2.5.8 (24 px) / 2.5.5', lvl: 'AA+' },
+        { c: 'Contraste', rule: 'Texto ≥ 4,5:1; menor tom permitido #5C5C60. Pares medidos abaixo.', ref: 'WCAG 1.4.3 · HIG Color', lvl: 'AA' },
+        { c: 'Cor não sozinha', rule: 'Grifos com legenda escrita; links de ação com ›; gráficos com rótulos e valores.', ref: 'WCAG 1.4.1 · HIG Color', lvl: 'A' },
+        { c: 'Tamanho e zoom', rule: 'Corpo 18 px, escala 16–24; zoom 200% sem perda; sem alturas fixas em caixas de texto.', ref: 'WCAG 1.4.4 · HIG Typography', lvl: 'AA' },
+        { c: 'Reflow', rule: 'Coluna única até 320 px; tabelas largas em contêiner rolável próprio.', ref: 'WCAG 1.4.10', lvl: 'AA' },
+        { c: 'Espaçamento de texto', rule: 'Suporta 1,5 / 0,12 / 0,16 sem perda; preferências Amplo e Extra.', ref: 'WCAG 1.4.12 · Dyslexia Scotland', lvl: 'AA' },
+        { c: 'Apresentação', rule: 'Linha ≤ 68ch, texto à esquerda, sem justificação, parágrafos curtos.', ref: 'WCAG 1.4.8 · Dyslexia Scotland', lvl: 'AAA' },
+        { c: 'Movimento', rule: 'Efeitos únicos e curtos; nenhum com Reduzir movimento.', ref: 'HIG Motion · WCAG 2.3.3', lvl: 'AAA' },
+        { c: 'Foco e teclado', rule: 'Contorno 3 px #1F5FD1; Esc fecha camadas e devolve o foco; gráficos operáveis por teclado.', ref: 'WCAG 2.4.7 · 2.1.1', lvl: 'AA' },
+        { c: 'Leitor de tela', rule: '# e linhas com aria-hidden; h1–h3 reais; aria-expanded, aria-pressed, aria-current e status anunciado.', ref: 'HIG Accessibility · WCAG 4.1.2', lvl: 'A' }
+      ],
+      contrast,
+      tokensCss: this.tokens,
+      copyTokens: () => { (navigator.clipboard ? navigator.clipboard.writeText(this.tokens) : Promise.reject()).then(() => set({ copyMsg: 'Tokens copiados.' })).catch(() => set({ copyMsg: 'Não foi possível copiar. Selecione o texto acima.' })); },
+      copyMsg: s.copyMsg,
+      todo: [
+        'Preencher edição, editora, ano e páginas da ficha catalográfica de Vencendo o TDAH adulto.',
+        'Incluir a Área 2 do questionário quando a continuação da p. 44 for enviada.',
+        'Substituir placeholders de imagem por imagens editoriais reais.',
+        'Teste moderado com leitores com TDAH e dislexia (preferências, grifos, questionário).',
+        'Verificar licença de uso web de Inter e IBM Plex Mono (ambas OFL) e hospedar os arquivos localmente.'
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

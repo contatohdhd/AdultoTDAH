@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<aside aria-label="{{ kicker }}" style="width:100%;box-sizing:border-box;background:#F2F2F2;border-radius:4px;aspect-ratio:{{ ratio }};display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:clamp(20px,6%,40px)">
+  <span style="font:400 14px/1.3 Inter,sans-serif;color:#5C5C60"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace">#</span> {{ kicker }}</span>
+  <span style="font:500 clamp(19px,2.6vw,24px)/1.3 'IBM Plex Mono',ui-monospace,monospace;color:#111111;text-wrap:balance">{{ text }}</span>
+  <sc-if value="{{ hasNote }}" hint-placeholder-val="{{ false }}"><span style="font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">{{ note }}</span></sc-if>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:320},&quot;kicker&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Ponto-chave&quot;,&quot;Dado&quot;,&quot;Conclusão&quot;],&quot;default&quot;:&quot;Ponto-chave&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;text&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;note&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;square&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const n = this.props.note ?? '';
+    return { kicker: this.props.kicker ?? 'Ponto-chave', text: this.props.text ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', note: n, hasNote: !!n, ratio: this.props.square ? '1' : '4/3' };
+  }
+}
+</script>
+</body>
+</html>

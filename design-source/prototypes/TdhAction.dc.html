@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<sc-if value="{{ isPrimary }}" hint-placeholder-val="{{ false }}"><a href="{{ href }}" onClick="{{ onClick }}" style="min-height:44px;display:inline-flex;align-items:center;padding:0 22px;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:500 17px Inter,sans-serif;text-decoration:none;cursor:pointer" style-hover="background:#0849AC" style-active="background:#073C8F">{{ label }}</a></sc-if>
+<sc-if value="{{ isLink }}" hint-placeholder-val="{{ true }}"><a href="{{ href }}" onClick="{{ onClick }}" style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;border-radius:6px;color:#0A5BD3;font:400 17px Inter,sans-serif;text-decoration:none;cursor:pointer" style-hover="text-decoration:underline;text-underline-offset:4px">{{ label }}<span aria-hidden="true" style="margin-left:4px">›</span></a></sc-if>
+<sc-if value="{{ isText }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ onClick }}" aria-pressed="{{ pressed }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:{{ bg }};font:{{ weight }} 15px Inter,sans-serif;color:#111111;text-decoration:underline;text-decoration-thickness:{{ thick }};text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2" style-active="background:#E6E6E8">{{ label }}</button></sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:320,&quot;height&quot;:80},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;primary&quot;,&quot;link&quot;,&quot;text&quot;],&quot;default&quot;:&quot;link&quot;,&quot;tsType&quot;:&quot;'primary'|'link'|'text'&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ler artigos&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;href&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;selected&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onClick&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const v = this.props.variant ?? 'link', on = this.props.selected;
+    return {
+      label: this.props.label ?? 'Ler artigos', href: this.props.href ?? '#', onClick: this.props.onClick,
+      isPrimary: v === 'primary', isLink: v === 'link', isText: v === 'text',
+      pressed: on == null ? undefined : String(!!on), bg: on ? '#F2F2F2' : 'transparent', weight: on ? 600 : 500, thick: on ? '2px' : '1px'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<p ref="{{ pRef }}" style="margin:0;font:inherit;color:inherit;text-wrap:pretty"><sc-for list="{{ parts }}" as="s"><sc-if value="{{ s.plain }}">{{ s.text }}</sc-if><sc-if value="{{ s.isMark }}"><mark style="color:inherit;background-color:transparent;background-image:linear-gradient({{ s.color }},{{ s.color }});background-repeat:no-repeat;background-position:0 0;background-size:{{ size }} 100%;transition:{{ trans }};-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0.06em 0.1em;border-radius:2px">{{ s.text }}</mark></sc-if></sc-for></p>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:120},&quot;parts&quot;:{&quot;editor&quot;:null,&quot;default&quot;:[&quot;Lorem ipsum &quot;,{&quot;text&quot;:&quot;informação sobre TDAH&quot;,&quot;kind&quot;:&quot;tdah&quot;},&quot; dolor sit amet, &quot;,{&quot;text&quot;:&quot;outro tipo de informação&quot;,&quot;kind&quot;:&quot;outro&quot;},&quot; consectetur.&quot;],&quot;tsType&quot;:&quot;Array&lt;string | { text: string; kind: 'tdah' | 'outro' }&gt;&quot;}}">
+class Component extends DCLogic {
+  pRef = React.createRef();
+  reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  state = { on: this.reduce };
+  componentDidMount() {
+    if (this.state.on || typeof IntersectionObserver === 'undefined') { this.setState({ on: true }); return; }
+    this.io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { this.setState({ on: true }); this.io.disconnect(); } }, { rootMargin: '0px 0px -20% 0px', threshold: 0.6 });
+    this.pRef.current && this.io.observe(this.pRef.current);
+  }
+  componentWillUnmount() { this.io && this.io.disconnect(); }
+  renderVals() {
+    const C = { tdah: '#FFE066', outro: '#DCCFFF' };
+    const raw = this.props.parts ?? ['Lorem ipsum ', { text: 'informação sobre TDAH', kind: 'tdah' }, ' dolor sit amet, ', { text: 'outro tipo de informação', kind: 'outro' }, ' consectetur.'];
+    const parts = raw.map(p => typeof p === 'string' ? { plain: true, text: p } : { isMark: true, text: p.text, color: C[p.kind] || C.tdah });
+    return { pRef: this.pRef, parts, size: this.state.on ? '100%' : '0%', trans: this.reduce ? 'none' : 'background-size 900ms cubic-bezier(.2,.7,.2,1)' };
+  }
+}
+</script>
+</body>
+</html>

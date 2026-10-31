@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+html{scroll-behavior:auto}
+body{margin:0;background:#FFFFFF;color:#111111;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-size-adjust:100%}
+a{color:#111111}a:hover{color:#000000}
+:focus-visible{outline:3px solid #1F5FD1;outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<a href="#conteudo" style="position:absolute;left:-9999px;top:8px;background:#111;color:#fff;padding:12px 16px;z-index:50" style-focus="left:12px">Pular para o conteúdo</a>
+
+<header style="position:sticky;top:0;z-index:20;background:#FFFFFF;max-width:1200px;margin:0 auto;padding:0 20px">
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:4px;min-height:72px">
+    <a href="#/" aria-label="Tdah Adulto, página inicial" style="display:inline-flex;flex-direction:column;align-items:flex-end;gap:3px;padding:6px 4px;min-height:44px;justify-content:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:400;color:#111;text-decoration:none;line-height:1"><span style="font-size:13px">Tdah</span><span style="font-size:22px;letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></a>
+    <div style="display:flex;align-items:center;gap:2px">
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="Principal" style="display:flex;gap:4px;margin-right:8px">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
+            <a href="{{ n.href }}" aria-current="{{ n.current }}" style="min-height:44px;display:flex;align-items:center;padding:0 12px;border-radius:6px;font:400 15px/1 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:{{ n.deco }};text-underline-offset:8px;text-decoration-thickness:2px" style-hover="background:#F2F2F2">{{ n.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-if>
+      <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleToc }}" aria-expanded="{{ tocOpen }}" aria-controls="toc-panel" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;display:flex;align-items:center;gap:6px;background:{{ tocBg }}" style-hover="background:#F2F2F2"><span>{{ tocLabel }}</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex:none;transform:rotate({{ tocRot }});transition:transform 150ms ease"><path d="M4 2l4 4-4 4" fill="none" stroke="#111" stroke-width="1.6"></path></svg></button>
+        <button onClick="{{ audioToggle }}" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;background:{{ audioBg }};text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2" style-active="background:#E6E6E8">{{ audioLabel }}</button>
+        <button ref="{{ aaRef }}" onClick="{{ onAa }}" aria-expanded="{{ aaExpanded }}" aria-label="Preferências de leitura" style="width:44px;height:44px;border:0;border-radius:6px;background:{{ aaBg }};font:500 17px Inter,sans-serif;color:#111;cursor:pointer" style-hover="background:#F2F2F2">Aa</button>
+      </sc-if>
+      <button ref="{{ menuBtnRef }}" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuOpen }}" aria-controls="menu-tdh" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;border-radius:6px;background:{{ menuBg }};color:#111;font:500 24px/1 'IBM Plex Mono',ui-monospace,monospace;cursor:pointer" style-hover="background:#F2F2F2">#</button>
+    </div>
+    <sc-if value="{{ tipOpen }}" hint-placeholder-val="{{ false }}">
+      <div role="dialog" aria-labelledby="tip-title" aria-describedby="tip-desc" style="position:absolute;top:calc(100% - 6px);right:0;width:min(320px,calc(100vw - 40px));box-sizing:border-box;background:#FFFFFF;border:1px solid #D9D9DE;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.12);padding:18px;display:flex;flex-direction:column;gap:10px;z-index:30">
+        <span id="tip-title" style="font:600 16px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Personalize sua leitura</span>
+        <span id="tip-desc" style="font-size:15px;line-height:1.55;color:#3A3A3D">Ajuste o tamanho do texto, o espaçamento e a apresentação para uma leitura mais confortável.</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:4px">
+          <button id="tip-cta" onClick="{{ openPrefsFromTip }}" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:600 15px Inter,sans-serif;cursor:pointer" style-hover="background:#0849AC" style-active="background:#073C8F">Ajustar leitura</button>
+          <button onClick="{{ closeTip }}" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;background:transparent;font-size:15px;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">Fechar</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ audioShow }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:0 0 6px">
+      <span role="status" style="font-size:14px;color:#5C5C60">{{ audioStatus }}</span>
+      <sc-if value="{{ audioActive }}" hint-placeholder-val="{{ false }}"><button onClick="{{ stop }}" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;background:transparent;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">Parar</button></sc-if>
+    </div>
+  </sc-if>
+  <sc-if value="{{ tocOpen }}" hint-placeholder-val="{{ false }}">
+    <nav id="toc-panel" aria-label="Nesta página" style="max-width:680px;margin:0 auto;padding:4px 0 20px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid #E3E3E6;max-height:60vh;overflow:auto">
+      <span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60;padding:4px 12px 8px">Nesta página · {{ tocCount }} seções</span>
+      <sc-for list="{{ toc }}" as="t" hint-placeholder-count="5">
+        <button onClick="{{ t.go }}" aria-current="{{ t.current }}" style="min-height:44px;text-align:left;padding:6px 12px;border:0;border-left:2px solid {{ t.bar }};background:transparent;font-size:16px;line-height:1.35;color:#111;font-weight:{{ t.weight }};cursor:pointer;font-family:Inter,sans-serif" style-hover="background:#F2F2F2">{{ t.text }}</button>
+      </sc-for>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ prefsOpen }}" hint-placeholder-val="{{ false }}">
+    <div id="prefs-top" role="region" aria-label="Preferências de leitura" style="max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:14px;padding:4px 0 20px;border-bottom:1px solid #E3E3E6">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font:600 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Preferências de leitura</span><button onClick="{{ closePrefs }}" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;background:transparent;font-size:15px;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">Fechar</button></div>
+      <span style="font-size:15px;line-height:1.5;color:#3A3A3D">Ajuste o tamanho do texto, o espaçamento e a apresentação para uma leitura mais confortável.</span>
+      <sc-for list="{{ prefGroups }}" as="g" hint-placeholder-count="4">
+              <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px">
+                <span style="min-width:120px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">{{ g.label }}</span>
+                <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+                  <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="min-height:44px;min-width:44px;padding:0 8px;border:0;border-radius:6px;background:{{ o.bg }};font:{{ o.weight }} 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:{{ o.deco }};text-underline-offset:6px;text-decoration-thickness:2px;cursor:pointer" style-hover="background:#F2F2F2">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </sc-for>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px">
+        <button onClick="{{ resetPrefs }}" style="min-height:44px;padding:0 6px;border:0;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;background:transparent;font-size:15px;color:#5C5C60;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">Restaurar padrão</button>
+        <span style="font-size:14px;color:#5C5C60">Salvo neste dispositivo. Vale para os três artigos.</span>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav id="menu-tdh" aria-label="Menu" style="padding:12px 0 28px;display:flex;flex-direction:column;gap:4px;border-bottom:1px solid #E3E3E6">
+      <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="6">
+        <a href="{{ m.href }}" aria-current="{{ m.current }}" style="min-height:56px;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#111;background:{{ m.bg }}" style-hover="background:#F2F2F2">
+          <span style="font:500 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> {{ m.label }}</span>
+          <span style="font-size:15px;line-height:1.4;color:#5C5C60">{{ m.desc }}</span>
+        </a>
+      </sc-for>
+      <span style="font-size:14px;color:#5C5C60;padding:8px 12px 0">Esc ou # fecha o menu.</span>
+    </nav>
+  </sc-if>
+</header>
+
+<main id="conteudo" style="max-width:1200px;margin:0 auto;padding:0 20px 96px">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+
+    <section aria-labelledby="page-title" style="padding:clamp(72px,12vw,144px) 20px clamp(64px,10vw,120px);display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center">
+      <div style="width:100%;max-width:560px;background:#F2F2F2;border-radius:4px;padding:40px 24px 44px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:22px">
+        <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+        <h1 id="page-title" tabindex="-1" style="margin:0;font:500 {{ titleSize }}/1.25 'IBM Plex Mono',ui-monospace,monospace;color:#111">Blog TDH</h1>
+        <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+      </div>
+      <p style="margin:0;max-width:30ch;font:400 clamp(19px,2.4vw,24px)/1.45 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3A3D;text-wrap:balance">Leitura, dados e ferramentas para a vida adulta com TDAH.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px">
+        <a href="#/artigos" style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;border-radius:6px;color:#0A5BD3;font:400 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none" style-hover="text-decoration:underline;text-underline-offset:4px">Ler artigos <span aria-hidden="true" style="margin-left:4px">›</span></a>
+        <a href="#/questionarios" style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;border-radius:6px;color:#0A5BD3;font:400 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none" style-hover="text-decoration:underline;text-underline-offset:4px">Questionários <span aria-hidden="true" style="margin-left:4px">›</span></a>
+      </div>
+    </section>
+
+    <section id="questionarios" aria-labelledby="h-quest" style="scroll-margin-top:96px;background:#F5F5F7;padding:clamp(72px,11vw,128px) 24px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+      <span style="font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60"><span aria-hidden="true" style="font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">#</span> Questionários · Área 1</span>
+      <h2 id="h-quest" style="margin:0;max-width:18ch;font:600 clamp(30px,4.6vw,48px)/1.12 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-0.015em;color:#111;text-wrap:balance">Organize suas observações para a consulta</h2>
+      <p style="margin:0;max-width:44ch;font:400 clamp(17px,1.9vw,21px)/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3A3D;text-wrap:pretty">Responda às afirmações e especifique situações da sua rotina. Ao concluir, visualize suas respostas e tire um print para conversar com seu profissional de saúde.</p>
+      <div aria-hidden="true" style="display:flex;align-items:baseline;gap:36px;padding:28px 0 12px;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111"><span><span style="font-size:clamp(64px,9vw,96px);font-weight:600;line-height:1">S</span><span style="font-size:clamp(24px,3vw,32px);color:#6E6E73">im</span></span><span><span style="font-size:clamp(64px,9vw,96px);font-weight:600;line-height:1">N</span><span style="font-size:clamp(24px,3vw,32px);color:#6E6E73">ão</span></span></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 20px">
+        <a href="./TDH Questionario v3.dc.html" style="min-height:44px;display:inline-flex;align-items:center;padding:0 22px;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:500 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none" style-hover="background:#0849AC">Começar questionário</a>
+        <a href="./TDH Revisao HIG.dc.html" style="min-height:44px;display:inline-flex;align-items:center;padding:0 6px;border-radius:6px;color:#0A5BD3;font:400 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none" style-hover="text-decoration:underline;text-underline-offset:4px">Como foi pensado <span aria-hidden="true" style="margin-left:4px">›</span></a>
+      </div>
+      <span style="max-width:52ch;font:400 14px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Adaptado de Barkley e Benton. Não fornece diagnóstico nem classificação de gravidade.</span>
+    </section>
+
+    <section id="artigos" aria-labelledby="h-artigos" style="scroll-margin-top:96px;display:flex;flex-direction:column;gap:12px">
+      <h2 id="h-artigos" style="margin:0;padding:clamp(64px,9vw,112px) 20px clamp(28px,4vw,48px);text-align:center;font:600 clamp(28px,4vw,40px)/1.15 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-0.01em;color:#111"><span aria-hidden="true" style="font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:500;color:#6E6E73">#</span> Artigos</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px">
+        <sc-for list="{{ cards }}" as="a" hint-placeholder-count="3">
+          <a href="{{ a.href }}" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;text-align:center;min-height:clamp(420px,52vw,560px);padding:clamp(48px,6vw,64px) 28px;box-sizing:border-box;background:#F5F5F7;text-decoration:none;color:#111" style-hover="background:#EFEFF2">
+            <span style="font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">{{ a.tag }} · {{ a.time }}</span>
+            <span style="max-width:16ch;font:600 clamp(24px,2.6vw,30px)/1.18 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-0.01em;text-wrap:balance">{{ a.surface }}</span>
+            <span style="max-width:34ch;font:400 17px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3A3D;text-wrap:pretty">{{ a.deck }}</span>
+            <span style="margin-top:auto;min-height:44px;display:inline-flex;align-items:center;color:#0A5BD3;font:400 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Ler artigo {{ a.letter }} <span aria-hidden="true" style="margin-left:4px">›</span></span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-ferr" style="padding:clamp(80px,11vw,144px) 20px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+      <div aria-hidden="true" style="width:72px;border-top:3px double #8A8A8E"></div>
+      <h2 id="h-ferr" style="margin:0;font:600 clamp(28px,4vw,40px)/1.15 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-0.01em;color:#111"><span aria-hidden="true" style="font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:500;color:#6E6E73">#</span> Ferramentas</h2>
+      <p style="margin:0;max-width:40ch;font:400 clamp(17px,1.9vw,21px)/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3A3D">Recursos práticos para organizar leitura e atenção.</p>
+      <div style="width:100%;max-width:560px;display:flex;flex-direction:column;margin-top:16px">
+        <sc-for list="{{ toolLinks }}" as="t" hint-placeholder-count="3">
+          <a href="#/c/ferramentas" style="min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 4px;border-top:1px solid #E3E3E6;color:#111;text-decoration:none;text-align:left" style-hover="background:#F7F7F8">
+            <span style="font:500 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">{{ t.name }}</span>
+            <span style="font:400 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0A5BD3">Abrir <span aria-hidden="true">›</span></span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+  <article style="max-width:680px;margin:0 auto;padding-top:clamp(32px,6vw,72px);display:flex;flex-direction:column">
+      <div style="background:#F2F2F2;border-radius:4px;padding:40px 20px 44px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+        <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+        <h1 id="page-title" tabindex="-1" style="margin:0;font:500 {{ titleSize }}/1.28 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-wrap:balance;max-width:24ch">{{ art.title }}</h1>
+        <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+      </div>
+      <div style="margin-top:clamp(64px,14vh,144px);display:flex;flex-direction:column;gap:{{ paraGap }};font-family:{{ bodyFont }};font-size:{{ bodySize }};line-height:{{ bodyLH }};letter-spacing:{{ bodyLS }};word-spacing:{{ bodyWS }};max-width:{{ colMax }};color:#111">
+        <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="6">
+
+          <sc-if value="{{ b.isH }}"><h2 id="{{ b.id }}" tabindex="-1" style="margin:{{ hMargin }} 0 0;font:600 1.3em/1.25 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-0.01em;letter-spacing:0;word-spacing:0;scroll-margin-top:24px;text-wrap:balance"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> {{ b.text }}</h2></sc-if>
+
+          <sc-if value="{{ b.isP }}"><p style="margin:0;text-wrap:pretty"><sc-for list="{{ b.segs }}" as="s"><sc-if value="{{ s.plain }}">{{ s.text }}</sc-if><sc-if value="{{ s.isMark }}"><mark data-hl="{{ s.id }}" style="color:inherit;background-color:transparent;background-image:linear-gradient({{ s.color }},{{ s.color }});background-repeat:no-repeat;background-position:0 0;background-size:{{ s.size }} 100%;transition:{{ hlTransition }};-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0.06em 0.1em;border-radius:2px">{{ s.text }}</mark></sc-if><sc-if value="{{ s.isLink }}"><a href="{{ s.href }}" style="color:#111;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font-weight:500" style-hover="text-decoration-thickness:2px">{{ s.text }}</a></sc-if></sc-for></p></sc-if>
+
+          <sc-if value="{{ b.isCallout }}">
+            <aside aria-label="{{ b.kicker }}" style="margin:clamp(32px,6vw,56px) 0;background:#F2F2F2;border-radius:4px;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:clamp(20px,6%,40px);letter-spacing:0;word-spacing:0">
+              <span style="font:400 14px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60"><span aria-hidden="true">#</span> {{ b.kicker }}</span>
+              <span style="font:500 1.35em/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-wrap:balance">{{ b.text }}</span>
+              <sc-if value="{{ b.hasNote }}"><span style="font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">{{ b.note }}</span></sc-if>
+            </aside>
+          </sc-if>
+
+          <sc-if value="{{ b.isTreemap }}">
+            <figure style="margin:clamp(32px,6vw,56px) 0;display:flex;flex-direction:column;gap:16px;font-size:16px;line-height:1.45;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <figcaption style="display:flex;flex-direction:column;gap:4px"><span style="font:600 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Estratégias de leitura mais usadas</span><span style="color:#5C5C60;font-size:15px">% das respostas · {{ tm.group }} · {{ tm.period }} · n = {{ tm.n }} · dados fictícios</span></figcaption>
+              <div role="group" aria-label="Filtrar por grupo" style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px">
+                <span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60;padding-right:4px">Grupo</span>
+                <sc-for list="{{ tm.groups }}" as="g" hint-placeholder-count="3">
+                  <button onClick="{{ g.pick }}" aria-pressed="{{ g.on }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:{{ g.bg }};font:{{ g.weight }} 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:{{ g.deco }};text-underline-offset:6px;text-decoration-thickness:2px;cursor:pointer" style-hover="background:#F2F2F2">{{ g.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><label for="tm-range" style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3A3A3D">Arraste para explorar o período</label><span aria-hidden="true" style="font:600 16px 'IBM Plex Mono',ui-monospace,monospace">{{ tm.period }}</span></div>
+                <input id="tm-range" type="range" min="0" max="7" step="1" value="{{ tm.q }}" onChange="{{ tm.onRange }}" aria-valuetext="{{ tm.period }}" style="width:100%;height:44px;margin:0;accent-color:#111111;cursor:pointer"></input>
+                <div aria-hidden="true" style="display:flex;justify-content:space-between;font:400 13px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60"><span>{{ tm.first }}</span><span>{{ tm.last }}</span></div>
+              </div>
+              <div id="tm-chart" role="group" aria-label="Áreas do gráfico. Selecione uma área para ver detalhes." style="position:relative;width:100%;aspect-ratio:1;filter:{{ tm.filter }};transition:{{ tm.trans }}">
+                <sc-for list="{{ tm.blocks }}" as="k" hint-placeholder-count="7">
+                  <button onClick="{{ k.pick }}" aria-pressed="{{ k.on }}" aria-label="{{ k.aria }}" style="position:absolute;left:{{ k.x }};top:{{ k.y }};width:{{ k.w }};height:{{ k.h }};box-sizing:border-box;border:2px solid #FFFFFF;border-radius:6px;background:{{ k.c }};box-shadow:{{ k.shadow }};padding:10px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;cursor:pointer;color:#111;font-family:inherit;overflow:hidden" style-hover="filter:brightness(0.96)">
+                    <sc-if value="{{ k.showLabel }}"><span style="font-size:14px;line-height:1.25">{{ k.name }}</span><span style="font-size:17px;font-weight:600">{{ k.v }}%</span></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:2px 12px">
+                <sc-for list="{{ tm.legend }}" as="l" hint-placeholder-count="7">
+                  <button onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 8px;border:0;border-radius:6px;background:{{ l.bg }};text-align:left;font-family:inherit;font-size:15px;color:#111;cursor:pointer;font-weight:{{ l.weight }}" style-hover="background:#F2F2F2"><span aria-hidden="true" style="flex:none;width:16px;height:16px;border-radius:3px;background:{{ l.c }}"></span><span style="flex:1">{{ l.name }}</span><span style="font-family:'IBM Plex Mono',ui-monospace,monospace">{{ l.v }}%</span></button>
+                </sc-for>
+              </div>
+              <div role="status" aria-live="polite" style="background:#F7F7F8;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:6px;min-height:72px">
+                <sc-if value="{{ tm.hasSel }}" hint-placeholder-val="{{ false }}">
+                  <span style="font:600 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> {{ tm.sel.name }} · {{ tm.sel.v }}%</span>
+                  <span style="font-size:15px;color:#3A3A3D">{{ tm.sel.count }} de {{ tm.n }} respostas · {{ tm.group }} · {{ tm.period }}. {{ tm.sel.desc }}</span>
+                  <button onClick="{{ tm.clear }}" style="align-self:flex-start;min-height:44px;padding:0 6px;border:0;background:transparent;border-radius:6px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer" style-hover="background:#ECECEE">Limpar seleção</button>
+                </sc-if>
+                <sc-if value="{{ tm.noSel }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;color:#3A3A3D">Toque em uma área ou em um item da legenda para ver os detalhes.</span></sc-if>
+              </div>
+              <details style="border-top:1px solid #E3E3E6">
+                <summary style="min-height:48px;display:flex;align-items:center;cursor:pointer;font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Ver dados em tabela</summary>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse;font-size:15px">
+                    <caption style="text-align:left;padding:0 0 8px;color:#5C5C60">{{ tm.tableCaption }}</caption>
+                    <thead><tr style="text-align:left"><th scope="col" style="padding:10px 8px;border-bottom:1px solid #C9C9CE">Estratégia</th><th scope="col" style="padding:10px 8px;border-bottom:1px solid #C9C9CE;text-align:right">Adultos</th><th scope="col" style="padding:10px 8px;border-bottom:1px solid #C9C9CE;text-align:right">Estudantes</th><th scope="col" style="padding:10px 8px;border-bottom:1px solid #C9C9CE;text-align:right">Profissionais</th></tr></thead>
+                    <tbody>
+                      <sc-for list="{{ tm.rows }}" as="r" hint-placeholder-count="7">
+                        <tr><th scope="row" style="text-align:left;font-weight:400;padding:10px 8px;border-bottom:1px solid #EDEDEF">{{ r.name }}</th><td style="padding:10px 8px;border-bottom:1px solid #EDEDEF;text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace">{{ r.a }}</td><td style="padding:10px 8px;border-bottom:1px solid #EDEDEF;text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace">{{ r.b }}</td><td style="padding:10px 8px;border-bottom:1px solid #EDEDEF;text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace">{{ r.c }}</td></tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+              <span style="font:400 14px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Dados fictícios para demonstração. Área de cada bloco proporcional ao valor.</span>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ b.isWaffle }}">
+            <figure style="margin:clamp(32px,6vw,56px) 0;display:flex;flex-direction:column;gap:16px;font-size:16px;line-height:1.45;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <figcaption style="display:flex;flex-direction:column;gap:4px"><span style="font:600 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Tempo até começar a ler</span><span style="color:#5C5C60;font-size:15px">100 leitores, cada bloco = 1 pessoa · {{ wf.version }} · dados fictícios</span></figcaption>
+              <div role="group" aria-label="Versão do layout" style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px">
+                <span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60;padding-right:4px">Versão</span>
+                <sc-for list="{{ wf.versions }}" as="g" hint-placeholder-count="2">
+                  <button onClick="{{ g.pick }}" aria-pressed="{{ g.on }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:{{ g.bg }};font:{{ g.weight }} 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:{{ g.deco }};text-underline-offset:6px;text-decoration-thickness:2px;cursor:pointer" style-hover="background:#F2F2F2">{{ g.label }}</button>
+                </sc-for>
+              </div>
+              <div role="img" aria-label="{{ wf.aria }}" style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;max-width:420px">
+                <sc-for list="{{ wf.cells }}" as="c" hint-placeholder-count="100"><span style="aspect-ratio:1;border-radius:3px;background:{{ c.bg }}"></span></sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:2px 12px">
+                <sc-for list="{{ wf.legend }}" as="l" hint-placeholder-count="4">
+                  <button onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 8px;border:0;border-radius:6px;background:{{ l.bg }};text-align:left;font-family:inherit;font-size:15px;color:#111;cursor:pointer;font-weight:{{ l.weight }}" style-hover="background:#F2F2F2"><span aria-hidden="true" style="flex:none;width:16px;height:16px;border-radius:3px;background:{{ l.c }}"></span><span style="flex:1">{{ l.name }}</span><span style="font-family:'IBM Plex Mono',ui-monospace,monospace">{{ l.v }}</span></button>
+                </sc-for>
+              </div>
+              <span role="status" style="font-size:15px;color:#3A3A3D">{{ wf.summary }}</span>
+              <span style="font:400 14px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Dados fictícios para demonstração.</span>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ b.isFlow }}">
+            <figure id="flow-r1" style="margin:clamp(32px,6vw,56px) 0;display:flex;flex-direction:column;gap:16px;font-size:16px;line-height:1.45;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <figcaption style="display:flex;flex-direction:column;gap:4px"><span style="font:600 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Ciclo R1 · reforço da leitura</span><span style="color:#5C5C60;font-size:15px">Selecione uma etapa para explorar. Cada “+” indica que uma etapa reforça a seguinte.</span></figcaption>
+              <div style="position:relative;width:100%;max-width:440px;aspect-ratio:1;margin:0 auto">
+                <svg aria-hidden="true" viewBox="0 0 340 340" style="position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%;transform:rotate({{ flow.rot }});transition:{{ flow.trans }}"><defs><marker id="tdh-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5C5C60"></path></marker></defs>
+                  <path d="M214 50 A130 130 0 0 1 290 126" fill="none" stroke="#8A8A8E" stroke-width="2" marker-end="url(#tdh-ah)"></path>
+                  <path d="M290 214 A130 130 0 0 1 214 290" fill="none" stroke="#8A8A8E" stroke-width="2" marker-end="url(#tdh-ah)"></path>
+                  <path d="M126 290 A130 130 0 0 1 50 214" fill="none" stroke="#8A8A8E" stroke-width="2" marker-end="url(#tdh-ah)"></path>
+                  <path d="M50 126 A130 130 0 0 1 126 50" fill="none" stroke="#8A8A8E" stroke-width="2" marker-end="url(#tdh-ah)"></path>
+                  <text x="268" y="76" font-size="16" font-family="IBM Plex Mono, monospace" fill="#111">+</text><text x="264" y="274" font-size="16" font-family="IBM Plex Mono, monospace" fill="#111">+</text><text x="62" y="274" font-size="16" font-family="IBM Plex Mono, monospace" fill="#111">+</text><text x="62" y="76" font-size="16" font-family="IBM Plex Mono, monospace" fill="#111">+</text>
+                  <circle cx="170" cy="170" r="46" fill="none" stroke="#C9C9CE" stroke-dasharray="4 5"></circle>
+                </svg>
+                <sc-for list="{{ flow.nodes }}" as="n" hint-placeholder-count="4">
+                  <button onClick="{{ n.pick }}" aria-pressed="{{ n.on }}" style="position:absolute;left:{{ n.x }};top:{{ n.y }};transform:{{ n.tf }};max-width:38%;min-height:44px;padding:8px 10px;border-radius:8px;border:{{ n.border }};background:{{ n.bg }};font-family:inherit;font-size:14px;line-height:1.25;color:#111;text-align:center;cursor:pointer" style-hover="background:#ECECEE"><span style="display:block;font:600 12px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">{{ n.num }}</span>{{ n.label }}</button>
+                </sc-for>
+                <div aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-size:13px;line-height:1.25;color:#3A3A3D"><span style="display:block;font:600 20px 'IBM Plex Mono',ui-monospace,monospace;color:#111">R1</span>reforço</div>
+              </div>
+              <div role="status" style="background:#F7F7F8;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:4px"><span style="font:600 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">{{ flow.sel.num }} · {{ flow.sel.label }}</span><span style="font-size:15px;color:#3A3A3D">{{ flow.sel.desc }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Sequência em texto</span>
+                <ol style="margin:0;padding-left:22px;font-size:15px;line-height:1.6"><sc-for list="{{ flow.nodes }}" as="n" hint-placeholder-count="4"><li>{{ n.label }} reforça {{ n.next }}</li></sc-for></ol>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ b.isScheme }}">
+            <figure style="margin:clamp(32px,6vw,56px) 0;display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.45;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <figcaption style="display:flex;flex-direction:column;gap:4px"><span style="font:600 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Esquema · agrupar por momento</span><span style="color:#5C5C60;font-size:15px">Um item em Agora. Até três em Próximo. O restante espera em Depois.</span></figcaption>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">
+                <sc-for list="{{ scheme }}" as="col" hint-placeholder-count="3">
+                  <div style="border:1px solid {{ col.border }};border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;background:{{ col.bg }}">
+                    <span style="display:flex;justify-content:space-between;font:600 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> {{ col.name }}</span><span style="font-weight:400;color:#5C5C60">{{ col.count }}</span></span>
+                    <div aria-hidden="true" style="width:40px;border-top:3px double #8A8A8E"></div>
+                    <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px"><sc-for list="{{ col.items }}" as="it" hint-placeholder-count="2"><li style="font-weight:{{ col.weight }}">{{ it }}</li></sc-for></ul>
+                  </div>
+                </sc-for>
+              </div>
+            </figure>
+          </sc-if>
+
+          <sc-if value="{{ b.isTools }}">
+            <section id="ferramentas" aria-labelledby="h-tools" style="margin:24px 0 8px;display:flex;flex-direction:column;gap:16px;scroll-margin-top:24px;font-size:16px;line-height:1.5;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <div aria-hidden="true" style="width:72px;border-top:3px double #8A8A8E"></div>
+              <h2 id="h-tools" tabindex="-1" style="margin:0;font:600 21px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> Ferramentas</h2>
+              <div style="display:flex;flex-direction:column">
+                <sc-for list="{{ tools }}" as="t" hint-placeholder-count="3">
+                  <div style="border-top:1px solid #E3E3E6;padding:14px 0;display:flex;flex-direction:column;gap:8px">
+                    <span style="font:600 17px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">{{ t.name }}</span>
+                    <span style="font-size:16px;color:#3A3A3D">{{ t.desc }}</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px 8px;margin-left:-8px">
+                      <button onClick="{{ t.toggle }}" aria-expanded="{{ t.open }}" aria-controls="{{ t.panelId }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:{{ t.btnBg }};font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">{{ t.toggleLabel }}</button>
+                      <button onClick="{{ t.copy }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2" style-active="background:#E6E6E8">Copiar</button>
+                    </div>
+                    <sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}">
+                      <ol id="{{ t.panelId }}" style="margin:0;padding:12px 16px 12px 36px;background:#F7F7F8;border-radius:8px;display:flex;flex-direction:column;gap:6px;font-size:16px"><sc-for list="{{ t.items }}" as="it" hint-placeholder-count="3"><li>{{ it }}</li></sc-for></ol>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <span role="status" style="font-size:15px;color:#3A3A3D;min-height:22px">{{ toolMsg }}</span>
+            </section>
+          </sc-if>
+
+          <sc-if value="{{ b.isPrefs }}">
+            <section id="preferencias" aria-labelledby="h-prefs" style="margin:8px 0;display:flex;flex-direction:column;gap:16px;scroll-margin-top:24px;font-size:16px;line-height:1.5;letter-spacing:0;word-spacing:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+              <h3 id="h-prefs" style="margin:0;font:600 19px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> Preferências de leitura</h3>
+              <span style="font-size:16px;color:#3A3A3D">Os mesmos ajustes do controle Aa, no topo de cada artigo. Experimente aqui e veja o texto mudar.</span>
+              <div style="border:1px solid #E3E3E6;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:14px">
+                <sc-for list="{{ prefGroups }}" as="g" hint-placeholder-count="4">
+                  <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px">
+                    <span style="min-width:120px;font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">{{ g.label }}</span>
+                    <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+                      <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="min-height:44px;min-width:44px;padding:0 8px;border:0;border-radius:6px;background:{{ o.bg }};font:{{ o.weight }} 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:{{ o.deco }};text-underline-offset:6px;text-decoration-thickness:2px;cursor:pointer" style-hover="background:#F2F2F2">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                </sc-for>
+                <div style="display:flex;flex-wrap:wrap;gap:4px 12px">
+                  <button onClick="{{ resetPrefs }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Restaurar padrão</button>
+                </div>
+              </div>
+            </section>
+          </sc-if>
+
+        </sc-for>
+      </div>
+
+      <section style="margin-top:clamp(96px,14vw,160px);border-top:1px solid #E3E3E6;border-bottom:1px solid #E3E3E6">
+        <button onClick="{{ toggleAbout }}" aria-expanded="{{ aboutOpen }}" aria-controls="about-panel" style="width:100%;min-height:56px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;background:transparent;padding:0 4px;font:600 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;cursor:pointer;text-align:left" style-hover="background:#F7F7F8"><span>Sobre este artigo</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex:none;transform:rotate({{ aboutRot }});transition:transform 150ms ease"><path d="M4 2l4 4-4 4" fill="none" stroke="#111" stroke-width="1.6"></path></svg></button>
+        <sc-if value="{{ aboutOpen }}" hint-placeholder-val="{{ false }}">
+          <div id="about-panel" style="padding:4px 4px 24px;display:flex;flex-direction:column;gap:16px;font-size:15px;line-height:1.55;color:#111">
+            <p style="margin:0;font-size:17px;line-height:1.55">{{ art.deck }}</p>
+            <dl style="margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 20px">
+              <dt style="font:400 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Autoria</dt><dd style="margin:0">{{ art.author }}</dd>
+              <dt style="font:400 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Publicação</dt><dd style="margin:0">{{ art.date }}</dd>
+              <dt style="font:400 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Categoria</dt><dd style="margin:0">{{ art.tag }}</dd>
+              <dt style="font:400 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Leitura</dt><dd style="margin:0">{{ art.time }} · {{ art.words }} palavras</dd>
+            </dl>
+            <sc-if value="{{ showLegend }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:8px 20px;color:#3A3A3D">
+                <span><mark style="background:#FFE066;color:#111;padding:1px 6px;border-radius:2px">Grifo amarelo</mark> TDAH</span>
+                <span><mark style="background:#DCCFFF;color:#111;padding:1px 6px;border-radius:2px">Grifo roxo</mark> outras informações</span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </section>
+      <section aria-labelledby="h-share" style="margin-top:40px;display:flex;flex-direction:column;gap:12px">
+        <div aria-hidden="true" style="width:72px;border-top:3px double #8A8A8E"></div>
+        <h2 id="h-share" style="margin:0;font:600 18px/1.3 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Compartilhar</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:4px 8px;margin-left:-8px">
+          <a href="{{ shareWA }}" target="_blank" rel="noopener" style="min-height:44px;display:flex;align-items:center;padding:0 8px;border-radius:6px;font:500 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">WhatsApp</a>
+          <a href="{{ shareFB }}" target="_blank" rel="noopener" style="min-height:44px;display:flex;align-items:center;padding:0 8px;border-radius:6px;font:500 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px" style-hover="background:#F2F2F2">Facebook</a>
+          <button onClick="{{ shareIG }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Instagram</button>
+          <button onClick="{{ copyLink }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 16px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Copiar link</button>
+        </div>
+        <span role="status" style="font-size:15px;line-height:1.5;color:#3A3A3D;min-height:22px">{{ shareMsg }}</span>
+      </section>
+      <a href="{{ next.href }}" style="margin-top:24px;display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid #E3E3E6;border-radius:8px;text-decoration:none;color:#111" style-hover="border-color:#111">
+        <span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Próximo · Artigo {{ next.letter }}</span>
+        <span style="font-size:19px;line-height:1.35;font-weight:600">{{ next.title }}</span>
+      </a>
+    </article>
+</sc-if>
+
+<sc-if value="{{ isInventory }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:40px;padding-top:40px">
+    <div style="max-width:680px;width:100%;margin:0 auto;background:#F2F2F2;border-radius:4px;padding:32px 20px 36px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+      <span style="font:400 14px/1.4 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Showroom | verificação</span>
+      <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+      <h1 id="page-title" tabindex="-1" style="margin:0;font:500 {{ titleSize }}/1.25 'IBM Plex Mono',ui-monospace,monospace">Inventário de componentes</h1>
+      <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+    </div>
+    <section aria-labelledby="h-wc" style="display:flex;flex-direction:column;gap:16px">
+      <h2 id="h-wc" style="margin:0;font:600 20px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> Contagem de palavras</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px">
+        <sc-for list="{{ wordCounts }}" as="w" hint-placeholder-count="3">
+          <a href="{{ w.href }}" style="display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid #E3E3E6;border-radius:8px;text-decoration:none;color:#111" style-hover="border-color:#111"><span style="font:500 14px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#5C5C60">Artigo {{ w.letter }}</span><span style="font:600 32px/1.1 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">{{ w.words }}</span><span style="font-size:15px;color:#3A3A3D">palavras · limite 1.200 · {{ w.ok }}</span></a>
+        </sc-for>
+      </div>
+      <span style="font-size:15px;color:#5C5C60">Conta título, linha fina, títulos de seção, parágrafos e legendas. Rótulos de gráficos e controles não entram.</span>
+    </section>
+    <section aria-labelledby="h-inv" style="display:flex;flex-direction:column;gap:16px">
+      <h2 id="h-inv" style="margin:0;font:600 20px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><span aria-hidden="true" style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;color:#6E6E73">#</span> Componente → página → seção → comportamento</h2>
+      <div style="overflow-x:auto;border:1px solid #E3E3E6;border-radius:8px">
+        <table style="width:100%;min-width:760px;border-collapse:collapse;font-size:15px;line-height:1.45">
+          <thead><tr style="text-align:left;background:#F7F7F8"><th scope="col" style="padding:12px 14px;width:22%">Componente</th><th scope="col" style="padding:12px 14px;width:14%">Página</th><th scope="col" style="padding:12px 14px;width:24%">Seção</th><th scope="col" style="padding:12px 14px">Comportamento disponível</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ inventory }}" as="r" hint-placeholder-count="10">
+              <tr style="border-top:1px solid #E3E3E6"><th scope="row" style="padding:12px 14px;text-align:left;font:500 14px/1.4 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">{{ r.c }}</th><td style="padding:12px 14px"><a href="{{ r.href }}" style="color:#111">{{ r.p }}</a></td><td style="padding:12px 14px">{{ r.s }}</td><td style="padding:12px 14px;color:#3A3A3D">{{ r.b }}</td></tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</sc-if>
+</main>
+
+<footer style="max-width:1200px;margin:0 auto;padding:0 20px 48px;display:flex;flex-direction:column;gap:16px">
+  <div aria-hidden="true" style="border-top:3px double #8A8A8E"></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px">
+    <a href="#/" aria-label="Tdah Adulto, página inicial" style="display:inline-flex;flex-direction:column;align-items:flex-end;gap:3px;padding:6px 4px;min-height:44px;justify-content:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:400;color:#111;text-decoration:none;line-height:1"><span style="font-size:12px">Tdah</span><span style="font-size:20px;letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></a>
+    <nav aria-label="Rodapé" style="display:flex;flex-wrap:wrap;gap:4px">
+      <a href="#/artigos" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Artigos</a>
+      <a href="#/questionarios" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Questionários</a>
+      <a href="#/c/ferramentas" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Ferramentas</a>
+      <a href="#/inventario" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Inventário</a>
+      <a href="./TDH Revisao HIG.dc.html" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Acessibilidade</a>
+      <a href="./TDH Design System v1.dc.html" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Sistema de design</a>
+      <a href="./TDH Mockups v1.dc.html" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111">Mockups</a>
+    </nav>
+  </div>
+  <span style="font-size:14px;color:#5C5C60">Conteúdo placeholder. Todos os dados das demonstrações são fictícios.</span>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  LW = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum'.split(' ');
+  seed = 11; hlN = 0;
+  lorem(n) {
+    const out = []; let k = 0;
+    for (let i = 0; i < n; i++) {
+      this.seed = (this.seed * 9301 + 49297) % 233280;
+      let w = this.LW[this.seed % this.LW.length];
+      if (k === 0) w = w[0].toUpperCase() + w.slice(1);
+      k++;
+      const end = i === n - 1 || (k >= 7 && this.seed % 4 === 0) || k >= 15;
+      out.push(end ? w + '.' : w); if (end) k = 0;
+    }
+    return out.join(' ');
+  }
+  P(...parts) {
+    const segs = [];
+    parts.forEach((pt, i) => {
+      if (i > 0) segs.push({ plain: true, text: ' ' });
+      if (typeof pt === 'number') segs.push({ plain: true, text: this.lorem(pt) });
+      else if (pt.m) segs.push({ isMark: true, m: pt.m, id: 'hl' + (this.hlN++), text: this.lorem(pt.n) });
+      else segs.push({ isLink: true, text: pt.link, href: pt.href });
+    });
+    return { isP: true, segs };
+  }
+  H(id, text) { return { isH: true, id, text }; }
+  wc(s) { return String(s).trim().split(/\s+/).filter(Boolean).length; }
+  build() {
+    const P = (...a) => this.P(...a), H = (i, t) => this.H(i, t);
+    const A = [
+      H('a-contexto', 'Contexto'), P(42), P(24, { m: 'y', n: 16 }, 6), P(44),
+      H('a-sinais', 'Sinais no dia a dia'), P(40), P(18, { link: 'veja os dados no Artigo B', href: '#/b' }, 22), P({ m: 'p', n: 14 }, 28),
+      { isCallout: true, kicker: 'Ponto-chave', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.' },
+      P(42), P(38),
+      H('a-atencao', 'Leitura com atenção variável'), P(44), P(20, { m: 'y', n: 18 }, 8), P(42), P(36),
+      H('a-destaques', 'Destaques e memória'), P(40), P({ m: 'p', n: 16 }, 26), P(44), P(30, { m: 'y', n: 12 }),
+      H('a-aplicacao', 'Aplicação'), P(42), P(24, { link: 'ferramentas do Artigo C', href: '#/c/ferramentas' }, 16), P(40), P(22, { m: 'p', n: 14 }, 6),
+      H('a-sintese', 'Síntese'), P(42), P(36)
+    ];
+    const B = [
+      H('b-pergunta', 'A pergunta'), P(42), P(40), P(26, { link: 'leitura e destaques no Artigo A', href: '#/a' }, 14),
+      H('b-estrategias', 'Estratégias por grupo'), P(42), P(38), { isTreemap: true }, P(42), P(40),
+      H('b-tempo', 'Tempo até começar'), P(42), P(36), { isWaffle: true }, P(42), { isCallout: true, kicker: 'Dado', text: '46 de 100 leitores começaram a ler em menos de 10 segundos.', note: 'Layout TDH · dados fictícios', hasNote: true }, P(38),
+      H('b-limites', 'Limites dos dados'), P(42), P(40), P(36),
+      H('b-proximos', 'Próximos passos'), P(40), P(24, { link: 'processos no Artigo C', href: '#/c' }, 14), P(34)
+    ];
+    const C = [
+      H('c-processo', 'O processo'), P(42), P(40), P(36),
+      H('c-ciclo', 'Ciclo de reforço'), P(40), { isFlow: true }, P(42), P(38),
+      H('c-agrupar', 'Agrupar e hierarquizar'), P(42), { isScheme: true }, P(40), P(28, { link: 'os dados do Artigo B', href: '#/b' }, 12),
+      H('c-ferramentas', 'Ferramentas e ajustes'), P(40), { isTools: true }, P(36), { isPrefs: true },
+      H('c-sintese', 'Síntese'), P(42), { isCallout: true, kicker: 'Conclusão', text: 'Lorem ipsum dolor sit amet: uma etapa por vez, com espaço para respirar.' }, P(36)
+    ];
+    const meta = [
+      { key: 'a', letter: 'A', tag: '#Leitura', title: 'Lorem ipsum: leitura e destaques', color: '#FFF1B3', blocks: A, date: '30 out 2026', legend: true },
+      { key: 'b', letter: 'B', tag: '#Dados', title: 'Lorem ipsum: dados e exploração', color: '#D6E8FB', blocks: B, date: '28 out 2026' },
+      { key: 'c', letter: 'C', tag: '#Ferramentas', title: 'Lorem ipsum: processos e ferramentas', color: '#E9E1FF', blocks: C, date: '26 out 2026' }
+    ];
+    return meta.map(m => {
+      m.deck = this.lorem(24); m.author = 'Redação TDH';
+      let w = this.wc(m.title) + this.wc(m.deck); const sp = [m.title + '.', m.deck];
+      m.blocks.forEach(b => {
+        if (b.isH) { w += this.wc(b.text); sp.push(b.text + '.'); }
+        if (b.isP) { const t = b.segs.map(s => s.text).join(''); w += this.wc(t); sp.push(t); }
+        if (b.isCallout) { w += this.wc(b.text) + (b.note ? this.wc(b.note) : 0); sp.push(b.text); }
+      });
+      m.words = w; m.time = Math.max(1, Math.round(w / 200)) + ' min'; m.speech = sp.join(' ');
+      m.toc = m.blocks.filter(b => b.isH).map(b => ({ id: b.id, text: b.text }));
+      if (m.key === 'c') m.toc.splice(3, 0);
+      return m;
+    });
+  }
+  arts = this.build();
+  tmCats = [
+    { k: 'Áudio', c: '#A3CCF7' }, { k: 'Resumo antes de ler', c: '#F7BBD4' }, { k: 'Marca-texto', c: '#F7E08F' },
+    { k: 'Pausas programadas', c: '#A0DDB4' }, { k: 'Fonte maior', c: '#CDB8F2' }, { k: 'Modo foco', c: '#F4BC94' }, { k: 'Outras', c: '#D9D9DC' }
+  ].map(c => ({ ...c, desc: this.lorem(14) }));
+  tmGroups = [{ label: 'Adultos', n: 412, v: [24, 19, 16, 13, 11, 10, 7] }, { label: 'Estudantes', n: 296, v: [14, 22, 21, 9, 12, 15, 7] }, { label: 'Profissionais', n: 338, v: [28, 15, 10, 18, 8, 14, 7] }];
+  wfCats = [{ k: 'Menos de 10 s', c: '#A0DDB4' }, { k: '10 a 30 s', c: '#A3CCF7' }, { k: '30 a 60 s', c: '#F7E08F' }, { k: 'Mais de 60 s', c: '#F7BBD4' }];
+  wfVersions = [{ label: 'Layout anterior', v: [22, 38, 25, 15] }, { label: 'Layout TDH', v: [46, 34, 14, 6] }];
+  flowNodes = [
+    { label: 'Compreensão narrativa', x: '50%', y: '2%', tf: 'translateX(-50%)' },
+    { label: 'Expectativa significativa', x: '100%', y: '50%', tf: 'translate(-100%,-50%)' },
+    { label: 'Atenção sustentada', x: '50%', y: '98%', tf: 'translate(-50%,-100%)' },
+    { label: 'Informação processada', x: '0%', y: '50%', tf: 'translateY(-50%)' }
+  ].map(n => ({ ...n, desc: this.lorem(20) }));
+  toolsData = [
+    { id: 'checklist', name: 'Checklist de leitura', desc: 'Quatro passos antes de começar um texto longo.', items: ['Ler o título e a linha fina', 'Abrir o índice da página', 'Escolher uma seção para começar', 'Ajustar a leitura se precisar'] },
+    { id: 'mapa', name: 'Mapa semanal', desc: 'Agora, Próximo e Depois em uma folha.', items: ['Agora: uma tarefa', 'Próximo: até três tarefas', 'Depois: todo o resto'] },
+    { id: 'pausa', name: 'Pausa programada', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', items: ['Ler por 15 minutos', 'Pausar por 3 minutos', 'Retomar pelo último título lido'] }
+  ];
+  menuBtnRef = React.createRef(); aaRef = React.createRef();
+  periods = ['T1 2025', 'T2 2025', 'T3 2025', 'T4 2025', 'T1 2026', 'T2 2026', 'T3 2026', 'T4 2026'];
+  tmVals(gi, q) {
+    const b = this.tmGroups[gi].v, w = b.map((v, i) => v * (1 + 0.22 * Math.sin(q * 0.85 + i * 1.7))), t = w.reduce((a, c) => a + c, 0);
+    const r = w.map(x => Math.round(x / t * 1000) / 10), diff = Math.round((100 - r.reduce((a, c) => a + c, 0)) * 10) / 10, mi = r.indexOf(Math.max(...r));
+    r[mi] = Math.round((r[mi] + diff) * 10) / 10; return r;
+  }
+  loadTip() { try { return localStorage.getItem('tdh-tip-seen') === '1'; } catch (e) { return false; } }
+  saveTip() { try { localStorage.setItem('tdh-tip-seen', '1'); } catch (e) {} }
+  loadPrefs() {
+    const d = { size: 1, spacing: 0, font: 0, width: 0 };
+    try { return { ...d, ...JSON.parse(localStorage.getItem('tdh-prefs') || '{}') }; } catch (e) { return d; }
+  }
+  parse() {
+    const parts = (location.hash || '').replace(/^#\/?/, '').split('/');
+    let page = parts[0] || 'home', anchor = parts[1] || null;
+    if (page === 'artigos' || page === 'questionarios') { anchor = page; page = 'home'; }
+    if (!['home', 'a', 'b', 'c', 'inventario'].includes(page)) { page = 'home'; anchor = null; }
+    return { page, anchor };
+  }
+  state = { route: this.parse(), menuOpen: false, prefsOpen: false, revealed: {}, audio: 'idle', progress: 0, shareMsg: '', toolMsg: '', tmGroup: 0, tmSel: null, wfV: 1, wfSel: null, flowSel: 0, toolsOpen: {}, activeSec: null, tocOpen: false, tipOpen: false, aboutOpen: false, tipSeen: this.loadTip(), tmQ: 7, tmPulse: false, flowRot: false, wide: typeof window !== 'undefined' && window.innerWidth >= 1024, reduce: typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches, prefs: this.loadPrefs() };
+
+  componentDidMount() {
+    this.onHash = () => {
+      const prev = this.state.route, route = this.parse();
+      this.setState({ route, menuOpen: false, tocOpen: false, prefsOpen: false, tipOpen: false, aboutOpen: false }, () => {
+        if (prev.page !== route.page) this.stop();
+        this.afterRoute(false);
+      });
+    };
+    this.onDocClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#/"]');
+      if (a && a.getAttribute('href') === location.hash) { this.setState({ menuOpen: false }); this.afterRoute(false); }
+    };
+    document.addEventListener('click', this.onDocClick);
+    this.onResize = () => { const w = window.innerWidth >= 1024; if (w !== this.state.wide) this.setState({ wide: w }); };
+    this.onKey = (e) => { if (e.key !== 'Escape') return; const s = this.state;
+      if (s.tipOpen) { this.saveTip(); this.setState({ tipOpen: false, tipSeen: true }); this.aaRef.current && this.aaRef.current.focus(); }
+      else if (s.menuOpen) { this.setState({ menuOpen: false }); this.menuBtnRef.current && this.menuBtnRef.current.focus(); }
+      else if (s.tocOpen || s.prefsOpen) this.setState({ tocOpen: false, prefsOpen: false }); };
+    this.onScroll = () => {
+      const a = this.art(); if (!a) return;
+      let cur = a.toc[0] && a.toc[0].id;
+      a.toc.forEach(t => { const el = document.getElementById(t.id); if (el && el.getBoundingClientRect().top < 140) cur = t.id; });
+      if (cur !== this.state.activeSec) this.setState({ activeSec: cur });
+    };
+    this.mq = matchMedia('(prefers-reduced-motion: reduce)');
+    this.onMq = () => this.setState({ reduce: this.mq.matches });
+    window.addEventListener('hashchange', this.onHash);
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.mq.addEventListener && this.mq.addEventListener('change', this.onMq);
+    this.afterRoute(true);
+    const st = new URLSearchParams(location.search).get('state');
+    if (st) setTimeout(() => this.setState({ menuOpen: st === 'menu', tipOpen: st === 'tip', prefsOpen: st === 'prefs', tocOpen: st === 'toc' }), 120);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.onHash); document.removeEventListener('click', this.onDocClick); window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('keydown', this.onKey); window.removeEventListener('scroll', this.onScroll);
+    this.io && this.io.disconnect(); window.speechSynthesis && window.speechSynthesis.cancel();
+  }
+  componentDidUpdate(pp, ps) {
+
+    if (ps.reduce !== this.state.reduce) setTimeout(() => this.observe(), 60);
+    if (!ps.tipOpen && this.state.tipOpen) setTimeout(() => { const b = document.getElementById('tip-cta'); b && b.focus(); }, 30);
+  }
+  scrollToAnchor(id, tries) {
+    const el = document.getElementById(id);
+    if (!el) { if (tries > 0) requestAnimationFrame(() => this.scrollToAnchor(id, tries - 1)); return; }
+    const hd = document.querySelector('header'), off = (hd ? hd.getBoundingClientRect().height : 0) + 16;
+    const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - off);
+    window.scrollTo(0, y);
+    requestAnimationFrame(() => { if (Math.abs(window.scrollY - y) > 4) window.scrollTo(0, y); });
+  }
+  afterRoute(first) {
+    setTimeout(() => {
+      const { anchor } = this.state.route;
+      const el = anchor && document.getElementById(anchor);
+      if (anchor) { this.scrollToAnchor(anchor, 30); }
+      else if (!first) { window.scrollTo(0, 0); const h = document.getElementById('page-title'); h && h.focus({ preventScroll: true }); }
+      this.observe(); this.onScroll && this.onScroll();
+    }, 60);
+  }
+  observe() {
+    this.io && this.io.disconnect(); this.fxIo && this.fxIo.disconnect();
+    if (!this.state.reduce && typeof IntersectionObserver !== 'undefined') {
+      this.fxIo = new IntersectionObserver((es) => es.forEach(e => {
+        if (!e.isIntersecting) return; this.fxIo.unobserve(e.target);
+        const k = e.target.id === 'tm-chart' ? 'tmPulse' : 'flowRot';
+        this.setState({ [k]: true }); setTimeout(() => this.setState({ [k]: false }), 650);
+      }), { threshold: 0.45 });
+      ['tm-chart', 'flow-r1'].forEach(id => { const el = document.getElementById(id); el && this.fxIo.observe(el); });
+    }
+    if (this.state.reduce || typeof IntersectionObserver === 'undefined') return;
+    this.io = new IntersectionObserver((es) => {
+      const add = {};
+      es.forEach(e => { if (e.isIntersecting) { add[e.target.dataset.hl] = true; this.io.unobserve(e.target); } });
+      if (Object.keys(add).length) this.setState(s => ({ revealed: { ...s.revealed, ...add } }));
+    }, { rootMargin: '0px 0px -20% 0px', threshold: 0.6 });
+    document.querySelectorAll('[data-hl]').forEach(el => { if (!this.state.revealed[el.dataset.hl]) this.io.observe(el); });
+  }
+  art() { return this.arts.find(a => a.key === this.state.route.page); }
+  setPrefs(o) { const prefs = { ...this.state.prefs, ...o }; try { localStorage.setItem('tdh-prefs', JSON.stringify(prefs)); } catch (e) {} this.setState({ prefs }); }
+  play = () => {
+    const ss = window.speechSynthesis, a = this.art();
+    if (!ss || !a) { this.setState({ audio: 'unsupported' }); return; }
+    if (this.state.audio === 'paused') { ss.resume(); this.setState({ audio: 'playing' }); return; }
+    ss.cancel();
+    const u = new SpeechSynthesisUtterance(a.speech); u.lang = 'pt-BR'; u.rate = 1;
+    const v = ss.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith('pt')); if (v) u.voice = v;
+    const len = a.speech.length;
+    u.onboundary = (e) => { const p = Math.min(99, Math.round(e.charIndex / len * 100)); if (p !== this.state.progress) this.setState({ progress: p }); };
+    u.onend = () => { if (this.utt === u) this.setState({ audio: 'idle', progress: 0 }); };
+    u.onerror = () => { if (this.utt === u) this.setState({ audio: 'idle', progress: 0 }); };
+    this.utt = u; ss.speak(u); this.setState({ audio: 'playing', progress: 0 });
+  };
+  pause = () => { window.speechSynthesis && window.speechSynthesis.pause(); this.setState({ audio: 'paused' }); };
+  stop = () => { this.utt = null; window.speechSynthesis && window.speechSynthesis.cancel(); if (this.state.audio !== 'idle') this.setState({ audio: 'idle', progress: 0 }); };
+  squarify(items) {
+    const res = []; let rest = items.slice(); let r = { x: 0, y: 0, w: 100, h: 100 };
+    while (rest.length) {
+      const short = Math.min(r.w, r.h);
+      const worst = (row) => { const s = row.reduce((a, b) => a + b.a, 0); const mx = Math.max(...row.map(o => o.a)), mn = Math.min(...row.map(o => o.a)); return Math.max(short * short * mx / (s * s), (s * s) / (short * short * mn)); };
+      const row = [rest[0]]; let i = 1;
+      while (i < rest.length && worst([...row, rest[i]]) <= worst(row)) { row.push(rest[i]); i++; }
+      const s = row.reduce((a, b) => a + b.a, 0);
+      if (r.w >= r.h) { const cw = s / r.h; let cy = r.y; row.forEach(o => { const ch = o.a / cw; res.push({ ...o, x: r.x, y: cy, w: cw, h: ch }); cy += ch; }); r = { x: r.x + cw, y: r.y, w: r.w - cw, h: r.h }; }
+      else { const ch = s / r.w; let cx = r.x; row.forEach(o => { const cw = o.a / ch; res.push({ ...o, x: cx, y: r.y, w: cw, h: ch }); cx += cw; }); r = { x: r.x, y: r.y + ch, w: r.w, h: r.h - ch }; }
+      rest = rest.slice(i);
+    }
+    return res;
+  }
+  ctl(on) { return { on, bg: on ? '#F2F2F2' : 'transparent', weight: on ? 600 : 400, deco: on ? 'underline' : 'none' }; }
+  renderVals() {
+    const s = this.state, pr = s.prefs, page = s.route.page, a = this.art();
+    const set = (o) => this.setState(o);
+    const focus = false;
+    const url = (k) => location.href.split('#')[0] + '#/' + k;
+    const cards = this.arts.map(x => ({ href: '#/' + x.key, letter: x.letter, tag: x.tag, title: x.title, deck: x.deck, date: x.date, time: x.time, color: x.color, surface: (t => t[0].toUpperCase() + t.slice(1))(x.title.split(': ')[1]), imgAlt: 'Imagem placeholder do Artigo ' + x.letter }));
+    const curNav = page === 'home' ? (s.route.anchor === 'artigos' ? 'Artigos' : s.route.anchor === 'questionarios' ? 'Questionários' : 'Blog') : (page === 'c' && s.route.anchor === 'ferramentas') ? 'Ferramentas' : (page === 'inventario' ? '' : 'Artigos');
+    const navItems = [['Questionários', '#/questionarios'], ['Artigos', '#/artigos'], ['Ferramentas', '#/c/ferramentas'], ['Blog', '#/']].map(([label, href]) => ({ label, href, current: curNav === label ? 'page' : 'false', deco: curNav === label ? 'underline' : 'none' }));
+    const menuItems = [
+      { label: 'Início', href: '#/', desc: 'Página de entrada do blog', k: 'home' },
+      ...this.arts.map(x => ({ label: 'Artigo ' + x.letter, href: '#/' + x.key, desc: x.title, k: x.key })),
+      { label: 'Questionários', href: '#/questionarios', desc: 'Organize suas observações para a consulta', k: 'quest' },
+      { label: 'Ferramentas', href: '#/c/ferramentas', desc: 'Checklist, mapa semanal, pausa', k: 'tools' },
+      { label: 'Inventário', href: '#/inventario', desc: 'Componentes e contagem de palavras', k: 'inventario' },
+      { label: 'Acessibilidade', href: './TDH Revisao HIG.dc.html', desc: 'Revisão com Apple HIG e WCAG', k: 'hig' },
+      { label: 'Sistema de design', href: './TDH Design System v1.dc.html', desc: 'Princípios, fundamentos, componentes e tokens', k: 'ds' },
+      { label: 'Mockups', href: './TDH Mockups v1.dc.html', desc: 'Telas mobile e desktop', k: 'mock' },
+      { label: 'Componentes', href: './TDH Componentes.dc.html', desc: 'Biblioteca reutilizável', k: 'comp' }
+    ].map(m => ({ ...m, current: m.k === page ? 'page' : 'false', bg: m.k === page ? '#F7F7F8' : 'transparent' }));
+
+    const sizes = [16, 18, 20, 22, 24];
+    const sp = [{ lh: 1.6, ls: '0', ws: '0', pg: '1.35em', hm: '2.6em' }, { lh: 1.75, ls: '0.03em', ws: '0.1em', pg: '1.7em', hm: '3em' }, { lh: 1.9, ls: '0.06em', ws: '0.18em', pg: '2.1em', hm: '3.4em' }][pr.spacing] || {};
+    const fonts = ['Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif', 'Verdana,"DejaVu Sans",Geneva,sans-serif', '"New York","Iowan Old Style",Georgia,serif'];
+    const grp = (label, key, labels, arias) => ({ label, opts: labels.map((l, i) => ({ label: l, aria: arias ? arias[i] : l, ...this.ctl(pr[key] === i), pick: () => this.setPrefs({ [key]: i }) })) });
+    const prefGroups = [
+      grp('Tamanho', 'size', ['A−', 'A', 'A+', 'A++', 'A+++'], sizes.map(z => 'Tamanho do texto ' + z + ' pixels')),
+      grp('Espaçamento', 'spacing', ['Padrão', 'Amplo', 'Extra']),
+      grp('Fonte', 'font', ['Inter', 'Verdana', 'Serifa']),
+      grp('Largura', 'width', ['Padrão', 'Estreita'], ['Largura de linha padrão, 68 caracteres', 'Largura de linha estreita, 56 caracteres'])
+    ];
+
+    const hlColor = { y: '#FFE066', p: '#DCCFFF' };
+    const blocks = a ? a.blocks.map(b => b.isP ? { ...b, segs: b.segs.map(g => g.isMark ? { ...g, color: hlColor[g.m], size: (s.reduce || s.revealed[g.id]) ? '100%' : '0%' } : g) } : b) : [];
+
+    const tg = this.tmGroups[s.tmGroup], P = this.periods, vals = this.tmVals(s.tmGroup, s.tmQ);
+    const fmt = (v) => v.toFixed(1).replace('.', ',');
+    const items = this.tmCats.map((c, i) => ({ i, name: c.k, c: c.c, desc: c.desc, v: vals[i], a: vals[i] * 100 })).sort((x, y) => y.v - x.v);
+    const pickTm = (i) => () => set({ tmSel: s.tmSel === i ? null : i });
+    const tmBlocks = this.squarify(items).map(k => ({ name: k.name, c: k.c, v: fmt(k.v), x: k.x + '%', y: k.y + '%', w: k.w + '%', h: k.h + '%', on: s.tmSel === k.i, shadow: s.tmSel === k.i ? 'inset 0 0 0 3px #111' : 'none', showLabel: k.w >= 24 && k.h >= 15, aria: k.name + ', ' + fmt(k.v) + '%', pick: pickTm(k.i) }));
+    const selItem = s.tmSel != null ? items.find(x => x.i === s.tmSel) : null;
+    const g0 = this.tmVals(0, s.tmQ), g1 = this.tmVals(1, s.tmQ), g2 = this.tmVals(2, s.tmQ);
+    const tm = {
+      group: tg.label, n: tg.n, period: P[s.tmQ], q: s.tmQ, first: P[0], last: P[7],
+      onRange: (e) => set({ tmQ: +e.target.value }),
+      filter: s.tmPulse ? 'saturate(1.45) brightness(0.96)' : 'none', trans: s.reduce ? 'none' : 'filter 320ms ease',
+      groups: this.tmGroups.map((g, i) => ({ label: g.label, ...this.ctl(s.tmGroup === i), pick: () => set({ tmGroup: i }) })),
+      blocks: tmBlocks,
+      legend: items.map(k => ({ name: k.name, c: k.c, v: fmt(k.v), ...this.ctl(s.tmSel === k.i), pick: pickTm(k.i) })),
+      hasSel: !!selItem, noSel: !selItem,
+      sel: selItem ? { name: selItem.name, v: fmt(selItem.v), count: Math.round(selItem.v / 100 * tg.n), desc: selItem.desc } : { name: '', v: '', count: '', desc: '' },
+      clear: () => set({ tmSel: null }),
+      tableCaption: 'Estratégias de leitura, % das respostas por grupo, ' + P[s.tmQ] + ' (dados fictícios)',
+      rows: this.tmCats.map((c, i) => ({ name: c.k, a: fmt(g0[i]) + '%', b: fmt(g1[i]) + '%', c: fmt(g2[i]) + '%' }))
+    };
+
+    const wv = this.wfVersions[s.wfV];
+    const cells = []; wv.v.forEach((n, ci) => { for (let j = 0; j < n; j++) cells.push({ bg: (s.wfSel == null || s.wfSel === ci) ? this.wfCats[ci].c : '#EEEEF0' }); });
+    const wf = {
+      version: wv.label, cells,
+      versions: this.wfVersions.map((g, i) => ({ label: g.label, ...this.ctl(s.wfV === i), pick: () => set({ wfV: i }) })),
+      legend: this.wfCats.map((c, i) => ({ name: c.k, c: c.c, v: wv.v[i], ...this.ctl(s.wfSel === i), pick: () => set({ wfSel: s.wfSel === i ? null : i }) })),
+      aria: wv.label + ': ' + this.wfCats.map((c, i) => c.k + ' ' + wv.v[i]).join(', ') + ' de 100 leitores.',
+      summary: s.wfSel == null ? wv.label + ': ' + wv.v[0] + ' de 100 leitores começaram em menos de 10 segundos.' : wv.label + ': ' + wv.v[s.wfSel] + ' de 100 leitores na faixa ' + this.wfCats[s.wfSel].k.toLowerCase() + '.'
+    };
+
+    const fn = this.flowNodes;
+    const flow = {
+      nodes: fn.map((n, i) => ({ ...n, num: '0' + (i + 1), next: fn[(i + 1) % 4].label.toLowerCase(), on: s.flowSel === i, bg: s.flowSel === i ? '#FFFFFF' : '#F2F2F2', border: s.flowSel === i ? '2px solid #111' : '1px solid #C9C9CE', pick: () => set({ flowSel: i }) })),
+      sel: { num: '0' + (s.flowSel + 1), label: fn[s.flowSel].label, desc: fn[s.flowSel].desc },
+      rot: s.flowRot ? '18deg' : '0deg', trans: s.reduce ? 'none' : 'transform 600ms cubic-bezier(.3,.7,.3,1)'
+    };
+    const scheme = [
+      { name: 'Agora', count: '1/1', items: ['Ler a seção Ciclo de reforço'], weight: 600, border: '#111', bg: '#FFFFFF' },
+      { name: 'Próximo', count: '3/3', items: ['Testar o checklist', 'Ajustar o espaçamento', 'Anotar uma dúvida'], weight: 400, border: '#C9C9CE', bg: '#FFFFFF' },
+      { name: 'Depois', count: '4', items: ['Ler o Artigo B', 'Rever os dados', 'Compartilhar', 'Imprimir o mapa'], weight: 400, border: '#E3E3E6', bg: '#F7F7F8' }
+    ];
+    const tools = this.toolsData.map(t => {
+      const open = !!s.toolsOpen[t.id];
+      return { ...t, open, panelId: 'tool-' + t.id, toggleLabel: open ? 'Fechar' : 'Abrir', btnBg: open ? '#F2F2F2' : 'transparent',
+        toggle: () => set({ toolsOpen: { ...s.toolsOpen, [t.id]: !open } }),
+        copy: () => { const txt = t.name + '\n' + t.items.map((x, i) => (i + 1) + '. ' + x).join('\n'); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => set({ toolMsg: t.name + ' copiado.' })).catch(() => set({ toolMsg: 'Não foi possível copiar. Abra a ferramenta e selecione o texto.' })); } };
+    });
+
+    const toc = a ? a.toc.map(t => { const on = s.activeSec === t.id; return { ...t, current: on ? 'location' : 'false', bar: on ? '#111' : '#E3E3E6', weight: on ? 600 : 400, go: () => { this.setState({ tocOpen: false }); const el = document.getElementById(t.id); if (el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - ((document.querySelector('header') || { offsetHeight: 0 }).offsetHeight + 16), behavior: s.reduce ? 'auto' : 'smooth' }); el.focus({ preventScroll: true }); } } }; }) : [];
+    const ai = a ? this.arts.indexOf(a) : 0, nx = this.arts[(ai + 1) % 3];
+    const shareText = a ? a.title + ' · TDH' : '';
+    const audioStatus = s.audio === 'playing' ? 'Reproduzindo · ' + s.progress + '%' : s.audio === 'paused' ? 'Pausado · ' + s.progress + '%' : s.audio === 'unsupported' ? 'Áudio indisponível neste navegador.' : '';
+    const copyLink = (msg) => { (navigator.clipboard ? navigator.clipboard.writeText(url(page)) : Promise.reject()).then(() => set({ shareMsg: msg || 'Link copiado.' })).catch(() => set({ shareMsg: 'Não foi possível copiar. Copie o endereço na barra do navegador.' })); };
+
+    const inv = [
+      ['Logo Tdah / Adulto', 'Todas', '#/', 'Cabeçalho e rodapé', '“Tdah” menor, acima e à direita de “Adulto”, em IBM Plex Mono; link para o início.'],
+      ['Menu #', 'Todas', '#/', 'Cabeçalho', 'Abre e fecha; aria-expanded; Esc fecha e devolve o foco; fecha ao navegar.'],
+      ['Navegação textual', 'Início, Inventário', '#/', 'Cabeçalho (≥1024 px), menu, rodapé', 'Palavras clicáveis; item atual sublinhado com aria-current.'],
+      ['Controles compactos do artigo', 'A, B, C', '#/a', 'Cabeçalho fixo', 'Índice, Ouvir e Aa no cabeçalho; nada se acumula antes do texto.'],
+      ['Bloco de título piramidal', 'Início, A, B, C, Inventário', '#/a', 'Topo', 'H1 mono no cinza; linha curta acima, longa abaixo; recebe foco ao trocar de página.'],
+      ['Respiro após o título', 'A, B, C', '#/a', 'Entre título e texto', 'Espaço proporcional à tela (11% da altura, 48–112 px).'],
+      ['Modo foco (estado inicial)', 'A, B, C', '#/a', 'Artigo inteiro', 'Título → respiro → texto; recursos complementares sob controle.'],
+      ['Índice “Nesta página”', 'A, B, C', '#/b', 'Cabeçalho', 'Rótulo com número de seções; seta gira entre fechado e aberto; leva à seção e move o foco.'],
+      ['Ouvir', 'A, B, C', '#/a', 'Cabeçalho', 'Ouvir, Pausar, Continuar; Parar e progresso aparecem só durante a reprodução.'],
+      ['Aa + pop-up explicativo', 'A, B, C', '#/a', 'Cabeçalho', 'No primeiro toque explica; Ajustar leitura (CTA azul) ou Fechar; Esc fecha; não abre sozinho.'],
+      ['Preferências de leitura', 'A, B, C · C', '#/c/preferencias', 'Painel Aa · Ferramentas e ajustes', 'Tamanho, espaçamento, fonte, largura; salvo no dispositivo.'],
+      ['Título com #', 'A, B, C', '#/a', 'Todas as seções', '# decorativo oculto do leitor de tela; H2 real em mono.'],
+      ['Parágrafo (Inter)', 'A, B, C', '#/a', 'Corpo', 'Alinhado à esquerda; escala com as preferências.'],
+      ['Link textual', 'A, B, C', '#/a', 'A: Sinais, Aplicação · B: Pergunta, Próximos · C: Agrupar', 'Sublinhado; leva a outro artigo ou às ferramentas.'],
+      ['Grifo amarelo (TDAH)', 'A', '#/a', 'Contexto, Atenção, Destaques', 'Revela na rolagem uma vez; estático com movimento reduzido.'],
+      ['Grifo roxo (outras informações)', 'A', '#/a', 'Sinais, Destaques, Aplicação', 'Mesmo comportamento do amarelo.'],
+      ['Superfície cinza editorial', 'A, B, C, Início', '#/a', 'A: Sinais · B: Tempo · C: Síntese · cartões', 'Área ampla com frase, dado ou conclusão na base; cresce com o texto.'],
+      ['Gráfico de áreas (treemap)', 'B', '#/b', 'Estratégias por grupo', 'Área proporcional; leve variação de cor ao entrar na tela; seleção por toque ou teclado.'],
+      ['Controle de arraste (período)', 'B', '#/b', 'Estratégias por grupo', '“Arraste para explorar”; slider nativo: arraste, toque ou setas; atualiza as áreas.'],
+      ['Filtro de grupo', 'B', '#/b', 'Estratégias por grupo', 'Adultos, Estudantes, Profissionais.'],
+      ['Legenda + detalhe da seleção', 'B', '#/b', 'Estratégias / Tempo', 'Todos os valores; seleção mostra respostas e descrição (aria-live).'],
+      ['Tabela alternativa', 'B', '#/b', 'Estratégias por grupo', 'Recolhível; acompanha o período escolhido.'],
+      ['Grade de áreas (100 blocos)', 'B', '#/b', 'Tempo até começar', 'Alternar versão do layout; destacar faixa; resumo textual.'],
+      ['Flowchart circular R1', 'C', '#/c', 'Ciclo de reforço', 'Giro breve uma vez ao entrar na tela; “Selecione uma etapa para explorar”; lista ordenada.'],
+      ['Esquema de agrupamento', 'C', '#/c', 'Agrupar e hierarquizar', 'Agora / Próximo / Depois; hierarquia por borda e peso.'],
+      ['Área de ferramentas', 'C, Início', '#/c/ferramentas', 'Ferramentas e ajustes', 'Linha curta + título; Abrir/Fechar e Copiar.'],
+      ['Sobre este artigo', 'A, B, C', '#/a', 'Final do artigo', 'Disclosure com seta: linha fina, autoria, data, categoria, leitura, legenda dos grifos.'],
+      ['Compartilhar', 'A, B, C', '#/a', 'Final do artigo', 'WhatsApp e Facebook por link; Instagram via compartilhamento do sistema ou link copiado.'],
+      ['Próximo artigo', 'A, B, C', '#/a', 'Final do artigo', 'A → B → C → A.'],
+      ['Destaque de questionário', 'Início', '#/questionarios', '# Questionários', 'Superfície cinza com título, descrição e CTA azul; abre o questionário da Área 1.'],
+      ['Cartão de artigo', 'Início', '#/artigos', '# Artigos', 'Superfície cinza quadrada, data, título, linha fina; cartão inteiro clicável.'],
+      ['Rodapé', 'Todas', '#/', 'Final', 'Logo, links textuais, aviso de dados fictícios.']
+    ].map(([c, p, href, sx, b]) => ({ c, p, href, s: sx, b }));
+
+    return {
+      showNav: s.wide && !a, aaRef: this.aaRef,
+      tocOpen: s.tocOpen, tocBg: s.tocOpen ? '#F2F2F2' : 'transparent', tocRot: s.tocOpen ? '90deg' : '0deg',
+      tocLabel: s.wide ? 'Nesta página · ' + toc.length + ' seções' : 'Índice',
+      toggleToc: () => set({ tocOpen: !s.tocOpen, prefsOpen: false, tipOpen: false, menuOpen: false }),
+      audioLabel: s.audio === 'playing' ? 'Pausar' : s.audio === 'paused' ? 'Continuar' : 'Ouvir',
+      audioToggle: s.audio === 'playing' ? this.pause : this.play, audioBg: (s.audio === 'playing' || s.audio === 'paused') ? '#F2F2F2' : 'transparent', audioShow: s.audio !== 'idle',
+      aaBg: (s.prefsOpen || s.tipOpen) ? '#F2F2F2' : 'transparent', aaExpanded: s.prefsOpen || s.tipOpen,
+      onAa: () => { if (!s.tipSeen) set({ tipOpen: !s.tipOpen, prefsOpen: false, tocOpen: false, menuOpen: false }); else set({ prefsOpen: !s.prefsOpen, tipOpen: false, tocOpen: false, menuOpen: false }); },
+      tipOpen: s.tipOpen,
+      openPrefsFromTip: () => { this.saveTip(); set({ tipOpen: false, tipSeen: true, prefsOpen: true }); },
+      closeTip: () => { this.saveTip(); set({ tipOpen: false, tipSeen: true }); this.aaRef.current && this.aaRef.current.focus(); },
+      closePrefs: () => set({ prefsOpen: false }),
+      aboutOpen: s.aboutOpen, aboutRot: s.aboutOpen ? '90deg' : '0deg', toggleAbout: () => set({ aboutOpen: !s.aboutOpen }),
+      wide: s.wide, showHeader: !focus, focusMode: focus, notFocus: !focus,
+      isHome: page === 'home', isArticle: !!a, isInventory: page === 'inventario',
+      navItems, menuItems, menuOpen: s.menuOpen, menuLabel: s.menuOpen ? 'Fechar menu' : 'Abrir menu',
+      menuBg: s.menuOpen ? '#F2F2F2' : '#FFFFFF', menuBorder: s.menuOpen ? '#111' : '#C9C9CE', menuBtnRef: this.menuBtnRef,
+      toggleMenu: () => set({ menuOpen: !s.menuOpen, tocOpen: false, prefsOpen: false, tipOpen: false }),
+      titleSize: s.wide ? '30px' : '24px',
+      cards, toolLinks: this.toolsData,
+      art: a || { letter: '', tag: '', title: '', deck: '', author: '', date: '', time: '', words: '' },
+      blocks, toc, tocCount: toc.length,
+      showSideToc: s.wide && !focus, showMobileToc: !s.wide && !focus, showLegend: !!(a && a.legend),
+      gridCols: s.wide && !focus ? '200px minmax(0,680px)' : 'minmax(0,680px)', articleTop: focus ? '8px' : '24px',
+      bodySize: sizes[pr.size] + 'px', bodyLH: sp.lh, bodyLS: sp.ls, bodyWS: sp.ws, paraGap: sp.pg, hMargin: sp.hm,
+      bodyFont: fonts[pr.font], colMax: pr.width ? '56ch' : '68ch',
+      hlTransition: s.reduce ? 'none' : 'background-size 900ms cubic-bezier(.2,.7,.2,1)',
+      audioIdle: s.audio === 'idle' || s.audio === 'unsupported', audioPlaying: s.audio === 'playing', audioPaused: s.audio === 'paused', audioActive: s.audio === 'playing' || s.audio === 'paused',
+      audioStatus, play: this.play, pause: this.pause, stop: this.stop,
+      prefsOpen: s.prefsOpen, prefsBtnBg: s.prefsOpen ? '#F2F2F2' : 'transparent', togglePrefs: () => set({ prefsOpen: !s.prefsOpen }),
+      prefGroups, focusLabel: pr.focus ? 'Modo foco: ligado' : 'Modo foco: desligado',
+      toggleFocus: () => this.setPrefs({ focus: !pr.focus }), resetPrefs: () => this.setPrefs({ size: 1, spacing: 0, font: 0, width: 0, focus: false }),
+      tm, wf, flow, scheme, tools, toolMsg: s.toolMsg,
+      shareWA: 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + url(page)),
+      shareFB: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url(page)),
+      shareIG: () => {
+        if (navigator.share) navigator.share({ title: shareText, url: url(page) }).then(() => set({ shareMsg: 'Compartilhado.' })).catch(() => {});
+        else copyLink('O Instagram não aceita compartilhamento por link na web. Link copiado: cole nos Stories ou na bio pelo app.');
+      },
+      copyLink: () => copyLink(), shareMsg: s.shareMsg,
+      next: { href: '#/' + nx.key, letter: nx.letter, title: nx.title },
+      wordCounts: this.arts.map(x => ({ letter: x.letter, words: x.words, href: '#/' + x.key, ok: x.words <= 1200 ? 'dentro do limite' : 'acima do limite' })),
+      inventory: inv
+    };
+  }
+}
+</script>
+</body>
+</html>

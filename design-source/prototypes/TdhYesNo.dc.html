@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:16px">
+  <div role="group" aria-label="{{ groupLabel }}" style="display:flex;flex-direction:column;gap:4px">
+    <sc-for list="{{ opts }}" as="o" hint-placeholder-count="2">
+      <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:baseline;min-height:60px;padding:0 10px 0 2px;border:0;border-bottom:3px double {{ o.line }};background:transparent;color:#111111;cursor:pointer;font-family:Inter,sans-serif" style-hover="background:#F7F7F8"><span style="font-size:52px;line-height:1;font-weight:500">{{ o.big }}</span><span style="font-size:24px;color:{{ o.rest }}">{{ o.rest_text }}</span></button>
+    </sc-for>
+  </div>
+  <button type="button" onClick="{{ onSpecify }}" aria-expanded="{{ specOpen }}" style="min-height:48px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:400 18px Inter,sans-serif;color:#111111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Especifique</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:180},&quot;value&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;sim&quot;,&quot;nao&quot;],&quot;default&quot;:&quot;sim&quot;,&quot;tsType&quot;:&quot;'sim'|'nao'|null&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Resposta&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onChange&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(v: 'sim'|'nao') =&gt; void&quot;},&quot;onSpecify&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+class Component extends DCLogic {
+  state = { v: this.props.value ?? null, spec: false };
+  renderVals() {
+    const v = this.props.value !== undefined ? this.props.value : this.state.v;
+    const pick = (x) => () => { this.setState({ v: x }); this.props.onChange && this.props.onChange(x); };
+    const mk = (key, big, rest) => ({ big, rest_text: rest, on: String(v === key), line: v === key ? '#111111' : 'transparent', rest: v === key ? '#111111' : '#6E6E73', pick: pick(key) });
+    return {
+      groupLabel: this.props.label ?? 'Resposta',
+      opts: [mk('sim', 'S', 'im'), mk('nao', 'N', 'ão')],
+      specOpen: String(this.state.spec),
+      onSpecify: () => { this.setState(s => ({ spec: !s.spec })); this.props.onSpecify && this.props.onSpecify(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

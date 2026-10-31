@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<a href="{{ href }}" aria-label="{{ label }}" style="display:inline-flex;flex-direction:column;align-items:flex-end;gap:3px;padding:6px 4px;min-height:44px;justify-content:center;font-family:'IBM Plex Mono',ui-monospace,monospace;color:#111111;text-decoration:none;line-height:1;opacity:{{ opacity }}"><span style="font-size:{{ small }}">Tdah</span><span style="font-size:{{ big }};letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:220,&quot;height&quot;:90},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;s&quot;,&quot;m&quot;,&quot;l&quot;],&quot;default&quot;:&quot;m&quot;,&quot;tsType&quot;:&quot;'s'|'m'|'l'&quot;},&quot;subtle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;href&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Tdah Adulto, página inicial&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const sz = { s: [11, 17], m: [13, 22], l: [16, 28] }[this.props.size ?? 'm'] || [13, 22];
+    return { href: this.props.href ?? '#', label: this.props.label ?? 'Tdah Adulto, página inicial', small: sz[0] + 'px', big: sz[1] + 'px', opacity: this.props.subtle ? 0.45 : 1 };
+  }
+}
+</script>
+</body>
+</html>

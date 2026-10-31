@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:#FFFFFF;color:#111111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;text-size-adjust:100%}
+a{color:#0A5BD3}a:hover{color:#0849AC}
+:focus-visible{outline:3px solid #1F5FD1;outline-offset:3px;border-radius:4px}
+</style>
+</helmet>
+
+<header style="max-width:1200px;margin:0 auto;padding:0 20px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+  <dc-import name="TdhLogo" href="./TDH Showroom v3.dc.html#/" hint-size="120px,56px"></dc-import>
+  <a href="./TDH Design System v1.dc.html" style="min-height:44px;display:flex;align-items:center;padding:0 8px;font:400 15px Inter,sans-serif;color:#0A5BD3;text-decoration:none">Sistema de design ›</a>
+</header>
+
+<main style="display:flex;flex-direction:column;gap:12px">
+  <section style="padding:clamp(72px,11vw,136px) 24px clamp(56px,8vw,96px);display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace">#</span> Biblioteca · v1.0</span>
+    <h1 style="margin:0;max-width:18ch;font:600 clamp(34px,5vw,52px)/1.08 Inter,sans-serif;letter-spacing:-0.02em;text-wrap:balance">Componentes TDH</h1>
+    <p style="margin:0;max-width:46ch;font:400 clamp(18px,2vw,21px)/1.5 Inter,sans-serif;color:#3A3A3D;text-wrap:pretty">Oito componentes reutilizáveis, cada um em arquivo próprio. Importe com dc-import e ajuste pelas propriedades.</p>
+  </section>
+
+  <section style="background:#F5F5F7;padding:clamp(56px,8vw,104px) 20px">
+    <div style="max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px">
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhLogo</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">size · subtle · href</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-around;gap:16px;flex-wrap:wrap;min-height:96px">
+          <dc-import name="TdhLogo" size="s" hint-size="90px,48px"></dc-import>
+          <dc-import name="TdhLogo" size="m" hint-size="120px,56px"></dc-import>
+          <dc-import name="TdhLogo" size="l" hint-size="150px,64px"></dc-import>
+          <dc-import name="TdhLogo" size="s" subtle="{{ true }}" hint-size="90px,48px"></dc-import>
+        </div>
+        <code style="font:400 13px/1.5 'IBM Plex Mono',monospace;color:#3A3A3D;background:#F7F7F8;border-radius:8px;padding:10px 12px">&lt;dc-import name="TdhLogo" size="m"&gt;</code>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhTitleBlock</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">title · kicker · compact</span></div>
+        <dc-import name="TdhTitleBlock" title="Lorem ipsum: leitura e destaques" compact="{{ true }}" heading-id="demo-title" hint-size="100%,220px"></dc-import>
+        <code style="font:400 13px/1.5 'IBM Plex Mono',monospace;color:#3A3A3D;background:#F7F7F8;border-radius:8px;padding:10px 12px">&lt;dc-import name="TdhTitleBlock" title="…"&gt;</code>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhHashHeading</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">text · level · anchor</span></div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <dc-import name="TdhHashHeading" text="Contexto" level="{{ 2 }}" hint-size="100%,32px"></dc-import>
+          <dc-import name="TdhHashHeading" text="Preferências de leitura" level="{{ 3 }}" hint-size="100%,28px"></dc-import>
+        </div>
+        <code style="font:400 13px/1.5 'IBM Plex Mono',monospace;color:#3A3A3D;background:#F7F7F8;border-radius:8px;padding:10px 12px">&lt;dc-import name="TdhHashHeading" text="Contexto"&gt;</code>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhAction</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">variant · label · selected</span></div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px">
+          <dc-import name="TdhAction" variant="primary" label="Começar questionário" hint-size="220px,44px"></dc-import>
+          <dc-import name="TdhAction" variant="link" label="Ler artigos" hint-size="120px,44px"></dc-import>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px">
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+            <dc-import name="TdhAction" variant="text" label="{{ g.label }}" selected="{{ g.on }}" on-click="{{ g.pick }}" hint-size="110px,44px"></dc-import>
+          </sc-for>
+        </div>
+        <code style="font:400 13px/1.5 'IBM Plex Mono',monospace;color:#3A3A3D;background:#F7F7F8;border-radius:8px;padding:10px 12px">variant="primary" · "link" · "text"</code>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhHighlight</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">parts</span></div>
+        <div style="font:400 18px/1.7 Inter,sans-serif"><dc-import name="TdhHighlight" hint-size="100%,62px"></dc-import></div>
+        <code style="font:400 13px/1.5 'IBM Plex Mono',monospace;color:#3A3A3D;background:#F7F7F8;border-radius:8px;padding:10px 12px">parts={['Texto ', { text: 'grifo', kind: 'tdah' }, ' texto.']}</code>
+        <span style="font:400 14px/1.5 Inter,sans-serif;color:#5C5C60">Revela uma vez ao entrar na tela; estático com Reduzir movimento.</span>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhSurface</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">kicker · text · note · square</span></div>
+        <dc-import name="TdhSurface" kicker="Dado" text="46 de 100 leitores começaram em menos de 10 segundos." note="Layout TDH · dados fictícios" hint-size="100%,300px"></dc-import>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhDisclosure</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">title · defaultOpen · children</span></div>
+        <dc-import name="TdhDisclosure" title="Sobre este artigo" hint-size="100%,58px">Redação TDH · 30 out 2026 · #Leitura · 6 min de leitura.</dc-import>
+        <dc-import name="TdhDisclosure" title="Ver dados em tabela" hint-size="100%,58px">A tabela alternativa entra aqui.</dc-import>
+      </article>
+
+      <article style="background:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h2 style="margin:0;font:600 19px Inter,sans-serif">TdhYesNo</h2><span style="font:400 13px 'IBM Plex Mono',monospace;color:#5C5C60">value · onChange · onSpecify</span></div>
+        <dc-import name="TdhYesNo" label="Resposta de exemplo" on-change="{{ onAnswer }}" hint-size="100%,130px"></dc-import>
+        <span role="status" style="font:400 14px/1.5 Inter,sans-serif;color:#3A3A3D">{{ answerMsg }}</span>
+      </article>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,9vw,112px) 20px clamp(96px,12vw,144px);display:flex;flex-direction:column;align-items:center;gap:20px">
+    <h2 style="margin:0;font:600 clamp(26px,3.6vw,36px)/1.15 Inter,sans-serif;letter-spacing:-0.01em">Arquivos</h2>
+    <ul style="margin:0;padding:0;list-style:none;width:100%;max-width:640px;display:flex;flex-direction:column">
+      <sc-for list="{{ files }}" as="f" hint-placeholder-count="8">
+        <li style="border-top:1px solid #E3E3E6"><a href="{{ f.href }}" style="min-height:56px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 4px;text-decoration:none" style-hover="background:#F7F7F8"><span style="font:500 15px 'IBM Plex Mono',monospace;color:#111">{{ f.name }}</span><span style="font:400 15px Inter,sans-serif;color:#3A3A3D">{{ f.d }}</span></a></li>
+      </sc-for>
+    </ul>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { g: 0, ans: null };
+  renderVals() {
+    const s = this.state;
+    return {
+      groups: ['Adultos', 'Estudantes', 'Profissionais'].map((label, i) => ({ label, on: s.g === i, pick: () => this.setState({ g: i }) })),
+      onAnswer: (v) => this.setState({ ans: v }),
+      answerMsg: s.ans ? 'Resposta registrada: ' + (s.ans === 'sim' ? 'Sim' : 'Não') + '.' : 'Escolha Sim ou Não.',
+      files: [
+        ['TdhLogo', 'Logo Tdah / Adulto'], ['TdhTitleBlock', 'Bloco de título piramidal'], ['TdhHashHeading', 'Título com #'], ['TdhAction', 'Botão, link de ação, controle textual'],
+        ['TdhHighlight', 'Parágrafo com grifos na rolagem'], ['TdhSurface', 'Superfície cinza editorial'], ['TdhDisclosure', 'Disclosure com seta'], ['TdhYesNo', 'Sim / Não + Especifique']
+      ].map(([name, d]) => ({ name: name + '.dc.html', d, href: './' + name + '.dc.html' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

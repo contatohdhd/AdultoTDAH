@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/design-system-1a9a97b3-bb61-48b5-a87b-a875df63c762/_ds_bundle.css">
+<link rel="stylesheet" href="_ds/design-system-1a9a97b3-bb61-48b5-a87b-a875df63c762/styles.css">
+<script src="_ds/design-system-1a9a97b3-bb61-48b5-a87b-a875df63c762/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#f5f5f7;color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0066cc}a:hover{color:#004c99}
+:focus-visible{outline:3px solid #0066cc;outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="max-width:1240px;margin:0 auto;padding:48px 20px 96px;display:flex;flex-direction:column;gap:72px">
+
+<header data-screen-label="00 Capa" style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+  <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">Risco Cognitivo · Sistema de design do blog · v0.1 · 30 out 2026</div>
+  <h1 style="margin:0;font:600 clamp(34px,6vw,56px)/1.07 -apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;letter-spacing:-0.01em;text-wrap:balance">Funcionalismo digital minimalista para leitura com baixa carga cognitiva</h1>
+  <p style="margin:0;font-size:19px;line-height:1.55;color:#3a3a3c;text-wrap:pretty">Este documento segue a ordem do briefing: auditoria de referências, leitura das suas peças do Canva, sistema de design, mockups mobile A–E, adaptação desktop e checklist de acessibilidade.</p>
+  <nav aria-label="Seções do documento" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+    <a href="#audit" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">1 · Auditoria</a>
+    <a href="#canva" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">2 · Peças do Canva</a>
+    <a href="#system" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">3 · Sistema</a>
+    <a href="#mockups" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">4 · Mockups A–D</a>
+    <a href="#desktop" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">5 · Desktop</a>
+    <a href="#checklist" style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #d2d2d7;color:#1d1d1f;text-decoration:none;font-size:15px">6 · Checklist</a>
+  </nav>
+</header>
+
+<section id="audit" data-screen-label="01 Auditoria" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">1 · Checkpoint obrigatório</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Auditoria de referências</h2>
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#3a3a3c">Tipos de decisão: <strong>Norma</strong> (requisito WCAG 2.2 AA), <strong>Fonte</strong> (recomendação de fonte), <strong>Projeto</strong> (escolha nossa), <strong>Hipótese</strong> (requer teste com leitores). AAA aparece rotulado.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <span style="padding:6px 12px;border-radius:8px;background:#e3f4e8;font-size:14px">Verificado nesta sessão: WCAG 1.4.12, 2.5.8, 1.4.8, 1.4.10, 1.4.4 · Dyslexia Scotland (página completa) · W3C COGA “Use White Spacing” · Apple “UI Design Dos and Don’ts”</span>
+    <span style="padding:6px 12px;border-radius:8px;background:#fff1d6;font-size:14px">Não acessado diretamente: Apple HIG Typography, Layout, Accessibility e Fonts · WCAG 1.4.3 (página) · OpenAI News ao vivo (analisado só pelos seus prints)</span>
+  </div>
+  <div style="overflow-x:auto;background:#fff;border-radius:16px;border:1px solid #e5e5ea">
+    <table style="width:100%;min-width:860px;border-collapse:collapse;font-size:15px;line-height:1.45">
+      <thead><tr style="text-align:left;background:#f5f5f7">
+        <th style="padding:14px 16px;font-weight:600;width:19%">Fonte e seção</th><th style="padding:14px 16px;font-weight:600;width:29%">Recomendação verificada</th><th style="padding:14px 16px;font-weight:600;width:26%">Aplicação proposta</th><th style="padding:14px 16px;font-weight:600;width:16%">Validação</th><th style="padding:14px 16px;font-weight:600">Tipo</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Apple · UI Design Dos and Don’ts</td><td style="padding:14px 16px">Controles de pelo menos 44×44 pt; conteúdo principal sem zoom nem rolagem horizontal; texto ≥ 11 pt; contraste amplo; aumentar entrelinha para legibilidade.</td><td style="padding:14px 16px">Alvos de toque 44×44 CSS px (adaptação web, não equivalência pt=px). Texto de interface ≥ 14 px; corpo 18 px.</td><td style="padding:14px 16px">Medir caixas no DOM; teste em iPhone real.</td><td style="padding:14px 16px">Fonte · Projeto</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">WCAG 2.2 · 2.5.8 Target Size (AA)</td><td style="padding:14px 16px">Alvo mínimo 24×24 CSS px, com exceções (espaçamento, inline, user agent, essencial). 44×44 é o 2.5.5, AAA.</td><td style="padding:14px 16px">Piso normativo 24 px; nosso padrão 44 px vai além (AAA rotulado).</td><td style="padding:14px 16px">Inspeção de bounding box.</td><td style="padding:14px 16px">Norma · AAA opcional</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">WCAG 2.2 · 1.4.12 Text Spacing (AA)</td><td style="padding:14px 16px">O conteúdo não precisa usar 1.5 / 2× / 0.12 / 0.16; precisa não perder conteúdo quando o usuário aplica esses valores.</td><td style="padding:14px 16px">Sem alturas fixas em caixas de texto, sem overflow:hidden em cards; unidades em em/rem.</td><td style="padding:14px 16px">Bookmarklet de text spacing no site implementado.</td><td style="padding:14px 16px">Norma</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">WCAG 2.2 · 1.4.10 Reflow / 1.4.4 Resize (AA)</td><td style="padding:14px 16px">Sem rolagem em duas dimensões a 320 CSS px; texto redimensionável a 200% sem perda.</td><td style="padding:14px 16px">Layout de coluna única até 320 px; tabelas largas em contêiner rolável próprio (dado 2D, exceção permitida).</td><td style="padding:14px 16px">1280 px a 400% de zoom; zoom de texto 200%.</td><td style="padding:14px 16px">Norma</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">WCAG 2.2 · 1.4.3 Contrast (AA)</td><td style="padding:14px 16px">4,5:1 para texto normal, 3:1 para texto grande (valor do briefing, também citado por Dyslexia Scotland; página W3C não aberta).</td><td style="padding:14px 16px">Texto #1d1d1f e secundário #5f5f64 (≥ 5,6:1 em branco e em #f5f5f7). Pastéis só como fundo de texto escuro.</td><td style="padding:14px 16px">Checker de contraste em todos os pares.</td><td style="padding:14px 16px">Norma</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">WCAG 2.2 · 1.4.8 Visual Presentation (AAA)</td><td style="padding:14px 16px">Linha ≤ 80 caracteres, sem justificação, entrelinha ≥ 1,5, cores selecionáveis, 200% sem rolagem horizontal.</td><td style="padding:14px 16px">Coluna de leitura 64ch; texto alinhado à esquerda; preferências de fundo e espaçamento.</td><td style="padding:14px 16px">Medir ch por linha.</td><td style="padding:14px 16px">AAA · Projeto</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Dyslexia Scotland · Typed formats (set 2025)</td><td style="padding:14px 16px">Não há fonte “para dislexia” universal; espaçamento pesa mais que a forma da letra; fontes familiares reduzem carga; 50–75 caracteres por linha, linhas mais curtas podem ajudar; parágrafos ≤ 5 linhas; títulos maiores e em negrito; sem justificação; preto puro em branco pode gerar brilho para quem tem estresse visual.</td><td style="padding:14px 16px">Fonte do sistema como padrão; opções de fonte, tamanho, espaçamento e fundo creme no painel de leitura; nada de fonte especializada como padrão.</td><td style="padding:14px 16px">Teste moderado com leitores com dislexia.</td><td style="padding:14px 16px">Fonte · Hipótese</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">W3C COGA · Use White Spacing</td><td style="padding:14px 16px">Espaço em volta de seções para separar blocos; permitir ajuste do espaço; não exagerar a ponto de esconder o conteúdo importante abaixo da dobra.</td><td style="padding:14px 16px">Escala de espaço 8/16/24/40/64; título + primeiro parágrafo visíveis na primeira tela do artigo.</td><td style="padding:14px 16px">Teste de 5 segundos: “onde estou, o que é isso”.</td><td style="padding:14px 16px">Fonte (suplementar, não conformidade)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">OpenAI News (seus prints IMG_5688–5696)</td><td style="padding:14px 16px">Visível: lista com categoria + data à esquerda e título + resumo à direita; imagens quadradas; índice lateral no artigo; botão primário preto em pílula; treemap de áreas.</td><td style="padding:14px 16px">Adotar: metadados curtos, índice lateral no desktop, imagens quadradas. Não adotar sem verificar: cinza claro no índice inativo (contraste).</td><td style="padding:14px 16px">Revisão ao vivo pendente.</td><td style="padding:14px 16px">Inspiração · Projeto</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin:0;font-size:15px;line-height:1.5;color:#5f5f64;max-width:760px">Pendências: abrir as páginas da Apple HIG (Typography, Layout, Accessibility, Fonts) e confirmar licença de SF Pro para uso web; abrir OpenAI News ao vivo no mobile; recrutar leitores com dislexia e TDAH para teste.</p>
+</section>
+
+<section id="canva" data-screen-label="02 Canva" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">2 · Conceito preservado, execução refatorada</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">O que suas peças comunicam</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
+    <div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">Peça 1 · Página de tópico</strong><p style="margin:0;font-size:15px;line-height:1.5"><b>Visível:</b> navegação em mono espaçado, régua “=====”, título “Tdah / Adulto”, caixa cinza de tópico, hashtag, frases com marca-texto lilás e amarelo, botão COMPRAR, área quadrada vazia.</p><p style="margin:0;font-size:15px;line-height:1.5;color:#3a3a3c"><b>Interpretação:</b> uma página com hierarquia rígida — onde estou → tópico → ideia-chave → destaque → ação → dado.</p></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">Peça 2 · Imagem editorial</strong><p style="margin:0;font-size:15px;line-height:1.5"><b>Visível:</b> recorte de pessoas sobre branco e uma foto vertical de montanha ao lado do texto.</p><p style="margin:0;font-size:15px;line-height:1.5;color:#3a3a3c"><b>Interpretação:</b> imagem como respiro e metáfora (grupo, escala), nunca como fundo de texto.</p></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">Peça 3 · Fluxograma circular</strong><p style="margin:0;font-size:15px;line-height:1.5"><b>Visível:</b> quatro nós em ciclo com setas “+” e hipótese R1 no centro.</p><p style="margin:0;font-size:15px;line-height:1.5;color:#3a3a3c"><b>Interpretação:</b> padrão para processos de reforço. Fica isento da regra de áreas quadradas.</p></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">Peças 4 e 5 · Gráficos</strong><p style="margin:0;font-size:15px;line-height:1.5"><b>Visível:</b> gráfico de linha (trajetória narrativa) e treemap colorido (prints OpenAI).</p><p style="margin:0;font-size:15px;line-height:1.5;color:#3a3a3c"><b>Interpretação:</b> o treemap é a família aprovada; o gráfico de linha é tratado como acidental e não reproduzido.</p></div>
+  </div>
+  <div style="overflow-x:auto;background:#fff;border-radius:16px;border:1px solid #e5e5ea">
+    <table style="width:100%;min-width:860px;border-collapse:collapse;font-size:15px;line-height:1.45">
+      <thead><tr style="text-align:left;background:#f5f5f7"><th style="padding:14px 16px;font-weight:600;width:20%">Elemento original</th><th style="padding:14px 16px;font-weight:600;width:20%">Propósito</th><th style="padding:14px 16px;font-weight:600;width:32%">Ajuste proposto</th><th style="padding:14px 16px;font-weight:600">Diretriz / razão</th></tr></thead>
+      <tbody>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Nav “Artigos · Ferramentas · Blog” em mono com tracking largo</td><td style="padding:14px 16px">Três destinos fixos, voz técnica</td><td style="padding:14px 16px">Mantém mono e os três itens; tracking 0,02em; cada item com 44 px de altura; item atual marcado com sublinhado + aria-current.</td><td style="padding:14px 16px">Tracking extra quebra palavras (Dyslexia Scotland); 2.5.8; navegação previsível (COGA)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Régua “=========”</td><td style="padding:14px 16px">Separar navegação de conteúdo</td><td style="padding:14px 16px">Vira borda tracejada de 1 px (decorativa, invisível ao leitor de tela). Assinatura visual mantida.</td><td style="padding:14px 16px">Leitores de tela leriam os sinais; não pode quebrar em 320 px</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">“Tdah / Adulto” centralizado, tracking largo</td><td style="padding:14px 16px">Título do tópico</td><td style="padding:14px 16px">Alinhado à esquerda; “TDAH” como sobretítulo mono; título em sans 600, sem tracking extra.</td><td style="padding:14px 16px">Alinhamento à esquerda facilita o retorno de linha (1.4.8, Dyslexia Scotland)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Caixa cinza “TOPICO 2 | LOREM DOLLOR”</td><td style="padding:14px 16px">Situar o leitor</td><td style="padding:14px 16px">Linha de metadados em caixa baixa: categoria · data · tempo de leitura. Sem caixa alta longa.</td><td style="padding:14px 16px">Evitar maiúsculas extensas (briefing; Dyslexia Scotland 2023)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Marca-texto lilás e amarelo</td><td style="padding:14px 16px">Ênfase com cor</td><td style="padding:14px 16px">Cor vira significado: lilás = TDAH, amarelo = Dislexia; dentro do artigo, bloco “Ponto-chave” com rótulo escrito.</td><td style="padding:14px 16px">Cor nunca sozinha (1.4.1); destaque com borda/caixa (Dyslexia Scotland)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Botão “COMPRAR” preto, caixa alta espaçada</td><td style="padding:14px 16px">Próxima ação</td><td style="padding:14px 16px">“Comprar o guia” em caixa baixa; um único primário por tela; nunca no meio do texto, só ao fim do artigo.</td><td style="padding:14px 16px">CTAs concorrentes aumentam carga (briefing; COGA)</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Área quadrada cinza / treemap</td><td style="padding:14px 16px">Dado por área</td><td style="padding:14px 16px">Quadrados com lado ∝ √valor; rótulo e valor sempre fora quando a área é pequena; tabela equivalente.</td><td style="padding:14px 16px">Regra G; área proporcional ao valor</td></tr>
+        <tr style="border-top:1px solid #e5e5ea"><td style="padding:14px 16px">Fluxograma circular</td><td style="padding:14px 16px">Processo de reforço</td><td style="padding:14px 16px">Mantém o círculo; rótulos 16 px; legenda do “+”; lista ordenada em texto como alternativa.</td><td style="padding:14px 16px">Exceção da regra G; texto alternativo</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="system" data-screen-label="03 Sistema" style="display:flex;flex-direction:column;gap:28px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">3 · Tokens adaptados do RiscoCognitivoBlog</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Sistema de design</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
+    <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+      <strong style="font-size:17px">Tipografia</strong>
+      <div style="font:600 34px/1.12 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Título 34/38</div>
+      <div style="font:600 24px/1.25 -apple-system,BlinkMacSystemFont,sans-serif">Seção 24/30</div>
+      <div style="font:600 20px/1.3 -apple-system,BlinkMacSystemFont,sans-serif">Card 20/26</div>
+      <div style="font-size:18px;line-height:1.6">Corpo 18/29 · coluna 64ch · alinhado à esquerda</div>
+      <div style="font-size:15px;line-height:1.45;color:#5f5f64">Metadado 15/22 · #5f5f64</div>
+      <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace">Mono 14 · nav, sobretítulos, rótulos de dado</div>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#5f5f64">Fonte do sistema (SF no Apple, Segoe/Roboto em outros) = familiar e sem custo de licença. Escala ~1,25–1,5× por nível. Tudo em rem para respeitar o zoom.</p>
+    </div>
+    <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+      <strong style="font-size:17px">Cor = significado</strong>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#1d1d1f;border-radius:8px"></div><span style="font-size:14px">Tinta #1d1d1f · texto, primário</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;border:1px solid #e5e5ea"></div><span style="font-size:14px">Superfície #f5f5f7</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#e4dcff;border-radius:8px"></div><span style="font-size:14px">Lilás · categoria TDAH</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#ffe589;border-radius:8px"></div><span style="font-size:14px">Amarelo · categoria Dislexia</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#cdeedd;border-radius:8px"></div><span style="font-size:14px">Verde · Ferramentas</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="aspect-ratio:1;background:#0066cc;border-radius:8px"></div><span style="font-size:14px">Azul #0066cc · link, foco</span></div>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#5f5f64">Pastéis só recebem texto #1d1d1f (≥ 12:1). Toda cor acompanha rótulo escrito.</p>
+    </div>
+    <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+      <strong style="font-size:17px">Espaço, grid e ícones</strong>
+      <div style="display:flex;align-items:flex-end;gap:10px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:8px;height:8px;background:#1d1d1f"></div><span style="font-size:13px">8</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:16px;height:16px;background:#1d1d1f"></div><span style="font-size:13px">16</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:24px;height:24px;background:#1d1d1f"></div><span style="font-size:13px">24</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:40px;height:40px;background:#1d1d1f"></div><span style="font-size:13px">40</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:64px;height:64px;background:#1d1d1f"></div><span style="font-size:13px">64</span></div>
+      </div>
+      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6">
+        <li>Margem mobile 20 px; desktop 12 colunas, máx. 1200 px.</li>
+        <li>Raios: 8 controles, 16 cards, pílula para ações.</li>
+        <li>Alvo de toque 44 px; 8 px entre alvos.</li>
+        <li>Ícones de traço 1,5 px, 20 px, sempre com rótulo ou nome acessível. Só busca, voltar, preferências e fechar.</li>
+        <li>Movimento: nenhum automático; transições ≤ 150 ms, desligadas com reduced-motion.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:20px">
+    <strong style="font-size:17px">Showroom de componentes (do design system) e estados</strong>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Button · primário / secundário / ghost</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <x-import component-from-global-scope="RiscoCognitivoBlog.Button" hint-size="auto,44px">Comprar o guia</x-import>
+          <x-import component-from-global-scope="RiscoCognitivoBlog.Button" variant="outline" hint-size="auto,44px">Ler depois</x-import>
+          <x-import component-from-global-scope="RiscoCognitivoBlog.Button" variant="ghost" hint-size="auto,44px">Cancelar</x-import>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:14px">
+          <span style="min-height:44px;display:flex;align-items:center;padding:0 18px;border-radius:999px;background:#1d1d1f;color:#fff">Padrão</span>
+          <span style="min-height:44px;display:flex;align-items:center;padding:0 18px;border-radius:999px;background:#3a3a3c;color:#fff">Hover</span>
+          <span style="min-height:44px;display:flex;align-items:center;padding:0 18px;border-radius:999px;background:#1d1d1f;color:#fff;outline:3px solid #0066cc;outline-offset:2px">Foco</span>
+          <span style="min-height:44px;display:flex;align-items:center;padding:0 18px;border-radius:999px;background:#e5e5ea;color:#5f5f64">Desativado</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Badge · categoria</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="padding:4px 10px;border-radius:6px;background:#e4dcff;font-size:14px">TDAH</span>
+          <span style="padding:4px 10px;border-radius:6px;background:#ffe589;font-size:14px">Dislexia</span>
+          <span style="padding:4px 10px;border-radius:6px;background:#cdeedd;font-size:14px">Ferramentas</span>
+          <x-import component-from-global-scope="RiscoCognitivoBlog.Badge" variant="outline" hint-size="auto,24px">Novo</x-import>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Input · busca</span>
+        <x-import component-from-global-scope="RiscoCognitivoBlog.Input" placeholder="Buscar artigos" aria-label="Buscar artigos" hint-size="100%,44px"></x-import>
+        <span style="font-size:14px;color:#5f5f64">Rótulo acessível sempre; placeholder não substitui rótulo.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Switch · modo foco</span>
+        <label style="display:flex;align-items:center;gap:12px;min-height:44px;font-size:16px"><x-import component-from-global-scope="RiscoCognitivoBlog.Switch" checked="{{ focus }}" on-checked-change="{{ toggleFocus }}" aria-label="Modo foco" hint-size="44px,24px"></x-import>Modo foco</label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Separator</span>
+        <x-import component-from-global-scope="RiscoCognitivoBlog.Separator" hint-size="100%,1px"></x-import>
+        <div style="border-top:1px dashed #8e8e93" aria-hidden="true"></div>
+        <span style="font-size:14px;color:#5f5f64">Tracejado = herdeiro da régua “=====”.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 13px ui-monospace,Menlo,monospace;color:#5f5f64">Ponto-chave (callout)</span>
+        <div style="background:#e4dcff;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px"><strong style="font-size:14px">Ponto-chave · TDAH</strong><span style="font-size:16px;line-height:1.5">Lorem sinais dolor, per judhe quenst dolor.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
+    <figure style="margin:0;background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+      <figcaption style="display:flex;flex-direction:column;gap:4px"><strong style="font-size:17px">Gráfico de áreas quadradas</strong><span style="font-size:15px;color:#5f5f64">% de leitores por motivo de visita (lorem) · lado ∝ √valor</span></figcaption>
+      <div role="img" aria-label="Quadrados proporcionais: Entender sinais 40%, Rotina 24%, Trabalho 14%, Estudo 12%, Outros 10%" style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:28px 20px;padding:12px 0">
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="width:160px;height:160px;background:#e4dcff;border-radius:4px"></div><span style="font-size:15px;line-height:1.3"><b style="font-size:22px">40%</b><br>Entender sinais</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="width:124px;height:124px;background:#ffe589;border-radius:4px"></div><span style="font-size:15px;line-height:1.3"><b style="font-size:20px">24%</b><br>Rotina</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="width:95px;height:95px;background:#cdeedd;border-radius:4px"></div><span style="font-size:15px;line-height:1.3"><b>14%</b><br>Trabalho</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="width:88px;height:88px;background:#cfe3ff;border-radius:4px"></div><span style="font-size:15px;line-height:1.3"><b>12%</b><br>Estudo</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="width:80px;height:80px;background:#e5e5ea;border-radius:4px"></div><span style="font-size:15px;line-height:1.3"><b>10%</b><br>Outros</span></div>
+      </div>
+      <span style="font-size:14px;color:#5f5f64">Rótulos fora do quadrado: legíveis em qualquer tamanho e com text spacing ampliado. Dado também em tabela.</span>
+    </figure>
+    <figure style="margin:0;background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+      <figcaption style="display:flex;flex-direction:column;gap:4px"><strong style="font-size:17px">Fluxograma circular · ciclo R1</strong><span style="font-size:15px;color:#5f5f64">“+” = um reforça o próximo</span></figcaption>
+      <div style="position:relative;width:100%;max-width:340px;aspect-ratio:1;margin:0 auto" aria-hidden="true">
+        <svg viewBox="0 0 340 340" style="position:absolute;inset:0;width:100%;height:100%"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5f5f64"></path></marker></defs>
+          <path d="M210 52 A130 130 0 0 1 288 130" fill="none" stroke="#5f5f64" stroke-width="2" marker-end="url(#ah)"></path>
+          <path d="M288 210 A130 130 0 0 1 210 288" fill="none" stroke="#5f5f64" stroke-width="2" marker-end="url(#ah)"></path>
+          <path d="M130 288 A130 130 0 0 1 52 210" fill="none" stroke="#5f5f64" stroke-width="2" marker-end="url(#ah)"></path>
+          <path d="M52 130 A130 130 0 0 1 130 52" fill="none" stroke="#5f5f64" stroke-width="2" marker-end="url(#ah)"></path>
+          <circle cx="170" cy="170" r="44" fill="none" stroke="#8e8e93" stroke-dasharray="5 5"></circle>
+        </svg>
+        <div style="position:absolute;left:50%;top:6%;transform:translateX(-50%);background:#f5f5f7;border:1px solid #d2d2d7;border-radius:10px;padding:6px 10px;text-align:center;font-size:14px;line-height:1.25"><b>Compreensão</b><br>narrativa</div>
+        <div style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:#f5f5f7;border:1px solid #d2d2d7;border-radius:10px;padding:6px 10px;text-align:center;font-size:14px;line-height:1.25"><b>Expectativa</b><br>significativa</div>
+        <div style="position:absolute;left:50%;bottom:6%;transform:translateX(-50%);background:#f5f5f7;border:1px solid #d2d2d7;border-radius:10px;padding:6px 10px;text-align:center;font-size:14px;line-height:1.25"><b>Atenção</b><br>sustentada</div>
+        <div style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:#f5f5f7;border:1px solid #d2d2d7;border-radius:10px;padding:6px 10px;text-align:center;font-size:14px;line-height:1.25"><b>Informação</b><br>processada</div>
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-size:13px;line-height:1.2"><b style="font-size:18px">R1</b><br>Hipótese</div>
+      </div>
+      <ol style="margin:0;padding-left:20px;font-size:15px;line-height:1.6"><li>Compreensão narrativa reforça expectativa significativa</li><li>Expectativa reforça atenção sustentada</li><li>Atenção reforça informação processada</li><li>Informação processada reforça compreensão (fecha o ciclo R1)</li></ol>
+    </figure>
+  </div>
+</section>
+
+<section id="mockups" data-screen-label="04 Mockups" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">4 · Mobile 390 px · interativo</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Mockups A–D</h2>
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#3a3a3c">Toque num artigo em A ou C para abri-lo em B. As preferências em D alteram B ao vivo.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+
+    <div style="display:flex;flex-direction:column;gap:10px;width:390px;max-width:100%">
+      <span style="font:600 13px ui-monospace,Menlo,monospace">A · Home</span>
+      <div style="background:#fff;border-radius:28px;border:1px solid #d2d2d7;overflow:hidden">
+        <div style="padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center">
+          <strong style="font-size:17px">Risco Cognitivo</strong>
+          <button aria-label="Buscar" style="width:44px;height:44px;border:0;background:#f5f5f7;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1d1d1f" stroke-width="1.5"><circle cx="9" cy="9" r="6"></circle><path d="M13.5 13.5L18 18"></path></svg></button>
+        </div>
+        <nav aria-label="Principal" style="display:flex;gap:4px;padding:4px 12px 0;border-bottom:1px dashed #8e8e93;font:500 15px ui-monospace,'SF Mono',Menlo,monospace">
+          <a href="#mockups" aria-current="page" style="min-height:44px;display:flex;align-items:center;padding:0 8px;color:#1d1d1f;text-decoration:underline;text-underline-offset:6px">Artigos</a>
+          <a href="#mockups" style="min-height:44px;display:flex;align-items:center;padding:0 8px;color:#1d1d1f;text-decoration:none">Ferramentas</a>
+          <a href="#mockups" style="min-height:44px;display:flex;align-items:center;padding:0 8px;color:#1d1d1f;text-decoration:none">Blog</a>
+        </nav>
+        <div style="padding:28px 20px 12px;display:flex;flex-direction:column;gap:10px">
+          <span style="font:500 14px ui-monospace,Menlo,monospace;color:#5f5f64">Em destaque</span>
+          <div style="aspect-ratio:1;border-radius:16px;background:#e4dcff;display:flex;align-items:flex-end;padding:14px;font:500 13px ui-monospace,Menlo,monospace;color:#3a3a3c">imagem quadrada do artigo</div>
+          <button onClick="{{ openFeatured }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;gap:8px;border-radius:8px">
+            <span style="font:600 26px/1.2 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;text-wrap:balance">{{ featured.title }}</span>
+            <span style="font-size:17px;line-height:1.5;color:#3a3a3c">{{ featured.dek }}</span>
+            <span style="display:flex;gap:10px;align-items:center;font-size:15px;color:#5f5f64"><span style="padding:2px 8px;border-radius:6px;background:#e4dcff;color:#1d1d1f">{{ featured.cat }}</span>{{ featured.date }} · {{ featured.time }}</span>
+          </button>
+        </div>
+        <div style="padding:16px 20px 24px;display:flex;flex-direction:column">
+          <span style="font:500 14px ui-monospace,Menlo,monospace;color:#5f5f64;padding-bottom:8px">Recentes</span>
+          <sc-for list="{{ rest }}" as="a" hint-placeholder-count="2">
+            <button onClick="{{ a.open }}" style="all:unset;cursor:pointer;display:flex;gap:14px;padding:16px 0;border-top:1px solid #e5e5ea">
+              <span style="flex:none;width:72px;height:72px;border-radius:10px;background:{{ a.color }}"></span>
+              <span style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font:600 18px/1.3 -apple-system,BlinkMacSystemFont,sans-serif">{{ a.title }}</span><span style="font-size:14px;color:#5f5f64">{{ a.cat }} · {{ a.time }}</span></span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;width:390px;max-width:100%">
+      <span style="font:600 13px ui-monospace,Menlo,monospace">B · Artigo {{ focusLabel }}</span>
+      <div style="background:{{ bg }};border-radius:28px;border:1px solid #d2d2d7;overflow:hidden">
+        <sc-if value="{{ notFocus }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:12px 12px 0;display:flex;justify-content:space-between;align-items:center">
+            <button aria-label="Voltar" style="min-height:44px;padding:0 12px;border:0;background:transparent;font-size:16px;color:#1d1d1f;cursor:pointer">‹ Artigos</button>
+            <button onClick="{{ toggleFocus }}" style="min-height:44px;padding:0 14px;border:1px solid #d2d2d7;background:#fff;border-radius:999px;font-size:15px;color:#1d1d1f;cursor:pointer">Aa · Modo foco</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ focus }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:12px;display:flex;justify-content:flex-end"><button onClick="{{ toggleFocus }}" style="min-height:44px;padding:0 14px;border:1px solid #d2d2d7;background:transparent;border-radius:999px;font-size:15px;color:#1d1d1f;cursor:pointer">Sair do foco</button></div>
+        </sc-if>
+        <article style="padding:20px 20px 32px;display:flex;flex-direction:column;gap:16px">
+          <sc-if value="{{ notFocus }}" hint-placeholder-val="{{ true }}">
+            <span style="display:flex;gap:10px;align-items:center;font-size:15px;color:#5f5f64"><span style="padding:2px 8px;border-radius:6px;background:{{ cur.color }};color:#1d1d1f">{{ cur.cat }}</span>{{ cur.date }} · {{ cur.time }}</span>
+          </sc-if>
+          <h3 style="margin:0;font:600 30px/1.18 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;text-wrap:balance">{{ cur.title }}</h3>
+          <p style="margin:0;font-size:19px;line-height:1.5;color:#3a3a3c">{{ cur.dek }}</p>
+          <sc-if value="{{ notFocus }}" hint-placeholder-val="{{ true }}">
+            <details style="background:#f5f5f7;border-radius:12px;padding:4px 16px"><summary style="min-height:44px;display:flex;align-items:center;cursor:pointer;font-size:16px;font-weight:600">Nesta página · 3 seções</summary><ol style="margin:0 0 12px;padding-left:20px;font-size:16px;line-height:1.8"><li>O que é</li><li>Como aparece</li><li>O que fazer</li></ol></details>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:{{ paraGap }};font-family:{{ fontFamily }};font-size:{{ fontSize }};line-height:{{ lineHeight }};letter-spacing:{{ letterSpacing }};word-spacing:{{ wordSpacing }}">
+            <h4 style="margin:0;font-size:1.3em;line-height:1.3;font-weight:600">O que é</h4>
+            <p style="margin:0">{{ cur.p1 }}</p>
+            <div style="background:{{ cur.color }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px"><strong style="font-size:0.8em">Ponto-chave</strong><span>{{ cur.key }}</span></div>
+            <h4 style="margin:0;font-size:1.3em;line-height:1.3;font-weight:600">Como aparece</h4>
+            <p style="margin:0">{{ cur.p2 }}</p>
+          </div>
+          <sc-if value="{{ notFocus }}" hint-placeholder-val="{{ true }}">
+            <div style="border-top:1px dashed #8e8e93;padding-top:20px;display:flex;flex-direction:column;gap:12px"><span style="font-size:15px;color:#5f5f64">Ao fim do artigo, uma única ação:</span><button style="min-height:48px;border:0;border-radius:999px;background:#1d1d1f;color:#fff;font-size:17px;font-weight:600;cursor:pointer">Comprar o guia</button></div>
+          </sc-if>
+        </article>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;width:390px;max-width:100%">
+      <span style="font:600 13px ui-monospace,Menlo,monospace">C · Busca e categorias</span>
+      <div style="background:#fff;border-radius:28px;border:1px solid #d2d2d7;overflow:hidden;padding:20px;display:flex;flex-direction:column;gap:16px">
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">Buscar no blog</span>
+          <input value="{{ query }}" onChange="{{ setQuery }}" placeholder="Ex.: rotina, leitura" style="min-height:48px;border:1px solid #8e8e93;border-radius:12px;padding:0 14px;font-size:17px;font-family:inherit;color:#1d1d1f;background:#fff"></input>
+        </label>
+        <div role="group" aria-label="Categorias" style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="min-height:44px;padding:0 16px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:#1d1d1f;font-size:15px;cursor:pointer;font-weight:{{ c.weight }}">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <span aria-live="polite" style="font-size:15px;color:#5f5f64">{{ resultLabel }}</span>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ results }}" as="a" hint-placeholder-count="3">
+            <button onClick="{{ a.open }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:16px 0;border-top:1px solid #e5e5ea">
+              <span style="font-size:14px;color:#5f5f64">{{ a.cat }} · {{ a.date }}</span>
+              <span style="font:600 18px/1.3 -apple-system,BlinkMacSystemFont,sans-serif">{{ a.title }}</span>
+              <span style="font-size:15px;line-height:1.5;color:#3a3a3c">{{ a.dek }}</span>
+            </button>
+          </sc-for>
+          <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}"><div style="padding:20px;background:#f5f5f7;border-radius:12px;font-size:16px;line-height:1.5">Nenhum artigo encontrado. Tente outra palavra ou escolha “Todos”.</div></sc-if>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;width:390px;max-width:100%">
+      <span style="font:600 13px ui-monospace,Menlo,monospace">D · Preferências de leitura</span>
+      <div role="dialog" aria-label="Preferências de leitura" style="background:#fff;border-radius:28px;border:1px solid #d2d2d7;overflow:hidden;padding:20px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:20px">Preferências de leitura</strong><button onClick="{{ reset }}" style="min-height:44px;padding:0 12px;border:0;background:transparent;color:#0066cc;font-size:16px;cursor:pointer">Restaurar</button></div>
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+          <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+            <legend style="font-size:16px;font-weight:600;padding:0 0 10px">{{ g.label }}</legend>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;background:#f5f5f7;border-radius:12px;padding:4px">
+              <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="min-height:44px;border:0;border-radius:9px;background:{{ o.bg }};box-shadow:{{ o.shadow }};font-size:15px;font-weight:{{ o.weight }};color:#1d1d1f;cursor:pointer;padding:0 6px">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+        </sc-for>
+        <label style="display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:44px"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Modo foco</span><span style="font-size:14px;color:#5f5f64">Esconde navegação, metadados e ação; deixa só o texto.</span></span><input type="checkbox" checked="{{ focus }}" onChange="{{ toggleFocus }}" style="width:28px;height:28px;accent-color:#1d1d1f;flex:none"></input></label>
+        <p style="margin:0;font-size:14px;line-height:1.5;color:#5f5f64">Salvo neste dispositivo. Não substitui o zoom do navegador — o layout continua funcionando com ele.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="desktop" data-screen-label="05 Desktop" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">5 · E · Adaptação responsiva</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Desktop 1280 px</h2>
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#3a3a3c">Home: grade de 3 colunas com imagens quadradas. Artigo: índice lateral fixo à esquerda, coluna de leitura de 64ch; a coluna não cresce com a tela, só a margem.</p>
+  </div>
+  <div style="overflow-x:auto;padding-bottom:8px">
+  <div style="width:1200px;display:flex;flex-direction:column;gap:24px">
+    <div style="background:#fff;border-radius:20px;border:1px solid #d2d2d7;padding:28px 48px 48px;display:flex;flex-direction:column;gap:36px">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed #8e8e93;padding-bottom:12px">
+        <strong style="font-size:19px">Risco Cognitivo</strong>
+        <nav style="display:flex;gap:28px;font:500 16px ui-monospace,'SF Mono',Menlo,monospace"><span style="text-decoration:underline;text-underline-offset:6px">Artigos</span><span>Ferramentas</span><span>Blog</span></nav>
+        <div style="display:flex;gap:8px"><span style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#f5f5f7;font-size:15px">Buscar</span><span style="min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:999px;background:#f5f5f7;font-size:15px">Aa Leitura</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px">
+        <sc-for list="{{ articles }}" as="a" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:14px"><div style="aspect-ratio:1;border-radius:16px;background:{{ a.color }}"></div><span style="font:600 22px/1.25 -apple-system,BlinkMacSystemFont,sans-serif">{{ a.title }}</span><span style="font-size:15px;color:#5f5f64">{{ a.cat }} · {{ a.date }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:20px;border:1px solid #d2d2d7;padding:48px;display:grid;grid-template-columns:220px minmax(0,64ch) 1fr;gap:56px">
+      <nav aria-label="Nesta página" style="display:flex;flex-direction:column;gap:4px;font-size:15px;padding-top:140px"><span style="min-height:40px;display:flex;align-items:center;font-weight:600;border-left:2px solid #1d1d1f;padding-left:12px">O que é</span><span style="min-height:40px;display:flex;align-items:center;padding-left:14px;color:#3a3a3c">Como aparece</span><span style="min-height:40px;display:flex;align-items:center;padding-left:14px;color:#3a3a3c">O que fazer</span></nav>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span style="font-size:15px;color:#5f5f64">{{ cur.cat }} · {{ cur.date }} · {{ cur.time }}</span>
+        <span style="font:600 44px/1.1 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">{{ cur.title }}</span>
+        <span style="font-size:21px;line-height:1.5;color:#3a3a3c">{{ cur.dek }}</span>
+        <span style="font-size:19px;line-height:1.65">{{ cur.p1 }}</span>
+        <span style="font-size:19px;line-height:1.65">{{ cur.p2 }}</span>
+      </div>
+      <div></div>
+    </div>
+  </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;font-size:15px;line-height:1.5">
+    <div style="background:#fff;border-radius:12px;padding:16px"><b>≤ 599 px</b><br>Coluna única, margem 20, nav em 3 itens visíveis, índice recolhível.</div>
+    <div style="background:#fff;border-radius:12px;padding:16px"><b>600–1023 px</b><br>Grade de 2 colunas na home; artigo ainda em coluna única centralizada.</div>
+    <div style="background:#fff;border-radius:12px;padding:16px"><b>≥ 1024 px</b><br>Grade de 3; índice lateral fixo; coluna de leitura limitada a 64ch.</div>
+    <div style="background:#fff;border-radius:12px;padding:16px"><b>Texto ampliado</b><br>Breakpoints em em: com 200% de texto, o desktop volta ao layout de tablet.</div>
+  </div>
+</section>
+
+<section id="checklist" data-screen-label="06 Checklist" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+    <div style="font:500 14px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:#5f5f64">6 · WCAG 2.2 AA + suplementar</div>
+    <h2 style="margin:0;font:600 32px/1.15 -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif">Checklist de acessibilidade</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px">
+    <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">O que os mockups demonstram</strong>
+      <ul style="margin:0;padding-left:18px;font-size:16px;line-height:1.7"><li>Contraste dos pares de cor (≥ 4,5:1)</li><li>Alvos de toque de 44 px e espaçamento entre eles</li><li>Hierarquia: onde estou → o que é → começar a ler</li><li>Uma ação primária por tela</li><li>Texto alinhado à esquerda, sem caixa alta longa</li><li>Cor sempre com rótulo</li><li>Preferências de tamanho, espaçamento, fonte, fundo e modo foco</li></ul></div>
+    <div style="background:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px"><strong style="font-size:17px">O que exige teste no site implementado</strong>
+      <ul style="margin:0;padding-left:18px;font-size:16px;line-height:1.7"><li>Reflow a 320 CSS px e zoom 400% (1.4.10)</li><li>Texto a 200% (1.4.4)</li><li>Bookmarklet de text spacing (1.4.12)</li><li>Ordem de foco, foco visível e não encoberto (2.4.7, 2.4.11)</li><li>Leitor de tela: VoiceOver iOS e NVDA</li><li>prefers-reduced-motion e persistência das preferências</li><li>Teste moderado com leitores com dislexia e TDAH (hipóteses: fundo creme, modo foco, coluna mais curta)</li></ul></div>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cur: 0, focus: false, size: 1, spacing: 0, font: 0, bgi: 0, query: '', cat: 'Todos' };
+  arts = [
+    { title: 'TDAH adulto: sinais que passam despercebidos', dek: 'Lorem sinais dolor engi, per judhe quenst dolor sit amet consectetur.', cat: 'TDAH', color: '#e4dcff', date: '29 out 2026', time: '6 min',
+      p1: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+      key: 'Lorem sinais dolor engi, per judhe quenst dolor.',
+      p2: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore. Excepteur sint occaecat cupidatat non proident, sunt in culpa.' },
+    { title: 'Dislexia e leitura na tela: o que muda', dek: 'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.', cat: 'Dislexia', color: '#ffe589', date: '27 out 2026', time: '8 min',
+      p1: 'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit.',
+      key: 'Lorem espaçamento dolor, per judhe quenst tipografia.',
+      p2: 'Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit.' },
+    { title: 'Ferramenta: mapa semanal de atenção', dek: 'Etiam porta sem malesuada magna mollis euismod, cras mattis consectetur.', cat: 'Ferramentas', color: '#cdeedd', date: '24 out 2026', time: '4 min',
+      p1: 'Maecenas faucibus mollis interdum. Vestibulum id ligula porta felis euismod semper. Nullam quis risus eget urna mollis ornare.',
+      key: 'Lorem agora, próximo, depois: uma coisa por vez.',
+      p2: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur.' }
+  ];
+  renderVals() {
+    const s = this.state, set = (o) => this.setState(o);
+    const open = (i) => () => set({ cur: i });
+    const articles = this.arts.map((a, i) => ({ ...a, open: open(i) }));
+    const q = s.query.trim().toLowerCase();
+    const results = articles.filter(a => (s.cat === 'Todos' || a.cat === s.cat) && (!q || (a.title + ' ' + a.dek).toLowerCase().includes(q)));
+    const seg = (label, key, labels) => ({ label, opts: labels.map((l, i) => { const on = s[key] === i; return { label: l, on, pick: () => set({ [key]: i }), bg: on ? '#fff' : 'transparent', shadow: on ? '0 1px 3px rgba(0,0,0,.15)' : 'none', weight: on ? 600 : 400 }; }) });
+    const sizes = [16, 18, 21, 24];
+    const sp = [{ lh: 1.6, ls: '0', ws: '0', pg: '1em' }, { lh: 1.75, ls: '0.035em', ws: '0.12em', pg: '1.5em' }, { lh: 1.9, ls: '0.06em', ws: '0.2em', pg: '2em' }][s.spacing];
+    const fonts = ['-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif', '"New York","Iowan Old Style",Georgia,serif', 'ui-monospace,"SF Mono",Menlo,monospace'];
+    return {
+      articles, featured: articles[0], rest: articles.slice(1), cur: this.arts[s.cur],
+      focus: s.focus, notFocus: !s.focus, focusLabel: s.focus ? '· modo foco' : '',
+      toggleFocus: () => set({ focus: !this.state.focus }),
+      openFeatured: open(0),
+      query: s.query, setQuery: (e) => set({ query: e.target.value }),
+      cats: ['Todos', 'TDAH', 'Dislexia', 'Ferramentas'].map(c => { const on = s.cat === c; return { label: c, on, pick: () => set({ cat: c }), bg: on ? '#1d1d1f' : '#fff', border: on ? '#1d1d1f' : '#8e8e93', weight: on ? 600 : 400 }; }).map(c => c.on ? { ...c, bg: '#e5e5ea' } : c),
+      results, empty: results.length === 0, resultLabel: results.length + (results.length === 1 ? ' artigo' : ' artigos'),
+      groups: [seg('Tamanho do texto', 'size', ['A−', 'A', 'A+', 'A++']), seg('Espaçamento', 'spacing', ['Padrão', 'Amplo', 'Extra']), seg('Fonte', 'font', ['Sans', 'Serif', 'Mono']), seg('Fundo', 'bgi', ['Branco', 'Creme'])],
+      reset: () => set({ size: 1, spacing: 0, font: 0, bgi: 0, focus: false }),
+      fontSize: sizes[s.size] + 'px', lineHeight: sp.lh, letterSpacing: sp.ls, wordSpacing: sp.ws, paraGap: sp.pg,
+      fontFamily: fonts[s.font], bg: s.bgi ? '#fbf6e9' : '#fff'
+    };
+  }
+}
+</script>
+</body>
+</html>

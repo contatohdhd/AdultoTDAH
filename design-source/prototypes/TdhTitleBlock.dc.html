@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:100%;box-sizing:border-box;background:#F2F2F2;border-radius:4px;padding:40px 20px 44px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+  <sc-if value="{{ hasKicker }}" hint-placeholder-val="{{ false }}"><span style="font:400 14px/1.4 Inter,sans-serif;color:#5C5C60">{{ kicker }}</span></sc-if>
+  <div aria-hidden="true" style="width:44%;border-top:3px double #8A8A8E"></div>
+  <h1 id="{{ headingId }}" tabindex="-1" style="margin:0;max-width:24ch;font:500 {{ size }}/1.28 'IBM Plex Mono',ui-monospace,monospace;color:#111111;text-wrap:balance">{{ title }}</h1>
+  <div aria-hidden="true" style="width:78%;border-top:3px double #8A8A8E"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:260},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Lorem ipsum: leitura e destaques&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;kicker&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;compact&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;headingId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;page-title&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.kicker ?? '';
+    return { title: this.props.title ?? 'Lorem ipsum: leitura e destaques', kicker: k, hasKicker: !!k, size: (this.props.compact ? 24 : 30) + 'px', headingId: this.props.headingId ?? 'page-title' };
+  }
+}
+</script>
+</body>
+</html>

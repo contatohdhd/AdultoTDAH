@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:#FFFFFF;color:#111111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0A5BD3}a:hover{color:#0849AC}
+</style>
+</helmet>
+
+<div style="padding:72px 64px 120px;display:flex;flex-direction:column;gap:96px;width:max-content">
+  <header style="display:flex;flex-direction:column;gap:14px;max-width:760px">
+    <span style="font:500 15px Inter,sans-serif;color:#5C5C60"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace">#</span> Sistema de design TDH · v1.0</span>
+    <h1 style="margin:0;font:600 48px/1.08 Inter,sans-serif;letter-spacing:-0.02em">Mockups completos</h1>
+    <p style="margin:0;font:400 20px/1.5 Inter,sans-serif;color:#3A3A3D">Telas reais e interativas do blog e do questionário, em iPhone 390 × 844 e desktop 1280 × 800. Cada tela pode ser rolada e tocada. Respostas do questionário são de demonstração e não são salvas.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:4px 16px">
+      <a href="./TDH Design System v1.dc.html" style="min-height:44px;display:inline-flex;align-items:center;font:400 17px Inter,sans-serif;text-decoration:none">Sistema de design ›</a>
+      <a href="./TDH Showroom v3.dc.html" style="min-height:44px;display:inline-flex;align-items:center;font:400 17px Inter,sans-serif;text-decoration:none">Abrir blog ›</a>
+      <a href="./TDH Questionario v3.dc.html" style="min-height:44px;display:inline-flex;align-items:center;font:400 17px Inter,sans-serif;text-decoration:none">Abrir questionário ›</a>
+    </div>
+  </header>
+
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+    <section style="display:flex;flex-direction:column;gap:40px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h2 style="margin:0;font:600 32px/1.15 Inter,sans-serif;letter-spacing:-0.01em"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#6E6E73">#</span> {{ g.title }}</h2>
+        <span style="font:400 17px Inter,sans-serif;color:#3A3A3D">{{ g.desc }}</span>
+      </div>
+      <div style="display:flex;gap:48px;align-items:flex-start">
+        <sc-for list="{{ g.screens }}" as="s" hint-placeholder-count="5">
+          <figure style="margin:0;display:flex;flex-direction:column;gap:16px">
+            <div style="width:{{ s.fw }};height:{{ s.fh }};box-sizing:content-box;border:{{ s.border }};border-radius:{{ s.radius }};overflow:hidden;background:#FFFFFF;box-shadow:0 1px 0 rgba(0,0,0,0.04),0 24px 48px -24px rgba(0,0,0,0.18);position:relative">
+              <iframe src="{{ s.src }}" title="{{ s.title }}" loading="lazy" style="position:absolute;left:0;top:0;width:{{ s.w }};height:{{ s.h }};border:0;transform:scale({{ s.scale }});transform-origin:0 0"></iframe>
+            </div>
+            <figcaption style="display:flex;flex-direction:column;gap:4px;max-width:{{ s.fw }}">
+              <span style="font:500 14px 'IBM Plex Mono',monospace;color:#5C5C60">{{ s.n }}</span>
+              <span style="font:600 18px/1.3 Inter,sans-serif">{{ s.title }}</span>
+              <span style="font:400 15px/1.5 Inter,sans-serif;color:#3A3A3D">{{ s.note }}</span>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const B = './TDH%20Showroom%20v3.dc.html', Q = './TDH%20Questionario%20v3.dc.html';
+    const phone = (n, title, src, note) => ({ n, title, src, note, w: '390px', h: '844px', fw: '390px', fh: '844px', scale: 1, border: '10px solid #111111', radius: '52px' });
+    const desk = (n, title, src, note) => ({ n, title, src, note, w: '1280px', h: '800px', fw: '960px', fh: '600px', scale: 0.75, border: '1px solid #D9D9DE', radius: '14px' });
+    return {
+      groups: [
+        { title: 'Blog · mobile', desc: 'Página inicial em blocos, navegação por # e artigos com controles no cabeçalho.', screens: [
+          phone('01', 'Início', B + '#/', 'Bloco de título, chamada e dois links de ação.'),
+          phone('02', 'Menu #', B + '?state=menu#/', 'Destinos com # e descrição; Esc fecha.'),
+          phone('03', 'Questionários', B + '#/questionarios', 'Destaque com S e N grandes e botão único.'),
+          phone('04', 'Artigos', B + '#/artigos', 'Cartões cinza com tag, título, linha fina e link.'),
+          phone('05', 'Artigo · abertura', B + '#/a', 'Título piramidal, respiro e texto. Nada antes da leitura.'),
+          phone('06', 'Índice', B + '?state=toc#/b', 'Disclosure no cabeçalho com as seções do artigo.')
+        ] },
+        { title: 'Blog · leitura e recursos', desc: 'Preferências, grifos, dados interativos, ciclo e ferramentas.', screens: [
+          phone('07', 'Aa · primeiro uso', B + '?state=tip#/a', 'Pop-up explicativo com Ajustar leitura e Fechar.'),
+          phone('08', 'Preferências', B + '?state=prefs#/a', 'Tamanho, espaçamento, fonte e largura.'),
+          phone('09', 'Grifos', B + '#/a/a-atencao', 'Amarelo para TDAH, roxo para outras informações.'),
+          phone('10', 'Gráfico de áreas', B + '#/b/b-estrategias', 'Filtro, arraste por período, seleção e tabela.'),
+          phone('11', 'Ciclo R1', B + '#/c/c-ciclo', 'Etapas selecionáveis e sequência em texto.'),
+          phone('12', 'Ferramentas', B + '#/c/ferramentas', 'Linha curta, Abrir/Fechar e Copiar.')
+        ] },
+        { title: 'Questionário · mobile', desc: 'Responder, especificar, revisar e resumo pronto para print.', screens: [
+          phone('13', 'Abertura', Q, 'Título, descrição, áreas e atribuição.'),
+          phone('14', 'Pergunta 8 de 23', Q + '?demo=1&screen=q&idx=7', 'Ponteiro com proporção de Sim; Sim/Não e Especifique perto dos polegares.'),
+          phone('15', 'Especifique', Q + '?demo=1&screen=q&idx=7&spec=1', 'Comentário guardado junto da resposta.'),
+          phone('16', 'Revisão', Q + '?demo=1&screen=review', 'Editar resposta ou comentário sem perder o registro.'),
+          phone('17', 'Resumo para print', Q + '?demo=1&screen=summary', 'Telas numeradas; pergunta, resposta e comentário juntos.')
+        ] },
+        { title: 'Desktop', desc: 'Mesma arquitetura em blocos com navegação textual no cabeçalho.', screens: [
+          desk('18', 'Início', B + '#/', 'Blocos centralizados de largura total.'),
+          desk('19', 'Artigo B', B + '#/b', 'Coluna de 680 px com controles no cabeçalho.'),
+          desk('20', 'Resumo do questionário', Q + '?demo=1&screen=summary', 'Todas as telas do registro lado a lado.')
+        ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

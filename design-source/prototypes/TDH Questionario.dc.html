@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:#FFFFFF;color:#111111;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-size-adjust:100%}
+a{color:#111111}a:hover{color:#000000}
+:focus-visible{outline:3px solid #1F5FD1;outline-offset:3px;border-radius:4px}
+textarea::placeholder{color:#6E6E73}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:#FFFFFF">
+
+  <div style="display:grid;grid-template-columns:56px 1fr 56px;align-items:center;padding:10px 12px 0;min-height:60px">
+    <span></span>
+    <span aria-label="Tdah Adulto" role="img" style="justify-self:center;display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;font-family:'IBM Plex Mono',ui-monospace,monospace;color:#8A8A8E;line-height:1"><span style="font-size:9px">Tdah</span><span style="font-size:15px;letter-spacing:0.14em;margin-right:-0.14em">Adulto</span></span>
+    <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
+      <a href="TDH Showroom v2.dc.html#/questionarios" aria-label="Voltar ao blog" style="justify-self:end;width:48px;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:8px;text-decoration:none;color:#111" style-hover="background:#F2F2F2"><span aria-hidden="true" style="font:500 15px/1 'IBM Plex Mono',ui-monospace,monospace">#</span><span aria-hidden="true" style="font-size:11px;color:#5C5C60">Voltar</span></a>
+    </sc-if>
+    <sc-if value="{{ notIntro }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ back }}" aria-label="{{ backLabel }}" style="justify-self:end;width:48px;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:0;border-radius:8px;background:transparent;color:#111;cursor:pointer" style-hover="background:#F2F2F2"><span aria-hidden="true" style="font:500 15px/1 'IBM Plex Mono',ui-monospace,monospace">#</span><span aria-hidden="true" style="font-size:11px;color:#5C5C60">Voltar</span></button>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
+    <main style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;padding:32px 24px 40px">
+      <h1 style="margin:0;font:500 26px/1.3 'IBM Plex Mono',ui-monospace,monospace;text-wrap:balance">Organize suas observações para a consulta</h1>
+      <p style="margin:0;font-size:18px;line-height:1.6;text-wrap:pretty">Responda às afirmações e especifique situações da sua rotina. Ao concluir, visualize suas respostas e tire um print para conversar com seu profissional de saúde.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #E3E3E6">
+        <sc-for list="{{ areaList }}" as="ar" hint-placeholder-count="2">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid #E3E3E6;font-size:15px;line-height:1.45"><span>{{ ar.name }}</span><span style="flex:none;font:400 14px 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60">{{ ar.count }}</span></div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-top:8px">
+        <button onClick="{{ start }}" style="min-height:48px;padding:0 24px;border:0;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:600 17px Inter,sans-serif;cursor:pointer" style-hover="background:#0849AC" style-active="background:#073C8F">{{ startLabel }}</button>
+        <sc-if value="{{ hasProgress }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ restart }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 15px 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Recomeçar</button>
+        </sc-if>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.5;color:#3A3A3D">
+        <p style="margin:0">Conteúdo adaptado, com autorização, de <em style="font-style:normal;font-weight:600;color:#111">Vencendo o TDAH adulto</em>, de Russell A. Barkley e Christine M. Benton, [edição, editora, ano e páginas].</p>
+        <p style="margin:0">Interface desenvolvida pelo Tdah Adulto. Este recurso organiza relatos pessoais; não fornece diagnóstico nem classificação de gravidade.</p>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isQ }}" hint-placeholder-val="{{ false }}">
+    <main style="flex:1;display:flex;flex-direction:column;min-height:calc(100dvh - 70px)">
+      <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 24px 16px;min-height:340px">
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;aspect-ratio:3/2;max-height:62%;pointer-events:none">
+          <svg viewBox="0 0 300 200" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M 2.6 95.6 A 220 220 0 0 0 297.4 95.6" fill="none" stroke="#E3E3E6" stroke-width="1.2"></path></svg>
+          <div ref="{{ dotRef }}" style="position:absolute;left:50%;top:80%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:{{ dotColor }};box-shadow:0 0 0 6px rgba(255,224,102,0.18)"></div>
+        </div>
+        <div role="img" aria-label="{{ gaugeAria }}" style="position:absolute;right:20px;top:8px;font:400 12px/1.3 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60;text-align:right">{{ gaugeText }}</div>
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;max-width:24ch;margin-top:48px">
+          <span style="font:400 13px/1.4 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60;max-width:30ch">{{ q.area }}<br>{{ q.pos }}</span>
+          <h1 id="q-text" tabindex="-1" style="margin:0;font:400 21px/1.45 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-wrap:balance">{{ q.text }}</h1>
+          <span role="status" style="min-height:20px;font-size:14px;color:#3A3A3D">{{ toast }}</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:16px;padding:8px 20px 28px;min-height:176px">
+        <div role="group" aria-label="Resposta" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
+          <button onClick="{{ pickSim }}" aria-pressed="{{ simOn }}" style="display:flex;align-items:baseline;min-height:64px;padding:0 10px 0 4px;border:0;border-bottom:3px double {{ simLine }};border-radius:4px 4px 0 0;background:transparent;color:#111;cursor:pointer;font-family:Inter,sans-serif" style-hover="background:#F7F7F8"><span style="font-size:60px;line-height:1;font-weight:400">S</span><span style="font-size:28px;line-height:1;color:{{ simRest }}">im</span></button>
+          <button onClick="{{ pickNao }}" aria-pressed="{{ naoOn }}" style="display:flex;align-items:baseline;min-height:64px;padding:0 10px 0 4px;border:0;border-bottom:3px double {{ naoLine }};border-radius:4px 4px 0 0;background:transparent;color:#111;cursor:pointer;font-family:Inter,sans-serif" style-hover="background:#F7F7F8"><span style="font-size:60px;line-height:1;font-weight:400">N</span><span style="font-size:28px;line-height:1;color:{{ naoRest }}">ão</span></button>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:8px;min-width:0">
+          <sc-if value="{{ specClosed }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ openSpec }}" aria-expanded="false" aria-controls="spec-panel" style="min-height:48px;padding:0 6px;border:0;border-radius:6px;background:transparent;font:400 20px Inter,sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;cursor:pointer" style-hover="background:#F2F2F2">Especifique</button>
+            <sc-if value="{{ hasComment }}" hint-placeholder-val="{{ false }}"><span style="font:400 13px 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60;text-align:right">Comentário salvo</span></sc-if>
+          </sc-if>
+          <sc-if value="{{ specOpen }}" hint-placeholder-val="{{ false }}">
+            <div id="spec-panel" role="group" aria-labelledby="spec-label" style="width:100%;display:flex;flex-direction:column;gap:6px">
+              <label id="spec-label" for="spec-input" style="font:500 16px Inter,sans-serif;color:#111">Especifique</label>
+              <span id="spec-help" style="font-size:14px;line-height:1.4;color:#3A3A3D">Descreva a situação. Acrescente detalhes.</span>
+              <textarea id="spec-input" ref="{{ inputRef }}" aria-describedby="spec-help" rows="3" value="{{ draft }}" onChange="{{ setDraft }}" placeholder="O que aconteceu, em qual contexto e como isso afetou sua atividade." style="width:100%;box-sizing:border-box;resize:vertical;min-height:84px;border:0;border-bottom:1.5px solid #111;border-radius:0;padding:6px 0;font:400 16px/1.45 Inter,sans-serif;color:#111;background:transparent"></textarea>
+              <div style="display:flex;justify-content:flex-end;flex-wrap:wrap;gap:2px 4px">
+                <button onClick="{{ cancelSpec }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:400 15px Inter,sans-serif;color:#3A3A3D;cursor:pointer" style-hover="background:#F2F2F2">Voltar</button>
+                <button onClick="{{ saveSpec }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 15px Inter,sans-serif;color:#111;text-decoration:underline;text-underline-offset:6px;cursor:pointer" style-hover="background:#F2F2F2">Salvar comentário</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+    <main style="flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 20px 120px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <h1 id="rv-title" tabindex="-1" style="margin:0;font:500 24px/1.3 'IBM Plex Mono',ui-monospace,monospace">Revise suas respostas</h1>
+        <p style="margin:0;font-size:16px;line-height:1.5;color:#3A3A3D">Confira suas escolhas e os detalhes registrados.</p>
+        <span role="status" style="min-height:20px;font-size:14px;color:#3A3A3D">{{ toast }}</span>
+      </div>
+      <sc-for list="{{ reviewAreas }}" as="ar" hint-placeholder-count="2">
+        <section style="display:flex;flex-direction:column">
+          <h2 style="margin:0 0 6px;font:600 16px/1.35 'IBM Plex Mono',ui-monospace,monospace"><span aria-hidden="true" style="color:#6E6E73">#</span> {{ ar.name }}</h2>
+          <sc-for list="{{ ar.items }}" as="it" hint-placeholder-count="4">
+            <div style="border-top:1px solid #E3E3E6;padding:12px 0;display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:16px;line-height:1.45"><span style="font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60">{{ it.id }}</span>  {{ it.text }}</span>
+              <span style="font-size:15px;color:#111">Resposta: <strong style="font-weight:600">{{ it.ans }}</strong></span>
+              <sc-if value="{{ it.hasC }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;line-height:1.45;color:#3A3A3D">Comentário: {{ it.c }}</span></sc-if>
+              <div style="display:flex;flex-wrap:wrap;gap:0 4px;margin-left:-8px">
+                <button onClick="{{ it.editA }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer" style-hover="background:#F2F2F2">Editar resposta</button>
+                <button onClick="{{ it.editC }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer" style-hover="background:#F2F2F2">Editar comentário</button>
+              </div>
+            </div>
+          </sc-for>
+        </section>
+      </sc-for>
+      <div style="position:sticky;bottom:0;background:#FFFFFF;padding:12px 0 20px;border-top:1px solid #E3E3E6;display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <span style="font-size:14px;color:#5C5C60">{{ reviewCount }}</span>
+        <button onClick="{{ finish }}" style="min-height:48px;padding:0 28px;border:0;border-radius:999px;background:#0A5BD3;color:#FFFFFF;font:600 17px Inter,sans-serif;cursor:pointer" style-hover="background:#0849AC" style-active="background:#073C8F">Concluir</button>
+      </div>
+    </main>
+  </sc-if>
+</div>
+
+<sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:32px;padding:0 0 40px">
+    <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+      <sc-if value="{{ pg.visible }}" hint-placeholder-val="{{ true }}">
+        <section aria-label="{{ pg.label }}" style="width:100%;max-width:430px;min-height:{{ pageMin }};box-sizing:border-box;padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:{{ pageBorder }};border-radius:12px">
+          <sc-if value="{{ pg.first }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:6px;padding-bottom:4px">
+              <h1 id="sum-title" tabindex="-1" style="margin:0;font:500 24px/1.3 'IBM Plex Mono',ui-monospace,monospace">Seu registro</h1>
+              <p style="margin:0;font-size:16px;line-height:1.45;color:#111">Tire um print para mostrar ao seu profissional de saúde.</p>
+            </div>
+          </sc-if>
+          <sc-for list="{{ pg.blocks }}" as="bk" hint-placeholder-count="6">
+            <sc-if value="{{ bk.isArea }}"><div style="display:flex;flex-direction:column;gap:3px;padding-top:6px;border-top:3px double #8A8A8E"><span style="font:600 15px/1.35 'IBM Plex Mono',ui-monospace,monospace;padding-top:8px">{{ bk.name }}</span><span style="font-size:13px;line-height:1.45;color:#3A3A3D">{{ bk.l1 }}<br>{{ bk.l2 }}</span></div></sc-if>
+            <sc-if value="{{ bk.isItem }}"><div style="display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:2px 8px;align-items:baseline;padding:2px 0 6px;border-bottom:1px solid #EDEDEF">
+              <span style="font:500 13px 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60">{{ bk.id }}</span>
+              <span style="font-size:14px;line-height:1.38;color:#111">{{ bk.text }}</span>
+              <span style="font:600 13px 'IBM Plex Mono',ui-monospace,monospace;color:{{ bk.ansColor }};text-align:right">{{ bk.ans }}</span>
+              <sc-if value="{{ bk.hasC }}"><span></span><span style="grid-column:2 / 4;font-size:13px;line-height:1.4;color:#3A3A3D;background:#F7F7F8;border-radius:4px;padding:4px 8px">Comentário: {{ bk.c }}</span></sc-if>
+            </div></sc-if>
+            <sc-if value="{{ bk.isAttrib }}"><div style="display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:3px double #8A8A8E;font-size:12.5px;line-height:1.45;color:#3A3A3D">
+              <span>Conteúdo adaptado, com autorização, de <em style="font-style:normal;font-weight:600">Vencendo o TDAH adulto</em>, de Russell A. Barkley e Christine M. Benton, [edição, editora, ano e páginas].</span>
+              <span>Adaptação de interface: respostas Sim/Não e comentários individuais.</span>
+              <span style="color:#111">Interface desenvolvida pelo Tdah Adulto. Este recurso organiza relatos pessoais; não fornece diagnóstico nem classificação de gravidade.</span>
+            </div></sc-if>
+          </sc-for>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:6px">
+            <span style="font:400 13px 'IBM Plex Mono',ui-monospace,monospace;color:#5C5C60">Registro {{ pg.n }} de {{ pageCount }}</span>
+            <sc-if value="{{ pg.showNav }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:2px">
+                <sc-if value="{{ pg.hasPrev }}"><button onClick="{{ prevPage }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer" style-hover="background:#F2F2F2">Tela anterior</button></sc-if>
+                <sc-if value="{{ pg.hasNext }}"><button onClick="{{ nextPage }}" style="min-height:44px;padding:0 8px;border:0;border-radius:6px;background:transparent;font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer" style-hover="background:#F2F2F2">Próxima tela</button></sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </section>
+      </sc-if>
+    </sc-for>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;autoAdvance&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Gravidade&quot;,&quot;Suave&quot;,&quot;Nenhuma&quot;],&quot;default&quot;:&quot;Gravidade&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;dotColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#FFE066&quot;,&quot;#DCCFFF&quot;,&quot;#111111&quot;],&quot;default&quot;:&quot;#FFE066&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  areas = [
+    { key: '1', name: 'Tempo, planejamento e objetivos', items: [
+      'Adio ou evito fazer as coisas até o último minuto.', 'Tenho pouca noção de tempo.', 'Desperdiço ou administro mal meu tempo.',
+      'Não estou preparado para o trabalho ou para as tarefas atribuídas a mim.', 'Falho no cumprimento dos prazos das tarefas.',
+      'Tenho dificuldade para planejar antecipadamente ou me preparar para eventos futuros.', 'Esqueço de fazer as coisas que deveria.',
+      'Não consigo cumprir as metas que estabeleci para mim mesmo.', 'Chego atrasado ao trabalho ou aos compromissos.',
+      'Não consigo manter em mente as coisas que preciso lembrar de fazer.', 'Tenho dificuldade para me concentrar no propósito ou no objetivo das minhas atividades.',
+      'Acho difícil acompanhar várias atividades ao mesmo tempo.', 'Pareço não conseguir fazer as coisas, a menos que haja um prazo final imediato.',
+      'Tenho dificuldade para pensar em quanto tempo vou demorar para fazer algo ou chegar a algum lugar.', 'Tenho dificuldade para me motivar a começar a trabalhar.',
+      'Tenho dificuldade para me motivar a persistir em meu trabalho até realizá-lo.', 'Não sou motivado a me preparar antecipadamente para as coisas que sei que deveria fazer.',
+      'Tenho dificuldade para terminar uma atividade antes de iniciar outra.', 'Tenho dificuldade para fazer o que digo a mim mesmo para fazer.',
+      'Tenho dificuldade para cumprir promessas ou compromissos que posso ter firmado com outras pessoas.', 'Não tenho muita autodisciplina.',
+      'Tenho dificuldade para organizar ou realizar meu trabalho por prioridade de importância; não consigo “priorizar” bem.', 'Tenho dificuldade para iniciar ou dar continuidade às coisas que preciso fazer.'
+    ] },
+    { key: '2', name: 'Organização, resolução de problemas e memória de trabalho', items: [
+      'Não consigo focar minha atenção em tarefas ou trabalho tão bem quanto nos outros.', 'Tenho dificuldade com a aritmética mental.',
+      'Não consigo lembrar do que ouvi ou li anteriormente.', 'Tenho dificuldade para organizar meus pensamentos ou pensar com clareza.',
+      'Esqueço o ponto principal que estava tentando abordar ao conversar com outras pessoas.',
+      'Quando me mostram algo complicado de fazer, não consigo manter as informações em mente para imitar ou fazê-lo corretamente.',
+      'Não gosto de trabalhos ou atividades escolares nos quais eu precise pensar mais do que o habitual.'
+    ] }
+  ];
+  flat = this.areas.flatMap((a, ai) => a.items.map((t, i) => ({ key: a.key + String.fromCharCode(65 + i), id: String.fromCharCode(65 + i), text: t, ai, i, total: a.items.length })));
+  dotRef = React.createRef(); inputRef = React.createRef();
+  theta = 0;
+  load() { try { return JSON.parse(localStorage.getItem('tdh-quiz-v1') || '{}'); } catch (e) { return {}; } }
+  saved = this.load();
+  state = { screen: 'intro', idx: this.saved.idx || 0, answers: this.saved.answers || {}, specOpen: false, draft: '', toast: '', editReturn: false, page: 0, wide: typeof window !== 'undefined' && window.innerWidth >= 900, vh: typeof window !== 'undefined' ? window.innerHeight : 800 };
+  persist(st) { try { localStorage.setItem('tdh-quiz-v1', JSON.stringify({ idx: st.idx, answers: st.answers })); } catch (e) {} }
+  reduce() { return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  motion() { return this.reduce() ? 'Nenhuma' : (this.props.motion ?? 'Gravidade'); }
+  componentDidMount() {
+    this.onResize = () => this.setState({ wide: window.innerWidth >= 900, vh: window.innerHeight });
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); cancelAnimationFrame(this.raf); clearTimeout(this.adv); clearTimeout(this.tt); }
+  componentDidUpdate(pp, ps) {
+    const s = this.state;
+    if (ps.screen !== s.screen || ps.idx !== s.idx) {
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        if (s.screen === 'q') { this.placeDot(this.target(), true); if (!s.specOpen) { const h = document.getElementById('q-text'); h && h.focus({ preventScroll: true }); } }
+        const t = document.getElementById(s.screen === 'review' ? 'rv-title' : s.screen === 'summary' ? 'sum-title' : '');
+        t && t.focus({ preventScroll: true });
+      }, 20);
+    }
+    if (!ps.specOpen && s.specOpen) setTimeout(() => this.inputRef.current && this.inputRef.current.focus(), 20);
+  }
+  stats() { const v = Object.values(this.state.answers).filter(x => x && x.a); return { n: v.length, sim: v.filter(x => x.a === 'sim').length }; }
+  target() { const { n, sim } = this.stats(); return n ? (sim / n - 0.5) * 2 * 40 : 0; }
+  pos(th) { const r = th * Math.PI / 180; return { x: (150 + 220 * Math.sin(r)) / 3, y: (-60 + 220 * Math.cos(r)) / 2 }; }
+  setDot(th) { const el = this.dotRef.current; if (!el) return; const p = this.pos(th); el.style.left = p.x + '%'; el.style.top = p.y + '%'; }
+  placeDot(T, instant) {
+    cancelAnimationFrame(this.raf);
+    const m = this.motion(), th0 = this.theta;
+    if (instant || m === 'Nenhuma') { this.theta = T; this.setDot(T); return; }
+    const t0 = performance.now(), dur = m === 'Gravidade' ? 1100 : 600;
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / dur), ts = t * dur / 1000;
+      const th = m === 'Gravidade' ? T + (th0 - T) * Math.exp(-3.4 * ts) * Math.cos(8 * ts) : T + (th0 - T) * Math.pow(1 - t, 3);
+      this.theta = t >= 1 ? T : th; this.setDot(this.theta);
+      if (t < 1) this.raf = requestAnimationFrame(step);
+    };
+    this.raf = requestAnimationFrame(step);
+  }
+  flash(msg) { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2200); }
+  update(fn) { this.setState(s => { const n = fn(s); const st = { ...s, ...n }; this.persist(st); return n; }); }
+  go(idx) { clearTimeout(this.adv); this.setState({ idx, specOpen: false, draft: '', screen: 'q' }); }
+  next() { const s = this.state; if (s.idx >= this.flat.length - 1) this.setState({ screen: 'review', specOpen: false }); else this.update(() => ({ idx: s.idx + 1, specOpen: false, draft: '' })); }
+  answer(a) {
+    const s = this.state, it = this.flat[s.idx];
+    clearTimeout(this.adv);
+    this.update(st => ({ answers: { ...st.answers, [it.key]: { ...(st.answers[it.key] || {}), a } } }));
+    setTimeout(() => this.placeDot(this.target()), 0);
+    if (s.editReturn) { this.flash('Alteração salva.'); this.adv = setTimeout(() => this.setState({ screen: 'review', editReturn: false }), 900); return; }
+    this.flash('Resposta registrada.');
+    if ((this.props.autoAdvance ?? true) && !s.specOpen) this.adv = setTimeout(() => { if (!this.state.specOpen) this.next(); }, 1150);
+  }
+  saveSpec() {
+    const s = this.state, it = this.flat[s.idx];
+    this.update(st => ({ answers: { ...st.answers, [it.key]: { ...(st.answers[it.key] || {}), c: st.draft.trim() } }, specOpen: false }));
+    this.flash(s.editReturn ? 'Alteração salva.' : 'Comentário salvo.');
+    clearTimeout(this.adv);
+    if (s.editReturn) this.adv = setTimeout(() => this.setState({ screen: 'review', editReturn: false }), 900);
+    else if ((this.props.autoAdvance ?? true) && s.answers[it.key] && s.answers[it.key].a) this.adv = setTimeout(() => this.next(), 900);
+  }
+  paginate() {
+    const s = this.state, perLine = 34, lh = 19.5;
+    const cap = Math.max(560, Math.min(s.vh, 900) - 90);
+    const blocks = [];
+    this.areas.forEach(ar => {
+      const its = this.flat.filter(f => f.key[0] === ar.key);
+      const a = its.map(f => s.answers[f.key] || {});
+      const sim = a.filter(x => x.a === 'sim').length, nao = a.filter(x => x.a === 'nao').length, sem = its.length - sim - nao;
+      blocks.push({ isArea: true, name: ar.name, l1: (sim + nao) + ' de ' + its.length + ' afirmações respondidas.', l2: 'Sim: ' + sim + ' · Não: ' + nao + ' · Sem resposta: ' + sem + '.', h: 78 });
+      its.forEach(f => {
+        const r = s.answers[f.key] || {}, c = (r.c || '').trim();
+        const ans = r.a === 'sim' ? 'Sim' : r.a === 'nao' ? 'Não' : 'Sem resposta';
+        const h = Math.ceil(f.text.length / perLine) * lh + 10 + (c ? Math.ceil(('Comentário: ' + c).length / (perLine + 4)) * 18.5 + 12 : 0) + (ans === 'Sem resposta' ? 8 : 0);
+        blocks.push({ isItem: true, id: f.id, text: f.text, ans, ansColor: r.a ? '#111111' : '#6E6E73', hasC: !!c, c, h });
+      });
+    });
+    blocks.push({ isAttrib: true, h: 150 });
+    const pages = []; let cur = [], used = 88;
+    blocks.forEach(b => { if (used + b.h > cap && cur.length) { pages.push(cur); cur = []; used = 20; } cur.push(b); used += b.h + 14; });
+    if (cur.length) pages.push(cur);
+    return pages;
+  }
+  renderVals() {
+    const s = this.state, set = (o) => this.setState(o);
+    const it = this.flat[s.idx], r = s.answers[it.key] || {};
+    const { n, sim } = this.stats();
+    const ar = this.areas[it.ai];
+    const answered = this.flat.filter(f => s.answers[f.key] && s.answers[f.key].a).length;
+    const pages = s.screen === 'summary' ? this.paginate() : [];
+    const pc = pages.length, showAll = s.wide;
+    return {
+      isIntro: s.screen === 'intro', notIntro: s.screen !== 'intro', isQ: s.screen === 'q', isReview: s.screen === 'review', isSummary: s.screen === 'summary',
+      backLabel: s.screen === 'q' ? (s.idx === 0 ? 'Voltar à apresentação' : 'Voltar à afirmação anterior') : s.screen === 'review' ? 'Voltar à última afirmação' : 'Voltar à revisão',
+      back: () => {
+        clearTimeout(this.adv);
+        if (s.screen === 'q') { if (s.specOpen) return set({ specOpen: false }); if (s.editReturn) return set({ screen: 'review', editReturn: false }); return s.idx === 0 ? set({ screen: 'intro' }) : this.update(() => ({ idx: s.idx - 1 })); }
+        if (s.screen === 'review') return set({ screen: 'q', idx: this.flat.length - 1 });
+        if (s.screen === 'summary') return set({ screen: 'review' });
+      },
+      areaList: this.areas.map(a => ({ name: a.name, count: a.items.length + ' afirmações' })),
+      hasProgress: answered > 0, startLabel: answered > 0 ? 'Continuar' : 'Começar',
+      start: () => set({ screen: 'q', editReturn: false }),
+      restart: () => { this.update(() => ({ answers: {}, idx: 0 })); this.theta = 0; set({ screen: 'q' }); },
+      q: { area: ar.name, pos: (it.i + 1) + ' de ' + it.total, text: it.text },
+      toast: s.toast,
+      dotRef: this.dotRef, inputRef: this.inputRef, dotColor: this.props.dotColor ?? '#FFE066',
+      gaugeText: n ? 'Sim · ' + sim + ' de ' + n : 'Sem respostas',
+      gaugeAria: n ? 'Proporção de Sim: ' + sim + ' de ' + n + ' respostas registradas' : 'Ainda sem respostas registradas',
+      simOn: r.a === 'sim', naoOn: r.a === 'nao',
+      simLine: r.a === 'sim' ? '#111111' : 'transparent', naoLine: r.a === 'nao' ? '#111111' : 'transparent',
+      simRest: r.a === 'nao' ? '#6E6E73' : '#3A3A3D', naoRest: r.a === 'sim' ? '#6E6E73' : '#3A3A3D',
+      pickSim: () => this.answer('sim'), pickNao: () => this.answer('nao'),
+      specOpen: s.specOpen, specClosed: !s.specOpen, hasComment: !!(r.c && r.c.trim()),
+      openSpec: () => { clearTimeout(this.adv); set({ specOpen: true, draft: r.c || '' }); },
+      cancelSpec: () => set({ specOpen: false }),
+      draft: s.draft, setDraft: (e) => set({ draft: e.target.value }),
+      saveSpec: () => this.saveSpec(),
+      reviewAreas: this.areas.map((a, ai) => ({ name: a.name, items: this.flat.filter(f => f.ai === ai).map(f => {
+        const x = s.answers[f.key] || {}, gi = this.flat.indexOf(f);
+        return { id: f.id, text: f.text, ans: x.a === 'sim' ? 'Sim' : x.a === 'nao' ? 'Não' : 'Sem resposta', hasC: !!(x.c && x.c.trim()), c: x.c,
+          editA: () => set({ screen: 'q', idx: gi, editReturn: true, specOpen: false }),
+          editC: () => set({ screen: 'q', idx: gi, editReturn: true, specOpen: true, draft: x.c || '' }) };
+      }) })),
+      reviewCount: answered + ' de ' + this.flat.length + ' respondidas',
+      finish: () => set({ screen: 'summary', page: 0 }),
+      pages: pages.map((p, i) => ({ blocks: p, n: i + 1, first: i === 0, label: 'Registro ' + (i + 1) + ' de ' + pc, visible: showAll || i === s.page, showNav: !showAll && pc > 1, hasPrev: i > 0, hasNext: i < pc - 1 })),
+      pageCount: pc, pageMin: showAll ? 'auto' : 'calc(100dvh - 70px)', pageBorder: showAll ? '1px solid #E3E3E6' : '0',
+      prevPage: () => { set({ page: Math.max(0, s.page - 1) }); window.scrollTo(0, 0); },
+      nextPage: () => { set({ page: Math.min(pc - 1, s.page + 1) }); window.scrollTo(0, 0); }
+    };
+  }
+}
+</script>
+</body>
+</html>

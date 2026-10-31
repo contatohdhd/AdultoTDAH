@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<section style="width:100%;border-top:1px solid #E3E3E6;border-bottom:1px solid #E3E3E6">
+  <button type="button" onClick="{{ toggle }}" aria-expanded="{{ open }}" aria-controls="{{ panelId }}" style="width:100%;min-height:56px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;background:transparent;padding:0 4px;font:600 16px Inter,sans-serif;color:#111111;cursor:pointer;text-align:left" style-hover="background:#F7F7F8"><span>{{ title }}</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex:none;transform:rotate({{ rot }});transition:{{ trans }}"><path d="M4 2l4 4-4 4" fill="none" stroke="#111" stroke-width="1.6"></path></svg></button>
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}"><div id="{{ panelId }}" style="padding:4px 4px 24px;font:400 15px/1.55 Inter,sans-serif;color:#3A3A3D">{{ children }}</div></sc-if>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:480,&quot;height&quot;:180},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Sobre este artigo&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;defaultOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;children&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;ReactNode&quot;}}">
+class Component extends DCLogic {
+  state = { open: !!this.props.defaultOpen };
+  pid = 'disc-' + Math.random().toString(36).slice(2, 8);
+  renderVals() {
+    const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return { title: this.props.title ?? 'Sobre este artigo', open: this.state.open, rot: this.state.open ? '90deg' : '0deg', trans: reduce ? 'none' : 'transform 150ms ease', panelId: this.pid, toggle: () => this.setState(s => ({ open: !s.open })), children: this.props.children ?? 'Autoria, data, categoria, tempo de leitura e legenda dos grifos.' };
+  }
+}
+</script>
+</body>
+</html>
